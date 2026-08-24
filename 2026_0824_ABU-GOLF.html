@@ -1,0 +1,2455 @@
+<!DOCTYPE html>
+<html lang="ko"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>아부회 골프 조편성 &amp; 기록</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛳%3C/text%3E%3C/svg%3E">
+<style>
+  :root{
+    color-scheme: light;
+    --surface: #fcfcfb;
+    --page: #f9f9f7;
+    --card: #ffffff;
+    --ink: #0b0b0b;
+    --ink2: #52514e;
+    --muted: #898781;
+    --grid: #e1e0d9;
+    --border: rgba(11,11,11,0.10);
+    --blue: #2a78d6;
+    --blue-soft: #eaf2fc;
+    --red: #e34948;
+    --red-soft: #fdecec;
+    --good: #0ca30c;
+    --good-soft: #e7f7e7;
+    --aqua: #1baf7a;
+    --yellow: #eda100;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(11,11,11,.06), 0 4px 16px rgba(11,11,11,.05);
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      color-scheme: dark;
+      --surface: #1a1a19;
+      --page: #0d0d0d;
+      --card: #201f1e;
+      --ink: #ffffff;
+      --ink2: #c3c2b7;
+      --muted: #8f8d86;
+      --grid: #2c2c2a;
+      --border: rgba(255,255,255,0.10);
+      --blue: #3987e5;
+      --blue-soft: #16283d;
+      --red: #e66767;
+      --red-soft: #3a1f1f;
+      --good: #0ca30c;
+      --good-soft: #123317;
+      --aqua: #199e70;
+      --yellow: #c98500;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 20px rgba(0,0,0,.35);
+    }
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--page);
+    color:var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+    line-height:1.5;
+    padding-bottom:48px;
+    -webkit-text-size-adjust:100%;
+  }
+  a{color:var(--blue);}
+  header.top{
+    background:var(--card);
+    border-bottom:1px solid var(--border);
+    padding:20px 16px 14px;
+    position:sticky; top:0; z-index:20;
+    box-shadow: var(--shadow);
+  }
+  .brand{display:flex; align-items:center; gap:10px;}
+  .brand .logo{font-size:26px;}
+  .brand h1{font-size:19px; margin:0; letter-spacing:-.2px;}
+  .brand .sub{font-size:12.5px; color:var(--muted); margin-top:2px;}
+  .dday{
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:10px; padding:6px 10px; border-radius:999px;
+    background:var(--blue-soft); color:var(--blue); font-weight:700; font-size:13px;
+  }
+  nav.tabs{
+    display:flex; gap:6px; margin-top:14px; overflow-x:auto; padding-bottom:2px;
+  }
+  nav.tabs button{
+    flex:1 0 auto; border:1px solid var(--border); background:var(--surface);
+    color:var(--ink2); font-size:14px; font-weight:600; padding:9px 14px;
+    border-radius:10px; cursor:pointer; white-space:nowrap;
+  }
+  nav.tabs button.active{ background:var(--ink); color:var(--page); border-color:var(--ink); }
+  main{max-width:720px; margin:0 auto; padding:16px;}
+  .tabpanel{display:none;}
+  .tabpanel.active{display:block;}
+  .card{
+    background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; margin-bottom:14px; box-shadow:var(--shadow);
+  }
+  .card h2{font-size:15.5px; margin:0 0 10px; display:flex; align-items:center; gap:6px;}
+  .card h3{font-size:13.5px; margin:16px 0 8px; color:var(--ink2);}
+  .grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+  .kv{display:flex; flex-direction:column; gap:2px; padding:10px; background:var(--surface); border-radius:10px; border:1px solid var(--border);}
+  .kv .k{font-size:11.5px; color:var(--muted);}
+  .kv .v{font-size:14.5px; font-weight:700;}
+  .badge{display:inline-flex; align-items:center; gap:4px; font-size:11px; font-weight:700; padding:2px 8px; border-radius:999px;}
+  .badge.new{background:var(--good-soft); color:var(--good);}
+  .badge.original{background:var(--surface); color:var(--muted); border:1px solid var(--border);}
+  .badge.teamA{background:var(--red-soft); color:var(--red);}
+  .badge.teamB{background:var(--blue-soft); color:var(--blue);}
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th,td{padding:7px 6px; text-align:left; border-bottom:1px solid var(--grid);}
+  th{color:var(--muted); font-weight:600; font-size:11.5px; text-transform:uppercase; letter-spacing:.02em;}
+  td.num, th.num{text-align:right; font-variant-numeric:tabular-nums;}
+  .scrollx{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+  .barlist .row{display:flex; align-items:center; gap:10px; margin-bottom:9px;}
+  .barlist .name{width:64px; font-size:13px; font-weight:600; flex:0 0 auto;}
+  .barlist .track{flex:1; background:var(--surface); border:1px solid var(--border); border-radius:8px; height:16px; overflow:hidden;}
+  .barlist .fill{height:100%; background:var(--blue); border-radius:8px 0 0 8px;}
+  .barlist .val{width:44px; text-align:right; font-size:12.5px; font-variant-numeric:tabular-nums; color:var(--ink2);}
+  .btn{
+    display:inline-flex; align-items:center; justify-content:center; gap:6px;
+    border:1px solid var(--border); background:var(--surface); color:var(--ink);
+    font-size:14px; font-weight:700; padding:11px 16px; border-radius:10px; cursor:pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .btn.primary{background:var(--ink); color:var(--page); border-color:var(--ink);}
+  .btn.accent{background:var(--blue); color:#fff; border-color:var(--blue);}
+  .btn.ghost{background:transparent;}
+  .btn.small{padding:7px 11px; font-size:12.5px;}
+  .btn:disabled{opacity:.45; cursor:not-allowed;}
+  .btnrow{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px;}
+  .note{font-size:12.5px; color:var(--muted); margin-top:8px; line-height:1.55;}
+  .divider{height:1px; background:var(--grid); margin:14px 0;}
+  .chip-toggle{display:flex; flex-wrap:wrap; gap:7px; margin-top:8px;}
+  .chip-toggle label{
+    display:flex; align-items:center; gap:5px; font-size:12.5px; padding:6px 10px;
+    border:1px solid var(--border); border-radius:999px; background:var(--surface); cursor:pointer;
+  }
+  .chip-toggle input{accent-color:var(--blue);}
+  .modegrid{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+  .modebtn{
+    text-align:left; border:1px solid var(--border); background:var(--surface); border-radius:12px;
+    padding:10px 11px; cursor:pointer; font-family:inherit; color:var(--ink);
+  }
+  .modebtn .mtitle{font-size:13px; font-weight:800; line-height:1.3;}
+  .modebtn.active{border-color:var(--blue); background:var(--blue-soft);}
+  .metricToggle{display:flex; gap:6px;}
+  .metricToggle button{
+    flex:1; border:1px solid var(--border); background:var(--surface); border-radius:9px;
+    padding:9px 8px; font-size:12.5px; font-weight:700; cursor:pointer; color:var(--ink); font-family:inherit;
+  }
+  .metricToggle button.active{background:var(--ink); color:var(--page); border-color:var(--ink);}
+  .metricToggle button:disabled{opacity:.4; cursor:not-allowed;}
+  .teamhead{display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:8px;}
+  .teamname-input{
+    font-size:14px; font-weight:800; border:none; background:transparent; padding:2px 0; width:100%;
+    border-bottom:1px dashed var(--border);
+  }
+  .teamname-input:focus{outline:none; border-bottom-color:var(--blue);}
+  .teamblock{border-radius:12px; padding:12px; border:1px solid var(--border);}
+  .teamblock.A{background:var(--red-soft);}
+  .teamblock.B{background:var(--blue-soft);}
+  .teamblock .memberline{display:flex; justify-content:space-between; font-size:13px; padding:4px 0;}
+  .foursome{border:1px solid var(--border); border-radius:12px; padding:12px; margin-bottom:10px; background:var(--surface);}
+  .foursome .fhead{display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:8px;}
+  .foursome .fhead .ftitle{font-weight:800; font-size:14px;}
+  .foursome select{font-size:12.5px; border:1px solid var(--border); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink);}
+  .fmeta{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
+  .foursome select, .foursome .cartNoInput, .foursome .teeTimeInput{width:auto; font-size:12.5px; border:1px solid var(--border); border-radius:8px; padding:5px 7px; background:var(--card); color:var(--ink);}
+  .foursome .cartNoInput{width:56px;}
+  .foursome .metaline{font-size:12px; color:var(--muted); margin-top:4px;}
+  .plist{display:flex; flex-direction:column; gap:6px;}
+  .prow{display:flex; align-items:center; gap:8px; font-size:13.5px; padding:6px 8px; background:var(--card); border-radius:8px; border:1px solid var(--border);}
+  .prow .dot{width:9px; height:9px; border-radius:50%; flex:0 0 auto;}
+  .prow .dot.A{background:var(--red);} .prow .dot.B{background:var(--blue);}
+  .prow .pname{font-weight:700; flex:1;}
+  .prow .pavg{color:var(--muted); font-size:12px; font-variant-numeric:tabular-nums;}
+  .freshline{font-size:12px; color:var(--good); margin-top:8px;}
+  .warnline{font-size:12px; color:#a15b00; margin-top:4px;}
+  input[type=text], input[type=date], input[type=number], select, textarea{
+    width:100%; font-size:14px; padding:9px 10px; border-radius:9px; border:1px solid var(--border);
+    background:var(--surface); color:var(--ink); font-family:inherit;
+  }
+  label.field{display:block; font-size:12px; color:var(--muted); margin:10px 0 4px; font-weight:600;}
+  .scoregrid{display:grid; grid-template-columns:1fr 70px; gap:6px 10px; align-items:center;}
+  .scoregrid .mn{font-size:13px;}
+  .admin-only{display:none;}
+  body.admin .admin-only{display:block;}
+  body.admin .admin-only.btn{display:inline-flex;}
+  .member-only{display:block;}
+  body.admin .member-only{display:none;}
+  .rosterrow{display:flex; align-items:center; justify-content:space-between; gap:8px; padding:8px 0; border-bottom:1px solid var(--grid); flex-wrap:wrap;}
+  .rosterrow:last-child{border-bottom:none;}
+  .rname{font-size:13.5px; font-weight:600;}
+  .awardblock{border:1px solid var(--border); border-radius:10px; padding:10px; margin-bottom:8px; background:var(--card);}
+  .awardblock label{font-size:13px; font-weight:700; display:flex; align-items:center; gap:6px;}
+  .awardlist{display:flex; flex-direction:column; gap:6px; margin-top:8px;}
+  .awardrow{display:flex; align-items:center; gap:8px; font-size:13px; padding:7px 9px; background:var(--surface); border-radius:9px; border:1px solid var(--border); flex-wrap:wrap;}
+  .awardrow b{flex:0 0 auto;}
+  .adminbar{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    background:var(--good-soft); color:var(--good); font-size:12.5px; font-weight:700;
+    padding:8px 12px; border-radius:10px; margin-bottom:12px;
+  }
+  details{border:1px solid var(--border); border-radius:10px; padding:8px 10px; margin-bottom:8px; background:var(--surface);}
+  details summary{cursor:pointer; font-weight:700; font-size:13.5px;}
+  summary::-webkit-details-marker{color:var(--muted);}
+  .thumbs{display:flex; gap:8px; flex-wrap:wrap; margin-top:8px;}
+  .thumbs img{width:72px; height:72px; object-fit:cover; border-radius:8px; border:1px solid var(--border); cursor:pointer;}
+  .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:100; padding:20px;}
+  .lightbox.show{display:flex;}
+  .lightbox img{max-width:100%; max-height:100%; border-radius:10px;}
+  footer{max-width:720px; margin:0 auto; padding:20px 16px 4px; color:var(--muted); font-size:11.5px; text-align:center;}
+  .toast{
+    position:fixed; left:50%; bottom:24px; transform:translateX(-50%);
+    background:var(--ink); color:var(--page); padding:10px 16px; border-radius:999px;
+    font-size:13px; font-weight:600; box-shadow:var(--shadow); z-index:200; opacity:0; pointer-events:none;
+    transition:opacity .25s ease;
+  }
+  .toast.show{opacity:1;}
+  .statgrid{display:grid; grid-template-columns:repeat(2,1fr); gap:8px; margin-top:8px;}
+  .stattile{background:var(--surface); border:1px solid var(--border); border-radius:10px; padding:10px;}
+  .stattile .t{font-size:11px; color:var(--muted);}
+  .stattile .v{font-size:16px; font-weight:800; margin-top:2px;}
+  .stattile .s{font-size:11.5px; color:var(--ink2); margin-top:1px;}
+  .handipick{display:flex; gap:8px; flex-wrap:wrap; align-items:center;}
+  .handipick select{width:auto; min-width:160px;}
+  .holetable{width:100%; border-collapse:collapse; font-size:12.5px; margin-top:10px;}
+  .holetable th, .holetable td{padding:5px 6px; text-align:center; border-bottom:1px solid var(--grid);}
+  .holetable th{color:var(--muted); font-weight:700; font-size:10.5px;}
+  .holetable td.hn{text-align:left; font-weight:600;}
+  .holetable td.strokecell{font-weight:800;}
+  .holetable tr.nine9{border-top:2px solid var(--border);}
+  .holetable .stroke1{color:var(--blue);}
+  .holetable .stroke2{color:var(--red);}
+  #printArea{display:none;}
+  .printpage{padding:0; }
+  .printpage h2{font-size:16px; margin:0 0 4px;}
+  .printpage .pmeta{font-size:12.5px; color:var(--ink2); margin-bottom:8px;}
+  .printpage .pagebreak{page-break-after:always;}
+  @media print{
+    body.printing > *:not(#printArea){ display:none !important; }
+    #printArea{ display:block !important; }
+    #printArea .printpage{ page-break-after:always; }
+    #printArea .printpage:last-child{ page-break-after:auto; }
+    body.printing{ background:#fff; }
+  }
+</style>
+</head>
+<body class="">
+
+<header class="top">
+  <div class="brand">
+    <div class="logo">⛳</div>
+    <div>
+      <h1 id="clubTitle">아부회 골프 조편성 &amp; 기록</h1>
+      <div class="sub" id="clubSub">회원 정기 라운드 조편성 · 팀 대항전 · 기록 아카이브</div>
+    </div>
+  </div>
+  <div class="dday" id="ddayBadge">제9회 라운드까지 D-12</div>
+  <nav class="tabs">
+    <button data-tab="tab-info" class="active">📋 대회안내</button>
+    <button data-tab="tab-draw" class="">🎲 조편성</button>
+    <button data-tab="tab-history" class="">📊 역대기록</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ================= TAB 1: 대회안내 ================= -->
+  <section id="tab-info" class="tabpanel active">
+
+    <div class="card">
+      <h2>🗓️ 다음 라운드 안내</h2>
+      <div class="grid2">
+        <div class="kv"><div class="k">일시</div><div class="v" id="infoDate">2026-09-05 (토)</div></div>
+        <div class="kv"><div class="k">티업시간</div><div class="v" id="infoTee">07:26</div></div>
+        <div class="kv"><div class="k">장소</div><div class="v" id="infoPlace">무등산CC</div></div>
+        <div class="kv"><div class="k">코스</div><div class="v" id="infoCourses">천왕봉 / 지왕봉 / 인왕봉</div></div>
+        <div class="kv"><div class="k">예약자</div><div class="v" id="infoBookers">김태엽, 손기영</div></div>
+        <div class="kv"><div class="k">그린피</div><div class="v" id="infoFee">카별 15만원</div></div>
+        <div class="kv" style="grid-column:1/-1;"><div class="k">취소기한</div><div class="v" id="infoDeadline">2026-08-29</div></div>
+      </div>
+      <div class="note">⛳ 이번 라운드는 <b>신(더블)페리오 방식</b>으로 순위를 산정합니다. 조편성 단계에서는 <b>조편성</b> 탭에서 평균타수 · 최근 신페리오 중 원하는 실력 기준을 골라 사용할 수 있습니다.</div>
+      <div class="btnrow admin-only">
+        <button class="btn small" id="editUpcomingBtn">✏️ 라운드 정보 수정</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 이번 대회 시상 안내</h2>
+      <div id="awardPlanDisplay"><div class="awardlist"><div class="awardrow"><span>🏆 팀 대결 승리팀</span><span class="note" style="margin:0;">🎁 우승팀 1인당 특별 시상품</span></div></div></div>
+      <div class="admin-only" id="awardPlanEdit">
+        <div class="divider"></div>
+        <div id="awardPlanConfig"><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="medalist"> 🥇 메달리스트 (최저타)</label><input type="text" class="planPrize" data-key="medalist" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="netscore"> 🎯 넷스코어 우승 (핸디 반영)</label><input type="text" class="planPrize" data-key="netscore" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="peorio"> ⛳ 신페리오 우승</label><input type="text" class="planPrize" data-key="peorio" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="birdie"> 🐦 버디상</label><input type="text" class="planPrize" data-key="birdie" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="teamWin"> 🏆 팀 대결 승리팀</label><input type="text" class="planPrize" data-key="teamWin" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="lucky"> 🍀 행운상</label><input type="text" class="planPrize" data-key="lucky" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div></div>
+        <div class="btnrow">
+          <button class="btn primary small" id="saveAwardPlanBtn">💾 시상 안내 저장</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🥤 카트별 간식 안내</h2>
+      <div id="snackDisplay"><div class="grid2"><div class="kv"><div class="k">1인당 커피1, 포카리1</div><div class="v" style="font-size:13.5px;">카트별 맛동산1, 새우깡1</div></div></div></div>
+      <div class="admin-only" id="snackEdit">
+        <div class="divider"></div>
+        <div id="snackList"><div class="rosterrow"><span class="rname">1인당 커피1, 포카리1 — 카트별 맛동산1, 새우깡1</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost snackDelete" data-idx="0">🗑️ 삭제</button></span></div></div>
+        <label class="field">간식 항목 추가</label>
+        <div class="grid2">
+          <input type="text" id="newSnackCart" placeholder="카트/조 (예: 1카트)">
+          <input type="text" id="newSnackItems" placeholder="음료·간식 내용">
+        </div>
+        <div class="btnrow">
+          <button class="btn primary small" id="addSnackBtn">➕ 추가</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>🍽️ 식당 안내</h2>
+      <div id="restaurantDisplay"><div class="note" style="margin:0;">아직 등록된 식당 안내가 없습니다.</div></div>
+      <div class="btnrow admin-only">
+        <button class="btn small ghost" id="editRestaurantBtn">✏️ 식당 안내 수정</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>👥 참가 회원 (<span id="memberCount">12</span>명)</h2>
+      <div class="scrollx">
+        <table>
+          <thead><tr><th>이름</th><th class="num">평균타수</th><th class="num">핸디</th><th class="num">최근 신페리오</th></tr></thead>
+          <tbody id="memberTable"><tr><td>정찬진</td><td class="num">81.0</td><td class="num">9</td><td class="num">75.2</td></tr><tr><td>김후순</td><td class="num">83.6</td><td class="num">12</td><td class="num">76.6</td></tr><tr><td>고병호</td><td class="num">86.6</td><td class="num">15</td><td class="num">75.0</td></tr><tr><td>양동욱</td><td class="num">86.4</td><td class="num">14</td><td class="num">76.4</td></tr><tr><td>김양석</td><td class="num">87.6</td><td class="num">16</td><td class="num">78.6</td></tr><tr><td>차만복</td><td class="num">92.6</td><td class="num">21</td><td class="num">75.2</td></tr><tr><td>임병국</td><td class="num">87.2</td><td class="num">15</td><td class="num">75.2</td></tr><tr><td>손기영</td><td class="num">85.4</td><td class="num">13</td><td class="num">72.6</td></tr><tr><td>서민규</td><td class="num">85.0</td><td class="num">13</td><td class="num">74.2</td></tr><tr><td>김태엽</td><td class="num">96.0</td><td class="num">24</td><td class="num">75.6</td></tr><tr><td>김계현</td><td class="num">96.0</td><td class="num">24</td><td class="num">75.6</td></tr><tr><td>김복수</td><td class="num">97.0</td><td class="num">25</td><td class="num">77.8</td></tr></tbody>
+        </table>
+      </div>
+      <div class="note" id="handicapNote">평균타수는 스코어가 기록된 라운드만으로 자동 계산됩니다. 핸디는 평균타수 - 기준파(현재 파72)를 반올림한 자체 핸디이며, "평균타수 기준" 조편성은 이 차이를 그대로 반영해 균형을 맞춥니다. 신페리오 값은 기록이 있는 가장 최근 라운드 결과입니다.</div>
+      <div class="btnrow admin-only">
+        <button class="btn small ghost" id="editHandicapBtn">⚙️ 핸디 기준(파) 수정</button>
+        <button class="btn small ghost" id="printAllHandicapBtn">🖨️ 전체 핸디표 인쇄(PDF저장)</button>
+      </div>
+    </div>
+
+    <div class="card admin-only">
+      <h2>🛠️ 회원 명단 관리</h2>
+      <div id="rosterList"><div class="rosterrow"><span class="rname">정찬진</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="jcj">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김후순</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="khs">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">고병호</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="gbh">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">양동욱</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="ydu">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김양석</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kys">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">차만복</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="cmb">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">임병국</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="ibg">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">손기영</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="sgy">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">서민규</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="smg">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김태엽</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kty">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김계현</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kgh">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김복수</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kbs">🚫 비활성화</button></span></div></div>
+      <div class="divider"></div>
+      <label class="field">회원 추가 (신규 · 임시/게스트)</label>
+      <div class="grid2">
+        <input type="text" id="newMemberName" placeholder="이름">
+        <label style="display:flex; align-items:center; gap:6px; font-size:13px; padding:9px 0;"><input type="checkbox" id="newMemberTemp" style="width:auto;"> 임시(게스트) 회원</label>
+      </div>
+      <div class="btnrow">
+        <button class="btn primary small" id="addMemberBtn">➕ 회원 추가</button>
+      </div>
+      <div class="note">비활성화된 회원은 이번 조편성/참가 명단에서 빠지지만 과거 기록은 그대로 남습니다. 기록이 없는 회원(임시 회원 등)만 완전 삭제할 수 있습니다.</div>
+    </div>
+
+    <div class="card">
+      <h2>🏆 지난 대회 (제<span id="lastRoundNo">8</span>회) 하이라이트</h2>
+      <div id="lastRoundHighlight"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>서민규</td><td class="num">85</td></tr><tr><td>2</td><td>김후순</td><td class="num">85</td></tr><tr><td>3</td><td>양동욱</td><td class="num">86</td></tr><tr><td>4</td><td>정찬진</td><td class="num">86</td></tr><tr><td>5</td><td>임병국</td><td class="num">86</td></tr><tr><td>6</td><td>김양석</td><td class="num">87</td></tr><tr><td>7</td><td>고병호</td><td class="num">87</td></tr><tr><td>8</td><td>손기영</td><td class="num">87</td></tr><tr><td>9</td><td>김태엽</td><td class="num">96</td></tr><tr><td>10</td><td>김계현</td><td class="num">96</td></tr><tr><td>11</td><td>김복수</td><td class="num">97</td></tr><tr><td>12</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><div class="note">제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회</div></div>
+    </div>
+
+  </section>
+
+  <!-- ================= TAB 2: 조편성 ================= -->
+  <section id="tab-draw" class="tabpanel">
+
+    <div class="card member-only" id="memberWaitCard" style="display: none;">
+      <h2>⏳ 조편성 준비 중</h2>
+      <div class="note" style="margin:0;">총무가 조편성을 확정하면 이곳에 결과가 표시됩니다. 잠시만 기다려 주세요!</div>
+    </div>
+
+    <div class="card admin-only">
+      <h2>🎯 조편성 방식 선택</h2>
+      <div class="note" style="margin-top:0;">라운드마다 원하는 방식을 골라 조를 구성할 수 있습니다. 버튼을 누를 때마다 조합은 랜덤으로 바뀌고, 과거에 같은 조였던 조합은 최대한 피하도록 자동으로 계산합니다.</div>
+      <div class="modegrid" id="modeSelect"><button type="button" class="modebtn active"><div class="mtitle">🏆 라이더컵 팀대항전</div></button><button type="button" class="modebtn"><div class="mtitle">⚖️ 실력균형 조편성</div></button><button type="button" class="modebtn"><div class="mtitle">🎟️ 블라인드 제비뽑기</div></button><button type="button" class="modebtn"><div class="mtitle">🆕 새로운 조합 우선</div></button></div>
+      <div class="note" id="modeDesc" style="margin-top:10px;">실력이 균형 잡히도록 두 팀(6:6)으로 나눈 뒤, 각 팀에서 2명씩 뽑아 4인 1조(2:2)를 구성합니다. 조 안에서 매치플레이를 즐기고, 전체는 팀 합계 성적으로 대항전 승부를 가립니다.</div>
+      <label class="field">실력 기준</label>
+      <div id="skillMetricRow"><div class="metricToggle"><button type="button" data-metric="avg" class="active">📊 평균타수 기준</button><button type="button" data-metric="peorio" class="">⛳ 최근 신페리오 기준</button></div></div>
+    </div>
+
+    <div class="card admin-only">
+      <h2>✅ 참석자 선택</h2>
+      <div class="chip-toggle" id="attendeeToggle"><label><input type="checkbox" value="jcj" checked=""> 정찬진</label><label><input type="checkbox" value="khs" checked=""> 김후순</label><label><input type="checkbox" value="gbh" checked=""> 고병호</label><label><input type="checkbox" value="ydu" checked=""> 양동욱</label><label><input type="checkbox" value="kys" checked=""> 김양석</label><label><input type="checkbox" value="cmb" checked=""> 차만복</label><label><input type="checkbox" value="ibg" checked=""> 임병국</label><label><input type="checkbox" value="sgy" checked=""> 손기영</label><label><input type="checkbox" value="smg" checked=""> 서민규</label><label><input type="checkbox" value="kty" checked=""> 김태엽</label><label><input type="checkbox" value="kgh" checked=""> 김계현</label><label><input type="checkbox" value="kbs" checked=""> 김복수</label></div>
+      <div class="note" id="attendeeWarn">참석 12명 · 6명씩 두 팀, 3개 조로 편성됩니다.</div>
+    </div>
+
+    <div class="card admin-only">
+      <h2>🎲 랜덤 조편성</h2>
+      <div id="teamNameRow" style="display: block;">
+        <label class="field">팀 이름</label>
+        <div class="grid2">
+          <input type="text" id="teamAName" value="레드팀">
+          <input type="text" id="teamBName" value="블루팀">
+        </div>
+      </div>
+      <div class="btnrow">
+        <button class="btn accent" id="shuffleBtn">🔀 조편성 하기 / 다시 섞기</button>
+        <button class="btn primary" id="confirmDrawBtn">📌 이 조합으로 확정</button>
+        <button class="btn ghost" id="copyDrawBtn">📋 결과 텍스트 복사</button>
+      </div>
+      <div class="note">조편성 섞기 · 확정은 총무 모드에서만 가능합니다. 일반 회원에게는 확정된 결과만 보입니다.</div>
+      <div id="drawResult" style="margin-top:14px;"><div class="grid2"><div class="teamblock A"><div class="teamhead"><b>🔴 미국</b><span class="badge teamA">평균 88.7</span></div><div class="memberline"><span>김양석</span><span>87.6 · 핸디 16</span></div><div class="memberline"><span>정찬진</span><span>81.0 · 핸디 9</span></div><div class="memberline"><span>차만복</span><span>92.6 · 핸디 21</span></div><div class="memberline"><span>김복수</span><span>97.0 · 핸디 25</span></div><div class="memberline"><span>고병호</span><span>86.6 · 핸디 15</span></div><div class="memberline"><span>임병국</span><span>87.2 · 핸디 15</span></div></div><div class="teamblock B"><div class="teamhead"><b>🔵 유럽</b><span class="badge teamB">평균 88.7</span></div><div class="memberline"><span>손기영</span><span>85.4 · 핸디 13</span></div><div class="memberline"><span>서민규</span><span>85.0 · 핸디 13</span></div><div class="memberline"><span>김후순</span><span>83.6 · 핸디 12</span></div><div class="memberline"><span>김태엽</span><span>96.0 · 핸디 24</span></div><div class="memberline"><span>양동욱</span><span>86.4 · 핸디 14</span></div><div class="memberline"><span>김계현</span><span>96.0 · 핸디 24</span></div></div></div><h3>티업 조편성</h3><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">1조</span><span class="badge original">평균 84.8</span></div><div class="fmeta"><select data-idx="0" class="courseSelect"><option selected="">천왕봉</option><option>지왕봉</option><option>인왕봉</option></select><input type="number" class="cartNoInput" data-idx="0" value="1" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="0" value="07:26" title="출발시간"></div></div><div class="metaline">전반 천왕봉 → 후반 지왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">김양석</span><span class="pavg">평균 87.6 · 핸디 16</span></div><div class="prow"><span class="dot A"></span><span class="pname">정찬진</span><span class="pavg">평균 81.0 · 핸디 9</span></div><div class="prow"><span class="dot B"></span><span class="pname">손기영</span><span class="pavg">평균 85.4 · 핸디 13</span></div><div class="prow"><span class="dot B"></span><span class="pname">서민규</span><span class="pavg">평균 85.0 · 핸디 13</span></div></div><div class="warnline">⚠️ 김양석 · 정찬진 (이전 2회 동조), 김양석 · 손기영 (이전 2회 동조), 정찬진 · 손기영 (이전 3회 동조)</div></div><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">2조</span><span class="badge original">평균 92.3</span></div><div class="fmeta"><select data-idx="1" class="courseSelect"><option>천왕봉</option><option selected="">지왕봉</option><option>인왕봉</option></select><input type="number" class="cartNoInput" data-idx="1" value="2" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="1" value="07:26" title="출발시간"></div></div><div class="metaline">전반 지왕봉 → 후반 인왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">차만복</span><span class="pavg">평균 92.6 · 핸디 21</span></div><div class="prow"><span class="dot A"></span><span class="pname">김복수</span><span class="pavg">평균 97.0 · 핸디 25</span></div><div class="prow"><span class="dot B"></span><span class="pname">김후순</span><span class="pavg">평균 83.6 · 핸디 12</span></div><div class="prow"><span class="dot B"></span><span class="pname">김태엽</span><span class="pavg">평균 96.0 · 핸디 24</span></div></div><div class="freshline">🆕 이 조는 전원 처음 함께하는 조합입니다!</div></div><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">3조</span><span class="badge original">평균 89.1</span></div><div class="fmeta"><select data-idx="2" class="courseSelect"><option>천왕봉</option><option>지왕봉</option><option selected="">인왕봉</option></select><input type="number" class="cartNoInput" data-idx="2" value="3" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="2" value="07:26" title="출발시간"></div></div><div class="metaline">전반 인왕봉 → 후반 천왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">고병호</span><span class="pavg">평균 86.6 · 핸디 15</span></div><div class="prow"><span class="dot A"></span><span class="pname">임병국</span><span class="pavg">평균 87.2 · 핸디 15</span></div><div class="prow"><span class="dot B"></span><span class="pname">양동욱</span><span class="pavg">평균 86.4 · 핸디 14</span></div><div class="prow"><span class="dot B"></span><span class="pname">김계현</span><span class="pavg">평균 96.0 · 핸디 24</span></div></div><div class="warnline">⚠️ 고병호 · 임병국 (이전 2회 동조), 고병호 · 양동욱 (이전 4회 동조), 임병국 · 양동욱 (이전 1회 동조)</div></div></div>
+    </div>
+
+    <div class="card" id="confirmedCard" style="display: block;">
+      <h2>📌 확정된 조편성</h2>
+      <div id="confirmedResult"><div class="grid2"><div class="teamblock A"><b>🔴 미국</b><div class="memberline"><span>김양석</span><span>핸디 16</span></div><div class="memberline"><span>정찬진</span><span>핸디 9</span></div><div class="memberline"><span>차만복</span><span>핸디 21</span></div><div class="memberline"><span>김복수</span><span>핸디 25</span></div><div class="memberline"><span>고병호</span><span>핸디 15</span></div><div class="memberline"><span>임병국</span><span>핸디 15</span></div></div><div class="teamblock B"><b>🔵 유럽</b><div class="memberline"><span>손기영</span><span>핸디 13</span></div><div class="memberline"><span>서민규</span><span>핸디 13</span></div><div class="memberline"><span>김후순</span><span>핸디 12</span></div><div class="memberline"><span>김태엽</span><span>핸디 24</span></div><div class="memberline"><span>양동욱</span><span>핸디 14</span></div><div class="memberline"><span>김계현</span><span>핸디 24</span></div></div></div><h3>티업 조편성</h3><div class="foursome"><div class="fhead"><span class="ftitle">1조 · 🛺 카트1</span><span class="badge original">07:26</span></div><div class="metaline">전반 천왕봉 → 후반 지왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">김양석</span><span class="pavg">핸디 16</span></div><div class="prow"><span class="dot A"></span><span class="pname">정찬진</span><span class="pavg">핸디 9</span></div><div class="prow"><span class="dot B"></span><span class="pname">손기영</span><span class="pavg">핸디 13</span></div><div class="prow"><span class="dot B"></span><span class="pname">서민규</span><span class="pavg">핸디 13</span></div></div></div><div class="foursome"><div class="fhead"><span class="ftitle">2조 · 🛺 카트2</span><span class="badge original">07:26</span></div><div class="metaline">전반 지왕봉 → 후반 인왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">차만복</span><span class="pavg">핸디 21</span></div><div class="prow"><span class="dot A"></span><span class="pname">김복수</span><span class="pavg">핸디 25</span></div><div class="prow"><span class="dot B"></span><span class="pname">김후순</span><span class="pavg">핸디 12</span></div><div class="prow"><span class="dot B"></span><span class="pname">김태엽</span><span class="pavg">핸디 24</span></div></div></div><div class="foursome"><div class="fhead"><span class="ftitle">3조 · 🛺 카트3</span><span class="badge original">07:26</span></div><div class="metaline">전반 인왕봉 → 후반 천왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">고병호</span><span class="pavg">핸디 15</span></div><div class="prow"><span class="dot A"></span><span class="pname">임병국</span><span class="pavg">핸디 15</span></div><div class="prow"><span class="dot B"></span><span class="pname">양동욱</span><span class="pavg">핸디 14</span></div><div class="prow"><span class="dot B"></span><span class="pname">김계현</span><span class="pavg">핸디 24</span></div></div></div></div>
+      <div class="note">이 내용을 골프장/캐디마스터에게 전달하고, 카카오톡으로 링크를 공유해 회원들이 각자 자기 조를 확인하도록 하세요.</div>
+      <div class="btnrow admin-only">
+        <button class="btn ghost small" id="printCartSheetBtn">🖨️ 카트별 데이터시트 인쇄(PDF저장)</button>
+      </div>
+      <div class="note admin-only">버튼을 누르면 인쇄 화면이 뜹니다. 인쇄 대상(프린터)에서 "PDF로 저장"을 선택하면 PDF 파일로 저장할 수 있습니다.</div>
+    </div>
+
+    <div class="card" id="myHandicapCard" style="display: block;">
+      <h2>🎯 내 핸디 확인하기</h2>
+      <div class="note" style="margin-top:0;">이름을 선택하면 내가 속한 조·카트·출발시간과, 전반·후반 홀별로 내가 몇 타를 받는지 확인할 수 있습니다.</div>
+      <div class="handipick">
+        <select id="myNameSelect"><option value="">- 이름 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select>
+      </div>
+      <div id="myHandicapResult" style="margin-top:12px;"><div class="kv" style="margin-bottom:10px;"><div class="k">1조 · 카트1 · 출발 07:26</div><div class="v" style="font-size:13.5px;">전반 천왕봉 → 후반 지왕봉</div></div><div class="note" style="margin-top:0;">함께 도는 조원: 김양석, 정찬진(나), 손기영, 서민규</div><div class="kv" style="margin:10px 0;"><div class="k">내 핸디</div><div class="v">9</div></div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>받는 스트로크</th></tr></thead><tbody><tr><td class="hn">1번 (천왕봉 1번)</td><td>4</td><td>9</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">2번 (천왕봉 2번)</td><td>4</td><td>3</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">3번 (천왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">4번 (천왕봉 4번)</td><td>4</td><td>2</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">5번 (천왕봉 5번)</td><td>4</td><td>5</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">6번 (천왕봉 6번)</td><td>5</td><td>1</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">7번 (천왕봉 7번)</td><td>3</td><td>6</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">8번 (천왕봉 8번)</td><td>4</td><td>4</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">9번 (천왕봉 9번)</td><td>5</td><td>7</td><td class="strokecell stroke1">● +1</td></tr><tr class="nine9"><td class="hn">10번 (지왕봉 1번)</td><td>5</td><td>15</td><td class="strokecell">-</td></tr><tr><td class="hn">11번 (지왕봉 2번)</td><td>4</td><td>11</td><td class="strokecell">-</td></tr><tr><td class="hn">12번 (지왕봉 3번)</td><td>4</td><td>10</td><td class="strokecell">-</td></tr><tr><td class="hn">13번 (지왕봉 4번)</td><td>3</td><td>17</td><td class="strokecell">-</td></tr><tr><td class="hn">14번 (지왕봉 5번)</td><td>4</td><td>12</td><td class="strokecell">-</td></tr><tr><td class="hn">15번 (지왕봉 6번)</td><td>5</td><td>13</td><td class="strokecell">-</td></tr><tr><td class="hn">16번 (지왕봉 7번)</td><td>3</td><td>18</td><td class="strokecell">-</td></tr><tr><td class="hn">17번 (지왕봉 8번)</td><td>4</td><td>14</td><td class="strokecell">-</td></tr><tr><td class="hn">18번 (지왕봉 9번)</td><td>4</td><td>16</td><td class="strokecell">-</td></tr></tbody></table><div class="note" style="margin-top:6px;">● = 1타, ●● = 2타 받는 홀입니다. 총 9타를 받습니다(핸디 9). 홀 옆 SI는 스코어카드의 스트로크 인덱스를 기준으로, 전반은 그대로(1~9) · 후반은 9를 더해(10~18) 18홀로 이어붙인 값입니다.</div></div>
+      <div class="btnrow" id="myHandicapPrintRow" style="display: flex;">
+        <button class="btn ghost small" id="printMyHandicapBtn">🖨️ 내 핸디표 인쇄(PDF저장)</button>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ================= TAB 3: 역대기록 ================= -->
+  <section id="tab-history" class="tabpanel">
+
+    <div class="card admin-only" id="adminPanel">
+      <div class="adminbar">🔓 총무 모드 활성화됨 <button class="btn small ghost" id="logoutAdminBtn">모드 종료</button></div>
+      <h2>➕ 라운드 결과 입력</h2>
+      <label class="field">회차 / 날짜 / 장소</label>
+      <div class="grid2" style="grid-template-columns:70px 1fr 1fr;">
+        <input type="number" id="newRoundNo">
+        <input type="date" id="newRoundDate">
+        <input type="text" id="newRoundPlace" placeholder="장소">
+      </div>
+      <label class="field">회원별 스코어 (입력한 회원만 저장됩니다)</label>
+      <div class="scoregrid" id="scoreInputs"><div class="mn">정찬진</div><input type="number" data-mid="jcj" placeholder="타수"><div class="mn">김후순</div><input type="number" data-mid="khs" placeholder="타수"><div class="mn">고병호</div><input type="number" data-mid="gbh" placeholder="타수"><div class="mn">양동욱</div><input type="number" data-mid="ydu" placeholder="타수"><div class="mn">김양석</div><input type="number" data-mid="kys" placeholder="타수"><div class="mn">차만복</div><input type="number" data-mid="cmb" placeholder="타수"><div class="mn">임병국</div><input type="number" data-mid="ibg" placeholder="타수"><div class="mn">손기영</div><input type="number" data-mid="sgy" placeholder="타수"><div class="mn">서민규</div><input type="number" data-mid="smg" placeholder="타수"><div class="mn">김태엽</div><input type="number" data-mid="kty" placeholder="타수"><div class="mn">김계현</div><input type="number" data-mid="kgh" placeholder="타수"><div class="mn">김복수</div><input type="number" data-mid="kbs" placeholder="타수"></div>
+      <details>
+        <summary>⛳ 신페리오 결과도 입력하기 (선택)</summary>
+        <div class="note" style="margin-top:6px;">입력해두면 다음 조편성 때 "최근 신페리오 기준"으로 선택해 사용할 수 있고, 신페리오 우승 자동 선정에도 사용됩니다.</div>
+        <div class="scoregrid" id="peorioInputs" style="margin-top:8px;"><div class="mn">정찬진</div><input type="number" step="0.1" data-mid="jcj" placeholder="신페리오"><div class="mn">김후순</div><input type="number" step="0.1" data-mid="khs" placeholder="신페리오"><div class="mn">고병호</div><input type="number" step="0.1" data-mid="gbh" placeholder="신페리오"><div class="mn">양동욱</div><input type="number" step="0.1" data-mid="ydu" placeholder="신페리오"><div class="mn">김양석</div><input type="number" step="0.1" data-mid="kys" placeholder="신페리오"><div class="mn">차만복</div><input type="number" step="0.1" data-mid="cmb" placeholder="신페리오"><div class="mn">임병국</div><input type="number" step="0.1" data-mid="ibg" placeholder="신페리오"><div class="mn">손기영</div><input type="number" step="0.1" data-mid="sgy" placeholder="신페리오"><div class="mn">서민규</div><input type="number" step="0.1" data-mid="smg" placeholder="신페리오"><div class="mn">김태엽</div><input type="number" step="0.1" data-mid="kty" placeholder="신페리오"><div class="mn">김계현</div><input type="number" step="0.1" data-mid="kgh" placeholder="신페리오"><div class="mn">김복수</div><input type="number" step="0.1" data-mid="kbs" placeholder="신페리오"></div>
+      </details>
+      <details>
+        <summary>🐦 버디 수 입력하기 (선택)</summary>
+        <div class="note" style="margin-top:6px;">버디상을 자동으로 선정하려면 회원별 버디 수를 입력하세요.</div>
+        <div class="scoregrid" id="birdieInputs" style="margin-top:8px;"><div class="mn">정찬진</div><input type="number" min="0" data-mid="jcj" placeholder="버디수"><div class="mn">김후순</div><input type="number" min="0" data-mid="khs" placeholder="버디수"><div class="mn">고병호</div><input type="number" min="0" data-mid="gbh" placeholder="버디수"><div class="mn">양동욱</div><input type="number" min="0" data-mid="ydu" placeholder="버디수"><div class="mn">김양석</div><input type="number" min="0" data-mid="kys" placeholder="버디수"><div class="mn">차만복</div><input type="number" min="0" data-mid="cmb" placeholder="버디수"><div class="mn">임병국</div><input type="number" min="0" data-mid="ibg" placeholder="버디수"><div class="mn">손기영</div><input type="number" min="0" data-mid="sgy" placeholder="버디수"><div class="mn">서민규</div><input type="number" min="0" data-mid="smg" placeholder="버디수"><div class="mn">김태엽</div><input type="number" min="0" data-mid="kty" placeholder="버디수"><div class="mn">김계현</div><input type="number" min="0" data-mid="kgh" placeholder="버디수"><div class="mn">김복수</div><input type="number" min="0" data-mid="kbs" placeholder="버디수"></div>
+      </details>
+      <label class="field">참가비 (1인당, 선택)</label>
+      <div class="grid2">
+        <input type="number" id="newRoundEntryFee" placeholder="예: 10000" min="0" step="1000">
+        <div class="kv"><div class="k">예상 상금풀</div><div class="v" id="prizePoolPreview">-</div></div>
+      </div>
+      <div class="note" style="margin-top:4px;">참가비 × 스코어를 입력한 인원 수로 자동 계산되는 참고용 금액입니다. 실제 수금·지급은 총무가 별도로 진행합니다.</div>
+      <details open="">
+        <summary>🏆 시상 설정</summary>
+        <div class="note" style="margin-top:6px;">조편성 방식(라이더컵/실력균형/블라인드/새로운조합)은 <b>조편성</b> 탭에서 선택합니다. 여기서는 이번 라운드 시상 여부와 방식만 정합니다.</div>
+        <label style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; margin-top:8px;">
+          <input type="checkbox" id="awardEnableMaster" style="width:auto;" checked=""> 이번 라운드 시상 진행
+        </label>
+        <div id="awardConfig" style="margin-top:8px;"><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="medalist"> 🥇 메달리스트 (최저타)</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="medalist"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="medalist" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="medalist" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="netscore"> 🎯 넷스코어 우승 (핸디 반영)</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="netscore"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="netscore" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="netscore" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="peorio"> ⛳ 신페리오 우승</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="peorio"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="peorio" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="peorio" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="birdie"> 🐦 버디상</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="birdie"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="birdie" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="birdie" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="teamWin" checked=""> 🏆 팀 대결 승리팀</label><div class="note" style="margin:4px 0 0;">현재 확정된 라이더컵 팀대결 기준(미국 vs 유럽). 자동 선정은 팀 평균 스코어가 더 낮은 팀을 승리팀으로 계산합니다. 홀별 업다운 매치 등 스코어 합계가 아닌 방식으로 승부를 가렸다면 수동 선택으로 실제 이긴 팀을 고르세요.</div><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="teamWin"><option value="auto">자동 선정 (팀 평균타수)</option><option value="manual">수동 선택 (예: 업다운 매치 결과)</option></select><select class="awardManual" data-key="teamWin" style="display:none;"><option value="A">미국</option><option value="B">유럽</option></select></div><input type="text" class="awardPrize" data-key="teamWin" value="우승팀 1인당 특별 시상품" placeholder="승리팀 1인당 시상품 또는 금액 (예: 1인당 상품권 2만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="lucky"> 🍀 행운상</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="lucky"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="lucky" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="lucky" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div></div>
+      </details>
+      <label class="field">상세 기록 (자유 메모)</label>
+      <textarea id="newRoundNotes" rows="3" placeholder="예: 롱기스트 · 니어리스트 등 추가로 남기고 싶은 내용"></textarea>
+      <label class="field">영수증 · 스코어보드 사진 첨부 (선택)</label>
+      <input type="file" id="newRoundPhotos" accept="image/*" multiple="">
+      <div class="thumbs" id="newRoundThumbs"></div>
+      <div class="btnrow">
+        <button class="btn primary" id="saveRoundBtn">💾 이 라운드 저장하기</button>
+      </div>
+      <div class="divider"></div>
+      <div class="btnrow">
+        <button class="btn accent" id="downloadHtmlBtn">⬇️ 업데이트된 index.html 다운로드</button>
+      </div>
+      <div class="note">저장 후 이 버튼으로 새 파일을 받아 그대로 GitHub 저장소에 덮어쓰기 업로드하면, 모든 회원이 다음에 링크를 열 때 최신 기록을 보게 됩니다.</div>
+    </div>
+
+    <div class="card" id="adminLoginCard" style="">
+      <button class="btn ghost small" id="adminLoginBtn">🔐 총무 모드로 전환</button>
+      <span class="note" style="margin:0 0 0 8px; display:inline;">조편성 섞기 · 확정 · 기록 입력 · 회원 명단 관리 · 파일 내보내기는 모두 총무 모드에서만 가능합니다. 일반 회원은 확정된 조편성과 기록만 볼 수 있습니다.</span>
+    </div>
+
+    <div class="card">
+      <h2>📈 통산 평균타수 순위</h2>
+      <div class="barlist" id="avgBarlist"><div class="row"><div class="name">정찬진</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="val">81.0</div></div><div class="row"><div class="name">김후순</div><div class="track"><div class="fill" style="width:33%"></div></div><div class="val">83.6</div></div><div class="row"><div class="name">서민규</div><div class="track"><div class="fill" style="width:40%"></div></div><div class="val">85.0</div></div><div class="row"><div class="name">손기영</div><div class="track"><div class="fill" style="width:42%"></div></div><div class="val">85.4</div></div><div class="row"><div class="name">양동욱</div><div class="track"><div class="fill" style="width:47%"></div></div><div class="val">86.4</div></div><div class="row"><div class="name">고병호</div><div class="track"><div class="fill" style="width:48%"></div></div><div class="val">86.6</div></div><div class="row"><div class="name">임병국</div><div class="track"><div class="fill" style="width:51%"></div></div><div class="val">87.2</div></div><div class="row"><div class="name">김양석</div><div class="track"><div class="fill" style="width:53%"></div></div><div class="val">87.6</div></div><div class="row"><div class="name">차만복</div><div class="track"><div class="fill" style="width:78%"></div></div><div class="val">92.6</div></div><div class="row"><div class="name">김태엽</div><div class="track"><div class="fill" style="width:95%"></div></div><div class="val">96.0</div></div><div class="row"><div class="name">김계현</div><div class="track"><div class="fill" style="width:95%"></div></div><div class="val">96.0</div></div><div class="row"><div class="name">김복수</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="val">97.0</div></div></div>
+    </div>
+
+    <div class="card">
+      <h2>🗂️ 회차별 기록</h2>
+      <div id="roundHistory"><details><summary>제8회 · 2026-03-28 · 무안CC · 12명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>서민규</td><td class="num">85</td></tr><tr><td>2</td><td>김후순</td><td class="num">85</td></tr><tr><td>3</td><td>양동욱</td><td class="num">86</td></tr><tr><td>4</td><td>정찬진</td><td class="num">86</td></tr><tr><td>5</td><td>임병국</td><td class="num">86</td></tr><tr><td>6</td><td>김양석</td><td class="num">87</td></tr><tr><td>7</td><td>고병호</td><td class="num">87</td></tr><tr><td>8</td><td>손기영</td><td class="num">87</td></tr><tr><td>9</td><td>김태엽</td><td class="num">96</td></tr><tr><td>10</td><td>김계현</td><td class="num">96</td></tr><tr><td>11</td><td>김복수</td><td class="num">97</td></tr><tr><td>12</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><div class="note">제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회</div></div></details><details><summary>제7회 · 2025-06-06 · 솔라시도 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>손기영</td><td class="num">79</td></tr><tr><td>2</td><td>정찬진</td><td class="num">80</td></tr><tr><td>3</td><td>김후순</td><td class="num">82</td></tr><tr><td>4</td><td>고병호</td><td class="num">82</td></tr><tr><td>5</td><td>김양석</td><td class="num">85</td></tr><tr><td>6</td><td>양동욱</td><td class="num">87</td></tr><tr><td>7</td><td>차만복</td><td class="num">90</td></tr><tr><td>8</td><td>임병국</td><td class="num">90</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 임병국, 김후순, 양동욱</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">차만복, 고병호, 김양석, 손기영</div></div></div></div></details><details><summary>제6회 · 2025-03-22 · 어등산 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>손기영</td><td class="num">83</td></tr><tr><td>2</td><td>정찬진</td><td class="num">85</td></tr><tr><td>3</td><td>고병호</td><td class="num">85</td></tr><tr><td>4</td><td>임병국</td><td class="num">87</td></tr><tr><td>5</td><td>김후순</td><td class="num">88</td></tr><tr><td>6</td><td>양동욱</td><td class="num">88</td></tr><tr><td>7</td><td>차만복</td><td class="num">90</td></tr><tr><td>8</td><td>김양석</td><td class="num">91</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제5회 · 2024-11-02 · 르오네뜨 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>정찬진</td><td class="num">73</td></tr><tr><td>2</td><td>임병국</td><td class="num">82</td></tr><tr><td>3</td><td>김후순</td><td class="num">84</td></tr><tr><td>4</td><td>김양석</td><td class="num">84</td></tr><tr><td>5</td><td>양동욱</td><td class="num">87</td></tr><tr><td>6</td><td>고병호</td><td class="num">90</td></tr><tr><td>7</td><td>손기영</td><td class="num">92</td></tr><tr><td>8</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">김후순, 고병호, 양동욱, 김양석</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 차만복, 임병국, 손기영</div></div></div></div></details><details><summary>제4회 · 2024-09-14 · 고창 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>김후순</td><td class="num">79</td></tr><tr><td>2</td><td>정찬진</td><td class="num">81</td></tr><tr><td>3</td><td>양동욱</td><td class="num">84</td></tr><tr><td>4</td><td>손기영</td><td class="num">86</td></tr><tr><td>5</td><td>차만복</td><td class="num">87</td></tr><tr><td>6</td><td>고병호</td><td class="num">89</td></tr><tr><td>7</td><td>김양석</td><td class="num">91</td></tr><tr><td>8</td><td>임병국</td><td class="num">91</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 양동욱, 손기영</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 김양석, 차만복, 임병국</div></div></div></div></details><details><summary>제3회 · 2024-07-13 · 고창 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제2회 · 2024-04-06 · 무안 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">김후순, 고병호, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제1회 · 2023-12-02 · 무등산 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 양동욱, 고병호</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">김양석, 차만복, 임병국, 손기영</div></div></div></div></details></div>
+    </div>
+
+  </section>
+
+</main>
+
+<footer>
+  아부회 총무 관리 페이지 · 본 파일은 총무가 직접 데이터를 관리하며 최신 버전은 GitHub 링크로 배포됩니다.<br>
+  ⓘ 이 페이지는 GitHub에 공개된 정적 파일 한 장으로 동작합니다 (별도 로그인 서버 없음). 총무 모드는 실수로 회원이 기능을 건드리지 않도록 막는 장치이며, 데이터 자체를 완전히 숨기는 보안 장치는 아닙니다.
+</footer>
+
+<div class="toast" id="toast">index.html 파일이 다운로드되었습니다 (총무 모드는 꺼진 기본 화면으로 저장됩니다)</div>
+<div class="lightbox" id="lightbox"><img id="lightboxImg" src=""></div>
+<div id="printArea"><div class="printpage"><h2>⛳ 아부회 제9회 · 1조 카트1 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 천왕봉 → 후반 지왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>김양석<br>핸디16</th><th>정찬진<br>핸디9</th><th>손기영<br>핸디13</th><th>서민규<br>핸디13</th></tr></thead><tbody><tr><td class="hn">1번(천왕봉 1번)</td><td>4</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">2번(천왕봉 2번)</td><td>4</td><td>3</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">3번(천왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">4번(천왕봉 4번)</td><td>4</td><td>2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">5번(천왕봉 5번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">6번(천왕봉 6번)</td><td>5</td><td>1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">7번(천왕봉 7번)</td><td>3</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">8번(천왕봉 8번)</td><td>4</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">9번(천왕봉 9번)</td><td>5</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr class="nine9"><td class="hn">10번(지왕봉 1번)</td><td>5</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">11번(지왕봉 2번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(지왕봉 3번)</td><td>4</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(지왕봉 4번)</td><td>3</td><td>17</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">14번(지왕봉 5번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(지왕봉 6번)</td><td>5</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(지왕봉 7번)</td><td>3</td><td>18</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">17번(지왕봉 8번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">18번(지왕봉 9번)</td><td>4</td><td>16</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div><div class="printpage"><h2>⛳ 아부회 제9회 · 2조 카트2 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 지왕봉 → 후반 인왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>차만복<br>핸디21</th><th>김복수<br>핸디25</th><th>김후순<br>핸디12</th><th>김태엽<br>핸디24</th></tr></thead><tbody><tr><td class="hn">1번(지왕봉 1번)</td><td>5</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">2번(지왕봉 2번)</td><td>4</td><td>2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">3번(지왕봉 3번)</td><td>4</td><td>1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">4번(지왕봉 4번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">5번(지왕봉 5번)</td><td>4</td><td>3</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">6번(지왕봉 6번)</td><td>5</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">7번(지왕봉 7번)</td><td>3</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">8번(지왕봉 8번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">9번(지왕봉 9번)</td><td>4</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr class="nine9"><td class="hn">10번(인왕봉 1번)</td><td>5</td><td>16</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">11번(인왕봉 2번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(인왕봉 3번)</td><td>3</td><td>17</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(인왕봉 4번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">14번(인왕봉 5번)</td><td>5</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(인왕봉 6번)</td><td>3</td><td>18</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(인왕봉 7번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">17번(인왕봉 8번)</td><td>4</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">18번(인왕봉 9번)</td><td>4</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div><div class="printpage"><h2>⛳ 아부회 제9회 · 3조 카트3 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 인왕봉 → 후반 천왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>고병호<br>핸디15</th><th>임병국<br>핸디15</th><th>양동욱<br>핸디14</th><th>김계현<br>핸디24</th></tr></thead><tbody><tr><td class="hn">1번(인왕봉 1번)</td><td>5</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">2번(인왕봉 2번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">3번(인왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">4번(인왕봉 4번)</td><td>4</td><td>3</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">5번(인왕봉 5번)</td><td>5</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">6번(인왕봉 6번)</td><td>3</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">7번(인왕봉 7번)</td><td>4</td><td>2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">8번(인왕봉 8번)</td><td>4</td><td>1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">9번(인왕봉 9번)</td><td>4</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr class="nine9"><td class="hn">10번(천왕봉 1번)</td><td>4</td><td>18</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">11번(천왕봉 2번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(천왕봉 3번)</td><td>3</td><td>17</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(천왕봉 4번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">14번(천왕봉 5번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(천왕봉 6번)</td><td>5</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(천왕봉 7번)</td><td>3</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">17번(천왕봉 8번)</td><td>4</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">18번(천왕봉 9번)</td><td>5</td><td>16</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div></div>
+
+<script id="round-data" type="application/json">{
+  "clubName": "아부회",
+  "adminPass": "abuhwe0905",
+  "handicapBasePar": 72,
+  "courseOrder": [
+    "천왕봉",
+    "지왕봉",
+    "인왕봉"
+  ],
+  "courseHoles": {
+    "천왕봉": [
+      {
+        "hole": 1,
+        "par": 4,
+        "si": 9
+      },
+      {
+        "hole": 2,
+        "par": 4,
+        "si": 3
+      },
+      {
+        "hole": 3,
+        "par": 3,
+        "si": 8
+      },
+      {
+        "hole": 4,
+        "par": 4,
+        "si": 2
+      },
+      {
+        "hole": 5,
+        "par": 4,
+        "si": 5
+      },
+      {
+        "hole": 6,
+        "par": 5,
+        "si": 1
+      },
+      {
+        "hole": 7,
+        "par": 3,
+        "si": 6
+      },
+      {
+        "hole": 8,
+        "par": 4,
+        "si": 4
+      },
+      {
+        "hole": 9,
+        "par": 5,
+        "si": 7
+      }
+    ],
+    "지왕봉": [
+      {
+        "hole": 1,
+        "par": 5,
+        "si": 6
+      },
+      {
+        "hole": 2,
+        "par": 4,
+        "si": 2
+      },
+      {
+        "hole": 3,
+        "par": 4,
+        "si": 1
+      },
+      {
+        "hole": 4,
+        "par": 3,
+        "si": 8
+      },
+      {
+        "hole": 5,
+        "par": 4,
+        "si": 3
+      },
+      {
+        "hole": 6,
+        "par": 5,
+        "si": 4
+      },
+      {
+        "hole": 7,
+        "par": 3,
+        "si": 9
+      },
+      {
+        "hole": 8,
+        "par": 4,
+        "si": 5
+      },
+      {
+        "hole": 9,
+        "par": 4,
+        "si": 7
+      }
+    ],
+    "인왕봉": [
+      {
+        "hole": 1,
+        "par": 5,
+        "si": 7
+      },
+      {
+        "hole": 2,
+        "par": 4,
+        "si": 5
+      },
+      {
+        "hole": 3,
+        "par": 3,
+        "si": 8
+      },
+      {
+        "hole": 4,
+        "par": 4,
+        "si": 3
+      },
+      {
+        "hole": 5,
+        "par": 5,
+        "si": 4
+      },
+      {
+        "hole": 6,
+        "par": 3,
+        "si": 9
+      },
+      {
+        "hole": 7,
+        "par": 4,
+        "si": 2
+      },
+      {
+        "hole": 8,
+        "par": 4,
+        "si": 1
+      },
+      {
+        "hole": 9,
+        "par": 4,
+        "si": 6
+      }
+    ]
+  },
+  "members": [
+    {
+      "id": "jcj",
+      "name": "정찬진",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "khs",
+      "name": "김후순",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "gbh",
+      "name": "고병호",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "ydu",
+      "name": "양동욱",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "kys",
+      "name": "김양석",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "cmb",
+      "name": "차만복",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "ibg",
+      "name": "임병국",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "sgy",
+      "name": "손기영",
+      "original": true,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "smg",
+      "name": "서민규",
+      "original": false,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "kty",
+      "name": "김태엽",
+      "original": false,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "kgh",
+      "name": "김계현",
+      "original": false,
+      "active": true,
+      "temporary": false
+    },
+    {
+      "id": "kbs",
+      "name": "김복수",
+      "original": false,
+      "active": true,
+      "temporary": false
+    }
+  ],
+  "rounds": [
+    {
+      "no": 1,
+      "date": "2023-12-02",
+      "place": "무등산",
+      "scores": {},
+      "groups": {
+        "A": [
+          "jcj",
+          "khs",
+          "ydu",
+          "gbh"
+        ],
+        "B": [
+          "kys",
+          "cmb",
+          "ibg",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 2,
+      "date": "2024-04-06",
+      "place": "무안",
+      "scores": {},
+      "groups": {
+        "A": [
+          "khs",
+          "gbh",
+          "kys",
+          "ibg"
+        ],
+        "B": [
+          "jcj",
+          "ydu",
+          "cmb",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 3,
+      "date": "2024-07-13",
+      "place": "고창",
+      "scores": {},
+      "groups": {
+        "A": [
+          "jcj",
+          "khs",
+          "kys",
+          "ibg"
+        ],
+        "B": [
+          "gbh",
+          "ydu",
+          "cmb",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 4,
+      "date": "2024-09-14",
+      "place": "고창",
+      "scores": {
+        "jcj": 81,
+        "khs": 79,
+        "gbh": 89,
+        "ydu": 84,
+        "kys": 91,
+        "cmb": 87,
+        "ibg": 91,
+        "sgy": 86
+      },
+      "groups": {
+        "A": [
+          "jcj",
+          "khs",
+          "ydu",
+          "sgy"
+        ],
+        "B": [
+          "gbh",
+          "kys",
+          "cmb",
+          "ibg"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 5,
+      "date": "2024-11-02",
+      "place": "르오네뜨",
+      "scores": {
+        "jcj": 73,
+        "khs": 84,
+        "gbh": 90,
+        "ydu": 87,
+        "kys": 84,
+        "cmb": 98,
+        "ibg": 82,
+        "sgy": 92
+      },
+      "groups": {
+        "A": [
+          "khs",
+          "gbh",
+          "ydu",
+          "kys"
+        ],
+        "B": [
+          "jcj",
+          "cmb",
+          "ibg",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 6,
+      "date": "2025-03-22",
+      "place": "어등산",
+      "scores": {
+        "jcj": 85,
+        "khs": 88,
+        "gbh": 85,
+        "ydu": 88,
+        "kys": 91,
+        "cmb": 90,
+        "ibg": 87,
+        "sgy": 83
+      },
+      "groups": {
+        "A": [
+          "jcj",
+          "khs",
+          "kys",
+          "ibg"
+        ],
+        "B": [
+          "gbh",
+          "ydu",
+          "cmb",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 7,
+      "date": "2025-06-06",
+      "place": "솔라시도",
+      "scores": {
+        "jcj": 80,
+        "khs": 82,
+        "gbh": 82,
+        "ydu": 87,
+        "kys": 85,
+        "cmb": 90,
+        "ibg": 90,
+        "sgy": 79
+      },
+      "groups": {
+        "A": [
+          "jcj",
+          "ibg",
+          "khs",
+          "ydu"
+        ],
+        "B": [
+          "cmb",
+          "gbh",
+          "kys",
+          "sgy"
+        ]
+      },
+      "notes": "",
+      "photos": []
+    },
+    {
+      "no": 8,
+      "date": "2026-03-28",
+      "place": "무안CC",
+      "scores": {
+        "smg": 85,
+        "khs": 85,
+        "ydu": 86,
+        "jcj": 86,
+        "ibg": 86,
+        "kys": 87,
+        "gbh": 87,
+        "sgy": 87,
+        "kty": 96,
+        "kgh": 96,
+        "kbs": 97,
+        "cmb": 98
+      },
+      "groups": null,
+      "peorio": {
+        "sgy": 72.6,
+        "smg": 74.2,
+        "gbh": 75,
+        "jcj": 75.2,
+        "ibg": 75.2,
+        "cmb": 75.2,
+        "kty": 75.6,
+        "kgh": 75.6,
+        "ydu": 76.4,
+        "khs": 76.6,
+        "kbs": 77.8,
+        "kys": 78.6
+      },
+      "notes": "제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회",
+      "photos": []
+    }
+  ],
+  "upcoming": {
+    "no": 9,
+    "date": "2026-09-05",
+    "teeTime": "07:26",
+    "place": "무등산CC",
+    "courses": [
+      "천왕봉",
+      "지왕봉",
+      "인왕봉"
+    ],
+    "bookers": [
+      "김태엽",
+      "손기영"
+    ],
+    "greenFee": "카별 15만원",
+    "cancelDeadline": "2026-08-29",
+    "confirmedDraw": {
+      "mode": "ryder",
+      "metric": "avg",
+      "foursomes": [
+        [
+          {
+            "id": "kys",
+            "team": "A"
+          },
+          {
+            "id": "jcj",
+            "team": "A"
+          },
+          {
+            "id": "sgy",
+            "team": "B"
+          },
+          {
+            "id": "smg",
+            "team": "B"
+          }
+        ],
+        [
+          {
+            "id": "cmb",
+            "team": "A"
+          },
+          {
+            "id": "kbs",
+            "team": "A"
+          },
+          {
+            "id": "khs",
+            "team": "B"
+          },
+          {
+            "id": "kty",
+            "team": "B"
+          }
+        ],
+        [
+          {
+            "id": "gbh",
+            "team": "A"
+          },
+          {
+            "id": "ibg",
+            "team": "A"
+          },
+          {
+            "id": "ydu",
+            "team": "B"
+          },
+          {
+            "id": "kgh",
+            "team": "B"
+          }
+        ]
+      ],
+      "courses": [
+        "천왕봉",
+        "지왕봉",
+        "인왕봉"
+      ],
+      "backCourses": [
+        "지왕봉",
+        "인왕봉",
+        "천왕봉"
+      ],
+      "cartNos": [
+        1,
+        2,
+        3
+      ],
+      "teeTimes": [
+        "07:26",
+        "07:26",
+        "07:26"
+      ],
+      "confirmedAt": "2026-08-24",
+      "teamAName": "미국",
+      "teamBName": "유럽"
+    },
+    "awardPlan": {
+      "medalist": {
+        "enabled": false,
+        "prize": ""
+      },
+      "netscore": {
+        "enabled": false,
+        "prize": ""
+      },
+      "peorio": {
+        "enabled": false,
+        "prize": ""
+      },
+      "birdie": {
+        "enabled": false,
+        "prize": ""
+      },
+      "teamWin": {
+        "enabled": true,
+        "prize": "우승팀 1인당 특별 시상품"
+      },
+      "lucky": {
+        "enabled": false,
+        "prize": ""
+      }
+    },
+    "snacks": [
+      {
+        "cart": "1인당 커피1, 포카리1",
+        "items": "카트별 맛동산1, 새우깡1"
+      }
+    ],
+    "restaurant": {
+      "name": "",
+      "address": "",
+      "menu": "",
+      "note": ""
+    }
+  }
+}</script>
+
+<script>
+(function(){
+  "use strict";
+  var state = JSON.parse(document.getElementById('round-data').textContent);
+  var els = {};
+  function $(id){ return document.getElementById(id); }
+  function memberById(id){ return state.members.find(function(m){ return m.id===id; }); }
+  function memberName(id){ var m=memberById(id); return m ? m.name : id; }
+  function activeRosterMembers(){ return state.members.filter(function(m){ return m.active !== false; }); }
+  function memberHasHistory(id){
+    return state.rounds.some(function(r){
+      var inScores = r.scores && r.scores[id]!=null;
+      var inGroups = r.groups && Object.keys(r.groups).some(function(gk){ return r.groups[gk].indexOf(id) !== -1; });
+      return inScores || inGroups;
+    });
+  }
+
+  // ---------- derived stats ----------
+  function roundsWithScore(id){
+    return state.rounds.filter(function(r){ return r.scores && r.scores[id]!=null; });
+  }
+  function avgScore(id){
+    var rs = roundsWithScore(id);
+    if(!rs.length) return null;
+    var sum = rs.reduce(function(a,r){ return a + r.scores[id]; },0);
+    return sum / rs.length;
+  }
+  function timesPlayed(id){ return roundsWithScore(id).length; }
+  function bestScore(id){
+    var rs = roundsWithScore(id);
+    if(!rs.length) return null;
+    return Math.min.apply(null, rs.map(function(r){ return r.scores[id]; }));
+  }
+  function latestPeorio(id){
+    for(var i=state.rounds.length-1;i>=0;i--){
+      var r = state.rounds[i];
+      if(r.peorio && r.peorio[id]!=null){ return { value:r.peorio[id], roundNo:r.no }; }
+    }
+    return null;
+  }
+  function skillValue(id, metric){
+    if(metric === 'peorio'){
+      var p = latestPeorio(id);
+      if(p) return p.value;
+    }
+    var a = avgScore(id);
+    return a!=null ? a : 87;
+  }
+  function handicapOf(id){
+    var a = avgScore(id);
+    if(a==null) return 0;
+    var base = state.handicapBasePar || 72;
+    return Math.max(0, Math.round(a - base));
+  }
+  function nextCourse(name){
+    var order = (state.courseOrder && state.courseOrder.length) ? state.courseOrder : ['천왕봉','지왕봉','인왕봉'];
+    var idx = order.indexOf(name);
+    if(idx === -1) return order[0];
+    return order[(idx+1) % order.length];
+  }
+  // 전반(frontName)+후반(backName) 9홀씩을 18홀 스트로크 인덱스로 합칩니다.
+  // 골프장에서 별도의 "18홀 통합 스트로크 인덱스"를 발표하지 않은 경우를 위한 근사치로,
+  // 전반 9홀은 코스에 표시된 스트로크 인덱스(1~9)를 그대로 쓰고, 후반 9홀은 여기에 9를 더해(10~18) 이어붙입니다.
+  function combinedHoles(frontName, backName){
+    var front = (state.courseHoles && state.courseHoles[frontName]) || [];
+    var back = (state.courseHoles && state.courseHoles[backName]) || [];
+    var holes = [];
+    front.forEach(function(h){ holes.push({ seq:holes.length+1, course:frontName, holeNo:h.hole, par:h.par, si:h.si }); });
+    back.forEach(function(h){ holes.push({ seq:holes.length+1, course:backName, holeNo:h.hole, par:h.par, si:h.si + 9 }); });
+    return holes;
+  }
+  function strokesOnHole(handicap, globalSi){
+    if(!handicap || handicap<=0) return 0;
+    var full = Math.floor(handicap/18);
+    var remainder = handicap % 18;
+    return full + (globalSi <= remainder ? 1 : 0);
+  }
+  function pastMatesMap(){
+    var map = {};
+    state.members.forEach(function(m){ map[m.id] = {}; });
+    state.rounds.forEach(function(r){
+      if(!r.groups) return;
+      Object.keys(r.groups).forEach(function(gk){
+        var group = r.groups[gk];
+        group.forEach(function(a){
+          group.forEach(function(b){
+            if(a!==b && map[a]){ map[a][b] = (map[a][b]||0) + 1; }
+          });
+        });
+      });
+    });
+    return map;
+  }
+  function metCount(mates, a, b){ return (mates[a] && mates[a][b]) || 0; }
+
+  // ---------- tabs ----------
+  document.querySelectorAll('nav.tabs button').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.remove('active'); });
+      btn.classList.add('active');
+      $(btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  // ---------- toast ----------
+  var toastTimer;
+  function toast(msg){
+    var t = $('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
+  }
+
+  // ---------- admin mode ----------
+  function setAdmin(on){
+    document.body.classList.toggle('admin', on);
+    $('adminLoginCard').style.display = on ? 'none' : 'block';
+  }
+  $('adminLoginBtn').addEventListener('click', function(){
+    var pw = prompt('총무 비밀번호를 입력하세요');
+    if(pw === state.adminPass){ setAdmin(true); toast('총무 모드로 전환되었습니다'); }
+    else if(pw!==null){ toast('비밀번호가 올바르지 않습니다'); }
+  });
+  $('logoutAdminBtn').addEventListener('click', function(){ setAdmin(false); });
+
+  // ---------- D-day ----------
+  function renderDday(){
+    var target = new Date(state.upcoming.date + 'T00:00:00');
+    var today = new Date();
+    today.setHours(0,0,0,0);
+    var diff = Math.round((target - today) / 86400000);
+    var label = diff === 0 ? 'D-DAY! 오늘 라운드입니다 ⛳' : (diff > 0 ? ('제' + state.upcoming.no + '회 라운드까지 D-' + diff) : ('제' + state.upcoming.no + '회 라운드 종료 · D+' + (-diff)));
+    $('ddayBadge').textContent = label;
+  }
+
+  // ---------- TAB 1: info ----------
+  function renderInfo(){
+    var u = state.upcoming;
+    var wk = ['일','월','화','수','목','금','토'][new Date(u.date+'T00:00:00').getDay()];
+    $('infoDate').textContent = u.date + ' (' + wk + ')';
+    $('infoTee').textContent = u.teeTime;
+    $('infoPlace').textContent = u.place;
+    $('infoCourses').textContent = u.courses.join(' / ');
+    $('infoBookers').textContent = u.bookers.join(', ');
+    $('infoFee').textContent = u.greenFee;
+    $('infoDeadline').textContent = u.cancelDeadline;
+
+    var roster = activeRosterMembers();
+    $('memberCount').textContent = roster.length;
+    var tbody = $('memberTable');
+    tbody.innerHTML = '';
+    roster.forEach(function(m){
+      var avg = avgScore(m.id);
+      var peo = latestPeorio(m.id);
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td>' + m.name + '</td>' +
+        '<td class="num">' + (avg!=null ? avg.toFixed(1) : '-') + '</td>' +
+        '<td class="num">' + (avg!=null ? handicapOf(m.id) : '-') + '</td>' +
+        '<td class="num">' + (peo ? peo.value.toFixed(1) : '-') + '</td>';
+      tbody.appendChild(tr);
+    });
+    var hnote = $('handicapNote');
+    if(hnote){
+      hnote.textContent = '평균타수는 스코어가 기록된 라운드만으로 자동 계산됩니다. 핸디는 평균타수 - 기준파(현재 파' + (state.handicapBasePar||72) + ')를 반올림한 자체 핸디이며, "평균타수 기준" 조편성은 이 차이를 그대로 반영해 균형을 맞춥니다. 신페리오 값은 기록이 있는 가장 최근 라운드 결과입니다.';
+    }
+
+    var lastRound = state.rounds[state.rounds.length-1];
+    $('lastRoundNo').textContent = lastRound.no;
+    var box = $('lastRoundHighlight');
+    if(!lastRound.scores || !Object.keys(lastRound.scores).length){
+      box.innerHTML = '<div class="note" style="margin:0;">기록된 스코어가 없습니다.</div>';
+    } else {
+      var ranked = Object.keys(lastRound.scores).map(function(id){ return {id:id, s:lastRound.scores[id]}; }).sort(function(a,b){ return a.s-b.s; });
+      var html = renderAwardsHtml(lastRound.awards);
+      html += '<div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody>';
+      ranked.forEach(function(r,i){
+        html += '<tr><td>' + (i+1) + '</td><td>' + memberName(r.id) + '</td><td class="num">' + r.s + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+      if(lastRound.entryFee){
+        html += '<div class="note">💰 참가비 1인당 ' + lastRound.entryFee.toLocaleString('ko-KR') + '원 · 상금풀 ' + (lastRound.prizePool||0).toLocaleString('ko-KR') + '원 (' + Object.keys(lastRound.scores).length + '명 참여)</div>';
+      }
+      if(lastRound.notes){ html += '<div class="note">' + lastRound.notes + '</div>'; }
+      box.innerHTML = html;
+    }
+  }
+
+  // ---------- roster management (admin) ----------
+  function renderRosterManage(){
+    var box = $('rosterList');
+    if(!box) return;
+    box.innerHTML = '';
+    state.members.forEach(function(m){
+      var hasHistory = memberHasHistory(m.id);
+      var row = document.createElement('div');
+      row.className = 'rosterrow';
+      row.innerHTML =
+        '<span class="rname">' + m.name +
+          (m.temporary ? ' <span class="badge new">임시</span>' : '') +
+          (m.active===false ? ' <span class="badge original">비활성</span>' : '') +
+        '</span>' +
+        '<span class="btnrow" style="margin:0;">' +
+          '<button type="button" class="btn small ghost rosterToggle" data-id="' + m.id + '">' + (m.active===false ? '✅ 활성화' : '🚫 비활성화') + '</button>' +
+          (hasHistory ? '' : '<button type="button" class="btn small ghost rosterDelete" data-id="' + m.id + '">🗑️ 삭제</button>') +
+        '</span>';
+      box.appendChild(row);
+    });
+    box.querySelectorAll('.rosterToggle').forEach(function(b){
+      b.addEventListener('click', function(){
+        var m = memberById(b.dataset.id);
+        if(!m) return;
+        m.active = (m.active === false) ? true : false;
+        renderAll();
+        toast(m.active ? (m.name + ' 님을 다시 활성화했습니다') : (m.name + ' 님을 명단에서 제외했습니다'));
+      });
+    });
+    box.querySelectorAll('.rosterDelete').forEach(function(b){
+      b.addEventListener('click', function(){
+        var m = memberById(b.dataset.id);
+        if(!m) return;
+        if(!confirm(m.name + ' 님을 완전히 삭제할까요? (기록이 없는 회원만 삭제할 수 있습니다)')) return;
+        state.members = state.members.filter(function(x){ return x.id !== m.id; });
+        renderAll();
+        toast('삭제되었습니다');
+      });
+    });
+  }
+  var addMemberBtnEl = $('addMemberBtn');
+  if(addMemberBtnEl){
+    addMemberBtnEl.addEventListener('click', function(){
+      var name = $('newMemberName').value.trim();
+      if(!name){ toast('이름을 입력하세요'); return; }
+      var temp = $('newMemberTemp').checked;
+      var id = 'g' + Date.now().toString(36) + Math.floor(Math.random()*1000);
+      state.members.push({ id:id, name:name, original:false, active:true, temporary:temp });
+      $('newMemberName').value = '';
+      $('newMemberTemp').checked = false;
+      renderAll();
+      toast(name + ' 님을 추가했습니다');
+    });
+  }
+
+  var editHandicapBtnEl = $('editHandicapBtn');
+  if(editHandicapBtnEl){
+    editHandicapBtnEl.addEventListener('click', function(){
+      var v = prompt('핸디 산정 기준 파(기준 타수)를 입력하세요. 핸디 = 평균타수 - 기준파', state.handicapBasePar || 72);
+      if(v===null) return;
+      var n = parseInt(v, 10);
+      if(!n || n<50 || n>100){ toast('50~100 사이 숫자를 입력하세요'); return; }
+      state.handicapBasePar = n;
+      renderAll();
+      toast('핸디 기준이 파 ' + n + '(으)로 변경되었습니다');
+    });
+  }
+
+  // ---------- awards ----------
+  var AWARD_TYPES = [
+    { key:'medalist', icon:'🥇', label:'메달리스트 (최저타)', basis:'scores', better:'min' },
+    { key:'netscore', icon:'🎯', label:'넷스코어 우승 (핸디 반영)', basis:'netscore', better:'min' },
+    { key:'peorio', icon:'⛳', label:'신페리오 우승', basis:'peorio', better:'min' },
+    { key:'birdie', icon:'🐦', label:'버디상', basis:'birdies', better:'max' },
+    { key:'teamWin', icon:'🏆', label:'팀 대결 승리팀', basis:'teamWin', better:null },
+    { key:'lucky', icon:'🍀', label:'행운상', basis:'random', better:null }
+  ];
+  function computeTeamWinner(scores){
+    var cd = state.upcoming.confirmedDraw;
+    if(!cd || !cd.teamAName || !cd.foursomes) return null;
+    var teamAIds = [], teamBIds = [];
+    cd.foursomes.forEach(function(four){ four.forEach(function(p){ (p.team==='A'?teamAIds:teamBIds).push(p.id); }); });
+    function teamAvg(ids){
+      var vals = ids.map(function(id){ return scores[id]; }).filter(function(v){ return v!=null; });
+      if(!vals.length) return null;
+      return vals.reduce(function(a,b){ return a+b; },0) / vals.length;
+    }
+    var avgA = teamAvg(teamAIds), avgB = teamAvg(teamBIds);
+    if(avgA==null || avgB==null || avgA===avgB) return null;
+    var winIds = avgA < avgB ? teamAIds : teamBIds;
+    var winName = avgA < avgB ? cd.teamAName : cd.teamBName;
+    return { ids:winIds, teamName:winName, value:Math.min(avgA,avgB) };
+  }
+  function renderAwardConfig(){
+    var box = $('awardConfig');
+    if(!box) return;
+    box.innerHTML = '';
+    var roster = activeRosterMembers();
+    var cd = state.upcoming.confirmedDraw;
+    var ryderConfirmed = !!(cd && cd.teamAName);
+    var plan = state.upcoming.awardPlan || {};
+    AWARD_TYPES.forEach(function(t){
+      var wrap = document.createElement('div');
+      wrap.className = 'awardblock';
+      var p = plan[t.key] || null;
+      var planPrize = p ? (p.prize || '') : '';
+      var planChecked = p ? (p.enabled !== false) : true;
+      if(t.basis === 'teamWin'){
+        var teamOptions = ryderConfirmed ? ('<option value="A">' + cd.teamAName + '</option><option value="B">' + cd.teamBName + '</option>') : '';
+        wrap.innerHTML =
+          '<label><input type="checkbox" class="awardEnable" data-key="' + t.key + '"' + (ryderConfirmed && planChecked ? ' checked' : '') + (ryderConfirmed ? '' : ' disabled') + '> ' + t.icon + ' ' + t.label + '</label>' +
+          '<div class="note" style="margin:4px 0 0;">' + (ryderConfirmed ? ('현재 확정된 라이더컵 팀대결 기준(' + cd.teamAName + ' vs ' + cd.teamBName + '). 자동 선정은 팀 평균 스코어가 더 낮은 팀을 승리팀으로 계산합니다. 홀별 업다운 매치 등 스코어 합계가 아닌 방식으로 승부를 가렸다면 수동 선택으로 실제 이긴 팀을 고르세요.') : '라이더컵 팀대항전으로 조편성을 확정해야 이 시상을 사용할 수 있습니다.') + '</div>' +
+          (ryderConfirmed ?
+            '<div class="grid2" style="margin-top:6px;">' +
+              '<select class="awardMethod" data-key="' + t.key + '"><option value="auto">자동 선정 (팀 평균타수)</option><option value="manual">수동 선택 (예: 업다운 매치 결과)</option></select>' +
+              '<select class="awardManual" data-key="' + t.key + '" style="display:none;">' + teamOptions + '</select>' +
+            '</div>' : '') +
+          '<input type="text" class="awardPrize" data-key="' + t.key + '" value="' + planPrize.replace(/"/g,'&quot;') + '" placeholder="승리팀 1인당 시상품 또는 금액 (예: 1인당 상품권 2만원)" style="margin-top:6px;">';
+        box.appendChild(wrap);
+        return;
+      }
+      var manualOptions = '<option value="">- 회원 선택 -</option>' + roster.map(function(m){ return '<option value="' + m.id + '">' + m.name + '</option>'; }).join('');
+      wrap.innerHTML =
+        '<label><input type="checkbox" class="awardEnable" data-key="' + t.key + '"' + (planChecked ? ' checked' : '') + '> ' + t.icon + ' ' + t.label + '</label>' +
+        '<div class="grid2" style="margin-top:6px;">' +
+          '<select class="awardMethod" data-key="' + t.key + '"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select>' +
+          '<select class="awardManual" data-key="' + t.key + '" style="display:none;">' + manualOptions + '</select>' +
+        '</div>' +
+        '<input type="text" class="awardPrize" data-key="' + t.key + '" value="' + planPrize.replace(/"/g,'&quot;') + '" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;">';
+      box.appendChild(wrap);
+    });
+    box.querySelectorAll('.awardMethod').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var manual = box.querySelector('.awardManual[data-key="' + sel.dataset.key + '"]');
+        manual.style.display = (sel.value === 'manual') ? 'block' : 'none';
+      });
+    });
+  }
+  function computeAwards(scores, peorio, birdies){
+    var masterEl = $('awardEnableMaster');
+    if(!masterEl || !masterEl.checked) return null;
+    var result = {};
+    AWARD_TYPES.forEach(function(t){
+      var enableEl = document.querySelector('.awardEnable[data-key="' + t.key + '"]');
+      if(!enableEl || !enableEl.checked) return;
+      var prizeEl = document.querySelector('.awardPrize[data-key="' + t.key + '"]');
+      var prize = prizeEl ? prizeEl.value.trim() : '';
+
+      if(t.basis === 'teamWin'){
+        var teamMethodEl = document.querySelector('.awardMethod[data-key="' + t.key + '"]');
+        var teamMethod = teamMethodEl ? teamMethodEl.value : 'auto';
+        var cdNow = state.upcoming.confirmedDraw;
+        if(teamMethod === 'manual' && cdNow && cdNow.teamAName){
+          var teamManualEl = document.querySelector('.awardManual[data-key="' + t.key + '"]');
+          var side = teamManualEl ? teamManualEl.value : '';
+          if(side === 'A' || side === 'B'){
+            var sideIds = [];
+            cdNow.foursomes.forEach(function(four){ four.forEach(function(p){ if(p.team===side){ sideIds.push(p.id); } }); });
+            var sideName = side==='A' ? cdNow.teamAName : cdNow.teamBName;
+            result[t.key] = { ids:sideIds, teamName:sideName, value:null, prize:prize };
+          }
+        } else {
+          var tw = computeTeamWinner(scores);
+          if(tw){ result[t.key] = { ids:tw.ids, teamName:tw.teamName, value:tw.value, prize:prize }; }
+        }
+        return;
+      }
+
+      var methodEl = document.querySelector('.awardMethod[data-key="' + t.key + '"]');
+      var method = methodEl ? methodEl.value : 'auto';
+      var winnerId = null, value = null;
+      var dataMap;
+      if(t.basis==='scores'){ dataMap = scores; }
+      else if(t.basis==='peorio'){ dataMap = peorio; }
+      else if(t.basis==='birdies'){ dataMap = birdies; }
+      else if(t.basis==='netscore'){
+        dataMap = {};
+        Object.keys(scores).forEach(function(id){ dataMap[id] = scores[id] - handicapOf(id); });
+      } else { dataMap = null; }
+
+      if(method === 'manual'){
+        var manualEl = document.querySelector('.awardManual[data-key="' + t.key + '"]');
+        winnerId = manualEl ? (manualEl.value || null) : null;
+        if(winnerId && dataMap && dataMap[winnerId]!=null){ value = dataMap[winnerId]; }
+      } else if(t.basis === 'random'){
+        var pool = Object.keys(scores).length ? Object.keys(scores) : activeRosterMembers().map(function(m){ return m.id; });
+        if(pool.length){ winnerId = pool[Math.floor(Math.random()*pool.length)]; }
+      } else if(dataMap){
+        var entries = Object.keys(dataMap).map(function(id){ return {id:id, val:dataMap[id]}; });
+        if(entries.length){
+          entries.sort(function(a,b){ return t.better==='min' ? a.val-b.val : b.val-a.val; });
+          winnerId = entries[0].id; value = entries[0].val;
+        }
+      }
+      if(winnerId){ result[t.key] = { id:winnerId, value:value, prize:prize }; }
+    });
+    return Object.keys(result).length ? result : null;
+  }
+  function renderAwardsHtml(awards){
+    if(!awards) return '';
+    var html = '<div class="awardlist">';
+    AWARD_TYPES.forEach(function(t){
+      var a = awards[t.key];
+      if(!a) return;
+      if(t.basis === 'teamWin'){
+        html += '<div class="awardrow"><span>' + t.icon + ' ' + t.label + '</span><b>' + (a.teamName||'') + '</b>' +
+          '<span class="pavg">' + a.ids.map(memberName).join(', ') + '</span>' +
+          (a.value!=null ? ('<span class="pavg">평균 ' + a.value.toFixed(1) + '</span>') : '') +
+          (a.prize ? ('<span class="note" style="margin:0;">🎁 ' + a.prize + '</span>') : '') +
+          '</div>';
+        return;
+      }
+      html += '<div class="awardrow"><span>' + t.icon + ' ' + t.label + '</span><b>' + memberName(a.id) + '</b>' +
+        (a.value!=null ? ('<span class="pavg">' + a.value + '</span>') : '') +
+        (a.prize ? ('<span class="note" style="margin:0;">🎁 ' + a.prize + '</span>') : '') +
+        '</div>';
+    });
+    html += '</div>';
+    return html;
+  }
+
+  // ---------- 이번 대회 시상 안내 (사전 등록, 대회안내 탭 노출) ----------
+  function renderAwardPlanDisplay(){
+    var box = $('awardPlanDisplay');
+    if(!box) return;
+    var plan = state.upcoming.awardPlan || {};
+    var rows = AWARD_TYPES.filter(function(t){ return plan[t.key] && plan[t.key].enabled; });
+    if(!rows.length){
+      box.innerHTML = '<div class="note" style="margin:0;">아직 등록된 시상 안내가 없습니다.</div>';
+      return;
+    }
+    var html = '<div class="awardlist">';
+    rows.forEach(function(t){
+      var p = plan[t.key];
+      html += '<div class="awardrow"><span>' + t.icon + ' ' + t.label + '</span>' +
+        (p.prize ? ('<span class="note" style="margin:0;">🎁 ' + p.prize + '</span>') : '<span class="note" style="margin:0;">시상품 미정</span>') +
+        '</div>';
+    });
+    html += '</div>';
+    box.innerHTML = html;
+  }
+  function renderAwardPlanConfig(){
+    var box = $('awardPlanConfig');
+    if(!box) return;
+    box.innerHTML = '';
+    var plan = state.upcoming.awardPlan || {};
+    AWARD_TYPES.forEach(function(t){
+      var p = plan[t.key] || null;
+      var checked = p ? (p.enabled !== false) : false;
+      var prize = p ? (p.prize || '') : '';
+      var wrap = document.createElement('div');
+      wrap.className = 'awardblock';
+      wrap.innerHTML =
+        '<label><input type="checkbox" class="planEnable" data-key="' + t.key + '"' + (checked ? ' checked' : '') + '> ' + t.icon + ' ' + t.label + '</label>' +
+        '<input type="text" class="planPrize" data-key="' + t.key + '" value="' + prize.replace(/"/g,'&quot;') + '" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;">';
+      box.appendChild(wrap);
+    });
+  }
+  var saveAwardPlanBtnEl = $('saveAwardPlanBtn');
+  if(saveAwardPlanBtnEl){
+    saveAwardPlanBtnEl.addEventListener('click', function(){
+      var plan = {};
+      AWARD_TYPES.forEach(function(t){
+        var enableEl = document.querySelector('.planEnable[data-key="' + t.key + '"]');
+        var prizeEl = document.querySelector('.planPrize[data-key="' + t.key + '"]');
+        plan[t.key] = { enabled: !!(enableEl && enableEl.checked), prize: prizeEl ? prizeEl.value.trim() : '' };
+      });
+      state.upcoming.awardPlan = plan;
+      renderAwardPlanDisplay();
+      renderAwardConfig();
+      toast('시상 안내가 저장되었습니다');
+    });
+  }
+
+  // ---------- 카트별 간식 안내 ----------
+  function renderSnackDisplay(){
+    var box = $('snackDisplay');
+    if(!box) return;
+    var snacks = state.upcoming.snacks || [];
+    if(!snacks.length){
+      box.innerHTML = '<div class="note" style="margin:0;">아직 등록된 간식 안내가 없습니다.</div>';
+      return;
+    }
+    box.innerHTML = '<div class="grid2">' + snacks.map(function(s){
+      return '<div class="kv"><div class="k">' + s.cart + '</div><div class="v" style="font-size:13.5px;">' + s.items + '</div></div>';
+    }).join('') + '</div>';
+  }
+  function renderSnackAdmin(){
+    var box = $('snackList');
+    if(!box) return;
+    var snacks = state.upcoming.snacks || [];
+    box.innerHTML = '';
+    snacks.forEach(function(s, idx){
+      var row = document.createElement('div');
+      row.className = 'rosterrow';
+      row.innerHTML =
+        '<span class="rname">' + s.cart + ' — ' + s.items + '</span>' +
+        '<span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost snackDelete" data-idx="' + idx + '">🗑️ 삭제</button></span>';
+      box.appendChild(row);
+    });
+    box.querySelectorAll('.snackDelete').forEach(function(b){
+      b.addEventListener('click', function(){
+        var i = parseInt(b.dataset.idx, 10);
+        state.upcoming.snacks.splice(i, 1);
+        renderSnackDisplay();
+        renderSnackAdmin();
+        toast('삭제되었습니다');
+      });
+    });
+  }
+  var addSnackBtnEl = $('addSnackBtn');
+  if(addSnackBtnEl){
+    addSnackBtnEl.addEventListener('click', function(){
+      var cart = $('newSnackCart').value.trim();
+      var items = $('newSnackItems').value.trim();
+      if(!cart || !items){ toast('카트/조와 내용을 모두 입력하세요'); return; }
+      if(!state.upcoming.snacks){ state.upcoming.snacks = []; }
+      state.upcoming.snacks.push({ cart:cart, items:items });
+      $('newSnackCart').value = '';
+      $('newSnackItems').value = '';
+      renderSnackDisplay();
+      renderSnackAdmin();
+      toast('간식 안내가 추가되었습니다');
+    });
+  }
+
+  // ---------- 식당 안내 ----------
+  function renderRestaurantDisplay(){
+    var box = $('restaurantDisplay');
+    if(!box) return;
+    var r = state.upcoming.restaurant || {};
+    if(!r.name){
+      box.innerHTML = '<div class="note" style="margin:0;">아직 등록된 식당 안내가 없습니다.</div>';
+      return;
+    }
+    var html = '<div class="grid2">';
+    html += '<div class="kv"><div class="k">식당명</div><div class="v">' + r.name + '</div></div>';
+    if(r.address){ html += '<div class="kv"><div class="k">주소</div><div class="v" style="font-size:13.5px;">' + r.address + '</div></div>'; }
+    if(r.menu){ html += '<div class="kv" style="grid-column:1/-1;"><div class="k">메뉴</div><div class="v" style="font-size:13.5px;">' + r.menu + '</div></div>'; }
+    html += '</div>';
+    if(r.note){ html += '<div class="note">' + r.note + '</div>'; }
+    box.innerHTML = html;
+  }
+  var editRestaurantBtnEl = $('editRestaurantBtn');
+  if(editRestaurantBtnEl){
+    editRestaurantBtnEl.addEventListener('click', function(){
+      var r = state.upcoming.restaurant || {name:'',address:'',menu:'',note:''};
+      var name = prompt('식당명', r.name); if(name===null) return;
+      var address = prompt('주소', r.address); if(address===null) return;
+      var menu = prompt('메뉴 (쉼표로 구분, 예: 육회비빔밥, 갈비탕)', r.menu); if(menu===null) return;
+      var note = prompt('비고 (예: 예약 완료, 룸 배정)', r.note); if(note===null) return;
+      state.upcoming.restaurant = { name:name.trim(), address:address.trim(), menu:menu.trim(), note:note.trim() };
+      renderRestaurantDisplay();
+      toast('식당 안내가 저장되었습니다');
+    });
+  }
+
+  // ---------- TAB 2: draw ----------
+  var lastDraw = null;
+  function activeMemberIds(){
+    return Array.from(document.querySelectorAll('#attendeeToggle input:checked')).map(function(el){ return el.value; });
+  }
+  function renderAttendeeToggle(){
+    var box = $('attendeeToggle');
+    box.innerHTML = '';
+    activeRosterMembers().forEach(function(m){
+      var label = document.createElement('label');
+      label.innerHTML = '<input type="checkbox" value="' + m.id + '" checked> ' + m.name;
+      box.appendChild(label);
+    });
+    box.addEventListener('change', updateAttendeeWarn);
+    updateAttendeeWarn();
+  }
+  var MODE_INFO = {
+    ryder: { icon:'🏆', label:'라이더컵 팀대항전', desc:'실력이 균형 잡히도록 두 팀(6:6)으로 나눈 뒤, 각 팀에서 2명씩 뽑아 4인 1조(2:2)를 구성합니다. 조 안에서 매치플레이를 즐기고, 전체는 팀 합계 성적으로 대항전 승부를 가립니다.' },
+    balance: { icon:'⚖️', label:'실력균형 조편성', desc:'팀 대결 없이, 모든 조의 평균 실력이 비슷해지도록 인원을 고르게 분산합니다. 특정 조에 상위권·하위권이 몰리지 않습니다.' },
+    blind: { icon:'🎟️', label:'블라인드 제비뽑기', desc:'실력이나 과거 조합을 전혀 고려하지 않는 완전 무작위 추첨입니다. 결과의 공정성은 신페리오 방식으로 보정하세요. 순수 재미 위주!' },
+    fresh: { icon:'🆕', label:'새로운 조합 우선', desc:'실력 균형보다 "누구와 처음 만나는가"를 최우선으로 고려해 조를 구성합니다. 아직 함께 라운드해보지 않은 회원과 만날 확률이 가장 높습니다.' }
+  };
+  var currentMode = 'ryder';
+  var currentMetric = 'avg';
+
+  function renderModeSelect(){
+    var box = $('modeSelect');
+    box.innerHTML = '';
+    Object.keys(MODE_INFO).forEach(function(key){
+      var info = MODE_INFO[key];
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'modebtn' + (key===currentMode?' active':'');
+      btn.innerHTML = '<div class="mtitle">' + info.icon + ' ' + info.label + '</div>';
+      btn.addEventListener('click', function(){
+        currentMode = key;
+        renderModeSelect();
+        updateModeUI();
+      });
+      box.appendChild(btn);
+    });
+    $('modeDesc').textContent = MODE_INFO[currentMode].desc;
+  }
+
+  function renderMetricToggle(){
+    var box = $('skillMetricRow');
+    box.innerHTML = '<div class="metricToggle">' +
+      '<button type="button" data-metric="avg" class="' + (currentMetric==='avg'?'active':'') + '">📊 평균타수 기준</button>' +
+      '<button type="button" data-metric="peorio" class="' + (currentMetric==='peorio'?'active':'') + '">⛳ 최근 신페리오 기준</button>' +
+    '</div>';
+    box.querySelectorAll('button').forEach(function(b){
+      b.addEventListener('click', function(){
+        currentMetric = b.dataset.metric;
+        renderMetricToggle();
+      });
+    });
+    updateModeUI();
+  }
+
+  function updateModeUI(){
+    $('modeDesc').textContent = MODE_INFO[currentMode].desc;
+    $('teamNameRow').style.display = (currentMode === 'ryder') ? 'block' : 'none';
+    document.querySelectorAll('.metricToggle button').forEach(function(b){ b.disabled = (currentMode === 'blind'); });
+    updateAttendeeWarn();
+  }
+
+  function updateAttendeeWarn(){
+    var n = activeMemberIds().length;
+    var w = $('attendeeWarn');
+    if(n % 4 !== 0){
+      w.textContent = '⚠️ 현재 참석 ' + n + '명입니다. 4명 단위일 때 조편성이 가장 매끄럽게 동작합니다.';
+    } else if(currentMode === 'ryder'){
+      w.textContent = '참석 ' + n + '명 · ' + (n/2) + '명씩 두 팀, ' + (n/4) + '개 조로 편성됩니다.';
+    } else {
+      w.textContent = '참석 ' + n + '명 · ' + (n/4) + '개 조로 편성됩니다.';
+    }
+  }
+
+  function shuffleArr(arr){
+    var a = arr.slice();
+    for(var i=a.length-1;i>0;i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var tmp=a[i]; a[i]=a[j]; a[j]=tmp;
+    }
+    return a;
+  }
+
+  function buildRyder(players, mates){
+    var best = null;
+    var ITER = 1200;
+    for(var iter=0; iter<ITER; iter++){
+      var jittered = players.map(function(p){ return { id:p.id, avg:p.avg, jav: p.avg + (Math.random()*6-3) }; });
+      jittered.sort(function(a,b){ return a.jav-b.jav; });
+      var teamA=[], teamB=[];
+      jittered.forEach(function(p, idx){
+        var pos = idx % 4;
+        if(pos===0 || pos===3){ teamA.push(p); } else { teamB.push(p); }
+      });
+      var shA = shuffleArr(teamA), shB = shuffleArr(teamB);
+      var groupCount = Math.min(Math.floor(shA.length/2), Math.floor(shB.length/2));
+      var foursomes = [];
+      for(var g=0; g<groupCount; g++){
+        var a2 = [shA[g*2], shA[g*2+1]];
+        var b2 = [shB[g*2], shB[g*2+1]];
+        foursomes.push(
+          a2.map(function(p){ return {id:p.id, avg:p.avg, team:'A'}; })
+          .concat(b2.map(function(p){ return {id:p.id, avg:p.avg, team:'B'}; }))
+        );
+      }
+      var leftoverA = shA.slice(groupCount*2).map(function(p){ return {id:p.id, avg:p.avg, team:'A'}; });
+      var leftoverB = shB.slice(groupCount*2).map(function(p){ return {id:p.id, avg:p.avg, team:'B'}; });
+      if(leftoverA.length || leftoverB.length){
+        if(!foursomes.length){ foursomes.push([]); }
+        foursomes[foursomes.length-1] = foursomes[foursomes.length-1].concat(leftoverA, leftoverB);
+      }
+
+      var penalty = 0;
+      foursomes.forEach(function(four){
+        for(var i=0;i<four.length;i++){
+          for(var j=i+1;j<four.length;j++){
+            penalty += metCount(mates, four[i].id, four[j].id) * 3;
+          }
+        }
+      });
+      var sumA = teamA.reduce(function(s,p){ return s+p.avg; },0);
+      var sumB = teamB.reduce(function(s,p){ return s+p.avg; },0);
+      penalty += Math.abs(sumA-sumB) * 0.15;
+
+      if(!best || penalty < best.penalty){
+        best = {
+          mode:'ryder', foursomes:foursomes,
+          teamSummary:{ A:{avg: teamA.length? sumA/teamA.length : 0}, B:{avg: teamB.length? sumB/teamB.length : 0} },
+          penalty:penalty
+        };
+      }
+    }
+    return best;
+  }
+
+  function buildFlat(players, mates, mode, opts){
+    var n = players.length;
+    var groupCount = Math.max(1, Math.floor(n/4));
+    var best = null;
+    for(var iter=0; iter<opts.iterations; iter++){
+      var groups = [];
+      for(var g=0; g<groupCount; g++){ groups.push([]); }
+      if(opts.snake){
+        var pool = players.map(function(p){ return { id:p.id, avg:p.avg, jav: p.avg + (opts.jitter ? (Math.random()*opts.jitter*2 - opts.jitter) : 0) }; });
+        pool.sort(function(a,b){ return a.jav-b.jav; });
+        var dir = 1, gi = 0;
+        pool.forEach(function(p){
+          groups[gi].push({id:p.id, avg:p.avg});
+          if(dir===1){ gi++; if(gi===groupCount){ gi=groupCount-1; dir=-1; } }
+          else { gi--; if(gi<0){ gi=0; dir=1; } }
+        });
+      } else {
+        var shuffled = shuffleArr(players.map(function(p){ return {id:p.id, avg:p.avg}; }));
+        shuffled.forEach(function(p, idx){ groups[idx % groupCount].push(p); });
+      }
+      var penalty = 0;
+      var groupAvgs = [];
+      groups.forEach(function(grp){
+        var s = 0;
+        for(var i=0;i<grp.length;i++){
+          s += grp[i].avg;
+          for(var j=i+1;j<grp.length;j++){
+            penalty += metCount(mates, grp[i].id, grp[j].id) * opts.repeatWeight;
+          }
+        }
+        groupAvgs.push(grp.length ? s/grp.length : 0);
+      });
+      if(opts.imbalanceWeight){
+        var overall = groupAvgs.reduce(function(a,b){ return a+b; },0) / groupAvgs.length;
+        var variance = groupAvgs.reduce(function(a,s){ return a + Math.pow(s-overall,2); },0);
+        penalty += variance * opts.imbalanceWeight;
+      }
+      if(!best || penalty < best.penalty){
+        best = { mode:mode, foursomes:groups, teamSummary:null, penalty:penalty };
+      }
+    }
+    return best;
+  }
+
+  function buildDraw(activeIds, mode, metric){
+    var mates = pastMatesMap();
+    var players = activeIds.map(function(id){ return { id:id, avg: skillValue(id, metric) }; });
+    if(mode === 'ryder'){ return buildRyder(players, mates); }
+    if(mode === 'blind'){ return buildFlat(players, mates, mode, { iterations:1, jitter:0, snake:false, repeatWeight:0, imbalanceWeight:0 }); }
+    if(mode === 'fresh'){ return buildFlat(players, mates, mode, { iterations:1500, jitter:8, snake:false, repeatWeight:10, imbalanceWeight:0.03 }); }
+    return buildFlat(players, mates, 'balance', { iterations:1200, jitter:5, snake:true, repeatWeight:1, imbalanceWeight:0.5 });
+  }
+
+  function freshPairNote(four, mates){
+    var lines = [];
+    for(var i=0;i<four.length;i++){
+      for(var j=i+1;j<four.length;j++){
+        var c = metCount(mates, four[i].id, four[j].id);
+        if(c > 0){
+          lines.push({type:'seen', text: memberName(four[i].id) + ' · ' + memberName(four[j].id) + ' (이전 ' + c + '회 동조)'});
+        }
+      }
+    }
+    var allNew = lines.length === 0;
+    return { allNew: allNew, seen: lines };
+  }
+
+  function renderDrawResult(draw){
+    var mates = pastMatesMap();
+    var courses = state.upcoming.courses;
+    var box = $('drawResult');
+    var html = '';
+
+    if(draw.teamSummary){
+      var teamAName = $('teamAName').value || '레드팀';
+      var teamBName = $('teamBName').value || '블루팀';
+      var teamAPl = [], teamBPl = [];
+      draw.foursomes.forEach(function(four){ four.forEach(function(p){ (p.team==='A'?teamAPl:teamBPl).push(p); }); });
+      html += '<div class="grid2">';
+      html += '<div class="teamblock A"><div class="teamhead"><b>🔴 ' + teamAName + '</b><span class="badge teamA">평균 ' + draw.teamSummary.A.avg.toFixed(1) + '</span></div>';
+      teamAPl.forEach(function(p){ html += '<div class="memberline"><span>' + memberName(p.id) + '</span><span>' + p.avg.toFixed(1) + ' · 핸디 ' + handicapOf(p.id) + '</span></div>'; });
+      html += '</div>';
+      html += '<div class="teamblock B"><div class="teamhead"><b>🔵 ' + teamBName + '</b><span class="badge teamB">평균 ' + draw.teamSummary.B.avg.toFixed(1) + '</span></div>';
+      teamBPl.forEach(function(p){ html += '<div class="memberline"><span>' + memberName(p.id) + '</span><span>' + p.avg.toFixed(1) + ' · 핸디 ' + handicapOf(p.id) + '</span></div>'; });
+      html += '</div>';
+      html += '</div>';
+    }
+
+    html += '<h3>티업 조편성</h3>';
+    draw.foursomes.forEach(function(four, idx){
+      var course = courses[idx % courses.length] || ('코스 ' + (idx+1));
+      var back = nextCourse(course);
+      var groupAvg = four.length ? (four.reduce(function(s,p){ return s+p.avg; },0) / four.length) : 0;
+      html += '<div class="foursome">';
+      html += '<div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">' + (idx+1) + '조</span><span class="badge original">평균 ' + groupAvg.toFixed(1) + '</span></div>';
+      html += '<div class="fmeta"><select data-idx="' + idx + '" class="courseSelect">';
+      courses.forEach(function(c){ html += '<option' + (c===course?' selected':'') + '>' + c + '</option>'; });
+      html += '</select><input type="number" class="cartNoInput" data-idx="' + idx + '" value="' + (idx+1) + '" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="' + idx + '" value="' + (state.upcoming.teeTime||'07:00') + '" title="출발시간"></div></div>';
+      html += '<div class="metaline">전반 ' + course + ' → 후반 ' + back + '</div>';
+      html += '<div class="plist">';
+      four.forEach(function(p){
+        var dot = p.team ? ('<span class="dot ' + p.team + '"></span>') : '<span class="dot" style="background:var(--muted);"></span>';
+        html += '<div class="prow">' + dot + '<span class="pname">' + memberName(p.id) + '</span><span class="pavg">평균 ' + p.avg.toFixed(1) + ' · 핸디 ' + handicapOf(p.id) + '</span></div>';
+      });
+      html += '</div>';
+      var fn = freshPairNote(four, mates);
+      if(fn.allNew){
+        html += '<div class="freshline">🆕 이 조는 전원 처음 함께하는 조합입니다!</div>';
+      } else if(fn.seen.length){
+        html += '<div class="warnline">⚠️ ' + fn.seen.map(function(s){ return s.text; }).join(', ') + '</div>';
+      }
+      html += '</div>';
+    });
+
+    box.innerHTML = html;
+    box.querySelectorAll('.courseSelect').forEach(function(sel){
+      sel.addEventListener('change', function(){
+        var meta = sel.closest('.foursome').querySelector('.metaline');
+        if(meta){ meta.textContent = '전반 ' + sel.value + ' → 후반 ' + nextCourse(sel.value); }
+      });
+    });
+    $('confirmDrawBtn').disabled = false;
+    $('copyDrawBtn').disabled = false;
+  }
+
+  $('shuffleBtn').addEventListener('click', function(){
+    var active = activeMemberIds();
+    if(active.length < 4){ toast('참석자가 너무 적습니다 (최소 4명)'); return; }
+    lastDraw = buildDraw(active, currentMode, currentMetric);
+    renderDrawResult(lastDraw);
+  });
+
+  function drawToText(draw){
+    var u = state.upcoming;
+    var lines = [];
+    lines.push('⛳ 아부회 제' + u.no + '회 라운드 조편성 (' + MODE_INFO[draw.mode].label + ')');
+    lines.push(u.date + ' ' + u.teeTime + ' · ' + u.place);
+    lines.push('');
+    if(draw.teamSummary){
+      var teamAName = $('teamAName').value || '레드팀';
+      var teamBName = $('teamBName').value || '블루팀';
+      var teamAIds = [], teamBIds = [];
+      draw.foursomes.forEach(function(four){ four.forEach(function(p){ (p.team==='A'?teamAIds:teamBIds).push(p.id); }); });
+      lines.push('[' + teamAName + '] ' + teamAIds.map(memberName).join(', '));
+      lines.push('[' + teamBName + '] ' + teamBIds.map(memberName).join(', '));
+      lines.push('');
+    }
+    draw.foursomes.forEach(function(four, idx){
+      var course = state.upcoming.courses[idx % state.upcoming.courses.length] || '';
+      lines.push((idx+1) + '조 (' + course + '): ' + four.map(function(p){ return memberName(p.id); }).join(', '));
+    });
+    return lines.join('\n');
+  }
+
+  $('copyDrawBtn').addEventListener('click', function(){
+    if(!lastDraw){ return; }
+    var text = drawToText(lastDraw);
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('결과가 복사되었습니다. 카톡에 붙여넣기 하세요'); });
+    } else {
+      window.prompt('아래 내용을 복사하세요', text);
+    }
+  });
+
+  $('confirmDrawBtn').addEventListener('click', function(){
+    if(!lastDraw) return;
+    var courseSelects = document.querySelectorAll('.courseSelect');
+    var courses = Array.from(courseSelects).map(function(s){ return s.value; });
+    var backCourses = courses.map(function(c){ return nextCourse(c); });
+    var cartNos = Array.from(document.querySelectorAll('.cartNoInput')).map(function(inp){ return parseInt(inp.value,10) || null; });
+    var teeTimes = Array.from(document.querySelectorAll('.teeTimeInput')).map(function(inp){ return inp.value || state.upcoming.teeTime; });
+    var cd = {
+      mode: lastDraw.mode,
+      metric: currentMetric,
+      foursomes: lastDraw.foursomes.map(function(four){ return four.map(function(p){ return {id:p.id, team:p.team||null}; }); }),
+      courses: courses,
+      backCourses: backCourses,
+      cartNos: cartNos,
+      teeTimes: teeTimes,
+      confirmedAt: new Date().toISOString().slice(0,10)
+    };
+    if(lastDraw.teamSummary){
+      cd.teamAName = $('teamAName').value || '레드팀';
+      cd.teamBName = $('teamBName').value || '블루팀';
+    }
+    state.upcoming.confirmedDraw = cd;
+    renderConfirmed();
+    renderAwardConfig();
+    toast('조편성이 확정되었습니다');
+  });
+
+  function renderConfirmed(){
+    var cd = state.upcoming.confirmedDraw;
+    var card = $('confirmedCard');
+    var waitCard = $('memberWaitCard');
+    if(!cd){
+      card.style.display='none';
+      if(waitCard){ waitCard.style.display='block'; }
+      return;
+    }
+    if(waitCard){ waitCard.style.display='none'; }
+    card.style.display='block';
+    var html = '';
+    if(cd.teamAName){
+      var teamAIds = [], teamBIds = [];
+      cd.foursomes.forEach(function(four){ four.forEach(function(p){ (p.team==='A'?teamAIds:teamBIds).push(p.id); }); });
+      html += '<div class="grid2">';
+      html += '<div class="teamblock A"><b>🔴 ' + cd.teamAName + '</b>' + teamAIds.map(function(id){ return '<div class="memberline"><span>' + memberName(id) + '</span><span>핸디 ' + handicapOf(id) + '</span></div>'; }).join('') + '</div>';
+      html += '<div class="teamblock B"><b>🔵 ' + cd.teamBName + '</b>' + teamBIds.map(function(id){ return '<div class="memberline"><span>' + memberName(id) + '</span><span>핸디 ' + handicapOf(id) + '</span></div>'; }).join('') + '</div>';
+      html += '</div>';
+    }
+    html += '<h3>티업 조편성</h3>';
+    cd.foursomes.forEach(function(four, idx){
+      var cartNo = (cd.cartNos && cd.cartNos[idx]) || (idx+1);
+      var teeTime = (cd.teeTimes && cd.teeTimes[idx]) || state.upcoming.teeTime;
+      var back = (cd.backCourses && cd.backCourses[idx]) || nextCourse(cd.courses[idx]);
+      html += '<div class="foursome"><div class="fhead"><span class="ftitle">' + (idx+1) + '조 · 🛺 카트' + cartNo + '</span><span class="badge original">' + teeTime + '</span></div>';
+      html += '<div class="metaline">전반 ' + (cd.courses[idx]||'') + ' → 후반 ' + back + '</div>';
+      html += '<div class="plist">';
+      four.forEach(function(p){
+        var dot = p.team ? ('<span class="dot ' + p.team + '"></span>') : '<span class="dot" style="background:var(--muted);"></span>';
+        html += '<div class="prow">' + dot + '<span class="pname">' + memberName(p.id) + '</span><span class="pavg">핸디 ' + handicapOf(p.id) + '</span></div>';
+      });
+      html += '</div></div>';
+    });
+    $('confirmedResult').innerHTML = html;
+    renderMyNameSelect();
+  }
+
+  // ---------- 내 핸디 확인 (member self-service) ----------
+  function findMyFoursomeIdx(cd, id){
+    for(var i=0;i<cd.foursomes.length;i++){
+      if(cd.foursomes[i].some(function(p){ return p.id===id; })){ return i; }
+    }
+    return -1;
+  }
+  function renderMyNameSelect(){
+    var cd = state.upcoming.confirmedDraw;
+    var card = $('myHandicapCard');
+    if(!cd){ card.style.display = 'none'; return; }
+    card.style.display = 'block';
+    var sel = $('myNameSelect');
+    var prev = sel.value;
+    sel.innerHTML = '<option value="">- 이름 선택 -</option>' + activeRosterMembers().map(function(m){ return '<option value="' + m.id + '">' + m.name + '</option>'; }).join('');
+    var saved = null;
+    try{ saved = localStorage.getItem('abuhwe_myname'); }catch(e){}
+    var toSelect = prev || saved;
+    if(toSelect && activeRosterMembers().some(function(m){ return m.id===toSelect; })){
+      sel.value = toSelect;
+      renderMyHandicapResult(toSelect);
+    } else {
+      $('myHandicapResult').innerHTML = '';
+      $('myHandicapPrintRow').style.display = 'none';
+    }
+  }
+  function buildHoleTableHtml(front, back, handicap){
+    var holes = combinedHoles(front, back);
+    var rows = holes.map(function(h){
+      var s = strokesOnHole(handicap, h.si);
+      var cls = s>=2 ? 'strokecell stroke2' : (s>=1 ? 'strokecell stroke1' : 'strokecell');
+      var mark = s>=2 ? '●●' : (s>=1 ? '●' : '-');
+      return '<tr' + (h.seq===10 ? ' class="nine9"' : '') + '><td class="hn">' + h.seq + '번 (' + h.course + ' ' + h.holeNo + '번)</td><td>' + h.par + '</td><td>' + h.si + '</td><td class="' + cls + '">' + mark + (s>0 ? (' +' + s) : '') + '</td></tr>';
+    }).join('');
+    var totalStrokes = holes.reduce(function(s,h){ return s + strokesOnHole(handicap, h.si); }, 0);
+    return '<table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>받는 스트로크</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+      '<div class="note" style="margin-top:6px;">● = 1타, ●● = 2타 받는 홀입니다. 총 ' + totalStrokes + '타를 받습니다(핸디 ' + handicap + '). 홀 옆 SI는 스코어카드의 스트로크 인덱스를 기준으로, 전반은 그대로(1~9) · 후반은 9를 더해(10~18) 18홀로 이어붙인 값입니다.</div>';
+  }
+  function renderMyHandicapResult(id){
+    var cd = state.upcoming.confirmedDraw;
+    var out = $('myHandicapResult');
+    if(!cd || !id){ out.innerHTML = ''; $('myHandicapPrintRow').style.display = 'none'; return; }
+    var idx = findMyFoursomeIdx(cd, id);
+    if(idx === -1){ out.innerHTML = '<div class="note" style="margin:0;">확정된 조편성에서 이 회원을 찾을 수 없습니다.</div>'; $('myHandicapPrintRow').style.display = 'none'; return; }
+    var four = cd.foursomes[idx];
+    var cartNo = (cd.cartNos && cd.cartNos[idx]) || (idx+1);
+    var teeTime = (cd.teeTimes && cd.teeTimes[idx]) || state.upcoming.teeTime;
+    var front = cd.courses[idx];
+    var back = (cd.backCourses && cd.backCourses[idx]) || nextCourse(front);
+    var handicap = handicapOf(id);
+    var teammates = four.filter(function(p){ return p.id !== id; });
+    var html = '<div class="kv" style="margin-bottom:10px;"><div class="k">' + (idx+1) + '조 · 카트' + cartNo + ' · 출발 ' + teeTime + '</div><div class="v" style="font-size:13.5px;">전반 ' + front + ' → 후반 ' + back + '</div></div>';
+    html += '<div class="note" style="margin-top:0;">함께 도는 조원: ' + four.map(function(p){ return memberName(p.id) + (p.id===id ? '(나)' : ''); }).join(', ') + '</div>';
+    html += '<div class="kv" style="margin:10px 0;"><div class="k">내 핸디</div><div class="v">' + handicap + '</div></div>';
+    html += buildHoleTableHtml(front, back, handicap);
+    out.innerHTML = html;
+    $('myHandicapPrintRow').style.display = 'flex';
+  }
+  var myNameSelectEl = $('myNameSelect');
+  if(myNameSelectEl){
+    myNameSelectEl.addEventListener('change', function(){
+      var id = myNameSelectEl.value;
+      try{ if(id){ localStorage.setItem('abuhwe_myname', id); } }catch(e){}
+      renderMyHandicapResult(id);
+    });
+  }
+
+  // ---------- print (window.print 기반, 별도 라이브러리 없이 A4 인쇄/PDF 저장) ----------
+  function printSection(html){
+    var area = $('printArea');
+    area.innerHTML = html;
+    document.body.classList.add('printing');
+    window.print();
+  }
+  window.addEventListener('afterprint', function(){ document.body.classList.remove('printing'); });
+
+  var printMyHandicapBtnEl = $('printMyHandicapBtn');
+  if(printMyHandicapBtnEl){
+    printMyHandicapBtnEl.addEventListener('click', function(){
+      var id = $('myNameSelect').value;
+      if(!id){ toast('이름을 먼저 선택하세요'); return; }
+      var cd = state.upcoming.confirmedDraw;
+      var idx = findMyFoursomeIdx(cd, id);
+      if(idx===-1) return;
+      var front = cd.courses[idx];
+      var back = (cd.backCourses && cd.backCourses[idx]) || nextCourse(front);
+      var handicap = handicapOf(id);
+      var cartNo = (cd.cartNos && cd.cartNos[idx]) || (idx+1);
+      var teeTime = (cd.teeTimes && cd.teeTimes[idx]) || state.upcoming.teeTime;
+      var four = cd.foursomes[idx];
+      var html = '<div class="printpage"><h2>⛳ ' + state.clubName + ' 제' + state.upcoming.no + '회 · ' + memberName(id) + ' 님 핸디표</h2>' +
+        '<div class="pmeta">' + state.upcoming.date + ' · ' + (idx+1) + '조 · 카트' + cartNo + ' · 출발 ' + teeTime + ' · 전반 ' + front + ' → 후반 ' + back + '</div>' +
+        '<div class="pmeta">함께 도는 조원: ' + four.map(function(p){ return memberName(p.id); }).join(', ') + '</div>' +
+        '<div class="pmeta">내 핸디: ' + handicap + '</div>' +
+        buildHoleTableHtml(front, back, handicap) +
+        '</div>';
+      printSection(html);
+    });
+  }
+
+  var printCartSheetBtnEl = $('printCartSheetBtn');
+  if(printCartSheetBtnEl){
+    printCartSheetBtnEl.addEventListener('click', function(){
+      var cd = state.upcoming.confirmedDraw;
+      if(!cd){ toast('먼저 조편성을 확정하세요'); return; }
+      var pages = cd.foursomes.map(function(four, idx){
+        var cartNo = (cd.cartNos && cd.cartNos[idx]) || (idx+1);
+        var teeTime = (cd.teeTimes && cd.teeTimes[idx]) || state.upcoming.teeTime;
+        var front = cd.courses[idx];
+        var back = (cd.backCourses && cd.backCourses[idx]) || nextCourse(front);
+        var holes = combinedHoles(front, back);
+        var rows = holes.map(function(h){
+          var cells = four.map(function(p){
+            var s = strokesOnHole(handicapOf(p.id), h.si);
+            var cls = s>=2 ? 'strokecell stroke2' : (s>=1 ? 'strokecell stroke1' : 'strokecell');
+            return '<td class="' + cls + '">' + (s>0 ? ('+' + s) : '-') + '</td>';
+          }).join('');
+          return '<tr' + (h.seq===10 ? ' class="nine9"' : '') + '><td class="hn">' + h.seq + '번(' + h.course + ' ' + h.holeNo + '번)</td><td>' + h.par + '</td><td>' + h.si + '</td>' + cells + '</tr>';
+        }).join('');
+        var headerCells = four.map(function(p){ return '<th>' + memberName(p.id) + '<br>핸디' + handicapOf(p.id) + '</th>'; }).join('');
+        return '<div class="printpage"><h2>⛳ ' + state.clubName + ' 제' + state.upcoming.no + '회 · ' + (idx+1) + '조 카트' + cartNo + ' 데이터시트</h2>' +
+          '<div class="pmeta">' + state.upcoming.date + ' · 출발 ' + teeTime + ' · 전반 ' + front + ' → 후반 ' + back + '</div>' +
+          '<table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th>' + headerCells + '</tr></thead><tbody>' + rows + '</tbody></table>' +
+          '<div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div>' +
+          '</div>';
+      });
+      printSection(pages.join(''));
+    });
+  }
+
+  var printAllHandicapBtnEl = $('printAllHandicapBtn');
+  if(printAllHandicapBtnEl){
+    printAllHandicapBtnEl.addEventListener('click', function(){
+      var roster = activeRosterMembers();
+      var rows = roster.map(function(m){
+        var avg = avgScore(m.id);
+        var peo = latestPeorio(m.id);
+        return '<tr><td class="hn">' + m.name + '</td><td>' + (avg!=null ? avg.toFixed(1) : '-') + '</td><td>' + (avg!=null ? handicapOf(m.id) : '-') + '</td><td>' + (peo ? peo.value.toFixed(1) : '-') + '</td></tr>';
+      }).join('');
+      var html = '<div class="printpage"><h2>⛳ ' + state.clubName + ' 전체 핸디표</h2>' +
+        '<div class="pmeta">' + state.upcoming.date + ' · 제' + state.upcoming.no + '회 · 기준파 ' + (state.handicapBasePar||72) + '</div>' +
+        '<table class="holetable"><thead><tr><th>이름</th><th>평균타수</th><th>핸디</th><th>최근 신페리오</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+        '</div>';
+      printSection(html);
+    });
+  }
+
+  // ---------- TAB 3: history ----------
+  function renderAvgBarlist(){
+    var list = state.members.map(function(m){ return { id:m.id, name:m.name, avg:avgScore(m.id) }; })
+      .filter(function(x){ return x.avg!=null; })
+      .sort(function(a,b){ return a.avg-b.avg; });
+    var max = Math.max.apply(null, list.map(function(x){ return x.avg; }));
+    var min = Math.min.apply(null, list.map(function(x){ return x.avg; }));
+    var box = $('avgBarlist');
+    box.innerHTML = '';
+    list.forEach(function(x){
+      var pct = max===min ? 100 : 20 + 80 * (x.avg-min)/(max-min);
+      var row = document.createElement('div');
+      row.className = 'row';
+      row.innerHTML = '<div class="name">' + x.name + '</div><div class="track"><div class="fill" style="width:' + pct.toFixed(0) + '%"></div></div><div class="val">' + x.avg.toFixed(1) + '</div>';
+      box.appendChild(row);
+    });
+  }
+
+  function renderRoundHistory(){
+    var box = $('roundHistory');
+    box.innerHTML = '';
+    state.rounds.slice().reverse().forEach(function(r){
+      var det = document.createElement('details');
+      var scoreCount = r.scores ? Object.keys(r.scores).length : 0;
+      det.innerHTML = '<summary>제' + r.no + '회 · ' + r.date + ' · ' + r.place + (scoreCount? (' · ' + scoreCount + '명 기록') : ' · 스코어 미기록') + '</summary>';
+      var body = document.createElement('div');
+      body.style.marginTop = '8px';
+      var html = renderAwardsHtml(r.awards);
+      if(scoreCount){
+        var ranked = Object.keys(r.scores).map(function(id){ return {id:id, s:r.scores[id]}; }).sort(function(a,b){ return a.s-b.s; });
+        html += '<div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody>';
+        ranked.forEach(function(rr,i){ html += '<tr><td>' + (i+1) + '</td><td>' + memberName(rr.id) + '</td><td class="num">' + rr.s + '</td></tr>'; });
+        html += '</tbody></table></div>';
+      }
+      if(r.entryFee){
+        html += '<div class="note">💰 참가비 1인당 ' + r.entryFee.toLocaleString('ko-KR') + '원 · 상금풀 ' + (r.prizePool||0).toLocaleString('ko-KR') + '원 (' + scoreCount + '명 참여)</div>';
+      }
+      if(r.groups){
+        html += '<h3 style="margin-top:10px;">조편성</h3><div class="grid2">';
+        Object.keys(r.groups).forEach(function(gk){
+          html += '<div class="kv"><div class="k">' + gk + '조</div><div class="v" style="font-size:12.5px; font-weight:600;">' + r.groups[gk].map(memberName).join(', ') + '</div></div>';
+        });
+        html += '</div>';
+      }
+      if(r.notes){ html += '<div class="note">' + r.notes + '</div>'; }
+      if(r.photos && r.photos.length){
+        html += '<div class="thumbs">';
+        r.photos.forEach(function(src){ html += '<img src="' + src + '">'; });
+        html += '</div>';
+      }
+      body.innerHTML = html;
+      det.appendChild(body);
+      box.appendChild(det);
+    });
+    box.querySelectorAll('.thumbs img').forEach(function(img){
+      img.addEventListener('click', function(){
+        $('lightboxImg').src = img.src;
+        $('lightbox').classList.add('show');
+      });
+    });
+  }
+  $('lightbox').addEventListener('click', function(){ this.classList.remove('show'); });
+
+  // ---------- admin: add round ----------
+  function renderScoreInputs(){
+    var box = $('scoreInputs');
+    box.innerHTML = '';
+    state.members.forEach(function(m){
+      var label = document.createElement('div');
+      label.className = 'mn';
+      label.textContent = m.name;
+      var input = document.createElement('input');
+      input.type = 'number';
+      input.dataset.mid = m.id;
+      input.placeholder = '타수';
+      box.appendChild(label);
+      box.appendChild(input);
+    });
+    var pbox = $('peorioInputs');
+    pbox.innerHTML = '';
+    state.members.forEach(function(m){
+      var label = document.createElement('div');
+      label.className = 'mn';
+      label.textContent = m.name;
+      var input = document.createElement('input');
+      input.type = 'number';
+      input.step = '0.1';
+      input.dataset.mid = m.id;
+      input.placeholder = '신페리오';
+      pbox.appendChild(label);
+      pbox.appendChild(input);
+    });
+    var bbox = $('birdieInputs');
+    bbox.innerHTML = '';
+    state.members.forEach(function(m){
+      var label = document.createElement('div');
+      label.className = 'mn';
+      label.textContent = m.name;
+      var input = document.createElement('input');
+      input.type = 'number';
+      input.min = '0';
+      input.dataset.mid = m.id;
+      input.placeholder = '버디수';
+      bbox.appendChild(label);
+      bbox.appendChild(input);
+    });
+    renderAwardConfig();
+    $('newRoundNo').value = state.rounds.length + 1;
+    $('newRoundDate').value = state.upcoming.date;
+    $('newRoundPlace').value = state.upcoming.place;
+    updatePrizePoolPreview();
+  }
+
+  function updatePrizePoolPreview(){
+    var feeEl = $('newRoundEntryFee');
+    var out = $('prizePoolPreview');
+    if(!feeEl || !out) return;
+    var fee = parseInt(feeEl.value, 10);
+    var count = Array.from(document.querySelectorAll('#scoreInputs input[type=number]')).filter(function(inp){ return inp.value !== ''; }).length;
+    if(!fee || !count){ out.textContent = '-'; return; }
+    out.textContent = (fee*count).toLocaleString('ko-KR') + '원 (' + count + '명 × ' + fee.toLocaleString('ko-KR') + '원)';
+  }
+  $('newRoundEntryFee').addEventListener('input', updatePrizePoolPreview);
+  $('scoreInputs').addEventListener('input', updatePrizePoolPreview);
+
+  var pendingPhotos = [];
+  function resizeImage(file, cb){
+    var reader = new FileReader();
+    reader.onload = function(e){
+      var img = new Image();
+      img.onload = function(){
+        var maxW = 1000;
+        var scale = Math.min(1, maxW / img.width);
+        var canvas = document.createElement('canvas');
+        canvas.width = img.width * scale;
+        canvas.height = img.height * scale;
+        var ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        cb(canvas.toDataURL('image/jpeg', 0.72));
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+  $('newRoundPhotos').addEventListener('change', function(e){
+    var files = Array.from(e.target.files || []);
+    files.forEach(function(f){
+      resizeImage(f, function(dataUrl){
+        pendingPhotos.push(dataUrl);
+        var img = document.createElement('img');
+        img.src = dataUrl;
+        $('newRoundThumbs').appendChild(img);
+      });
+    });
+  });
+
+  $('saveRoundBtn').addEventListener('click', function(){
+    var no = parseInt($('newRoundNo').value, 10);
+    var date = $('newRoundDate').value;
+    var place = $('newRoundPlace').value.trim();
+    if(!no || !date || !place){ toast('회차/날짜/장소를 입력하세요'); return; }
+    var scores = {};
+    document.querySelectorAll('#scoreInputs input[type=number]').forEach(function(inp){
+      if(inp.value !== ''){ scores[inp.dataset.mid] = parseInt(inp.value, 10); }
+    });
+    var peorio = {};
+    document.querySelectorAll('#peorioInputs input[type=number]').forEach(function(inp){
+      if(inp.value !== ''){ peorio[inp.dataset.mid] = parseFloat(inp.value); }
+    });
+    var birdies = {};
+    document.querySelectorAll('#birdieInputs input[type=number]').forEach(function(inp){
+      if(inp.value !== ''){ birdies[inp.dataset.mid] = parseInt(inp.value, 10); }
+    });
+    var groups = null;
+    if(state.upcoming.confirmedDraw && state.upcoming.no === no){
+      var cd = state.upcoming.confirmedDraw;
+      groups = {};
+      cd.foursomes.forEach(function(four, idx){
+        groups['조' + (idx+1)] = four.map(function(p){ return p.id; });
+      });
+    }
+    var awards = computeAwards(scores, peorio, birdies);
+    var entryFeeVal = parseInt($('newRoundEntryFee').value, 10);
+    var entryFee = entryFeeVal || null;
+    var scoreCount = Object.keys(scores).length;
+    var prizePool = (entryFee && scoreCount) ? entryFee*scoreCount : null;
+    var existingIdx = state.rounds.findIndex(function(r){ return r.no === no; });
+    var newRound = { no:no, date:date, place:place, scores:scores, groups:groups, peorio:peorio, birdies:birdies, awards:awards, entryFee:entryFee, prizePool:prizePool, notes:$('newRoundNotes').value.trim(), photos: pendingPhotos.slice() };
+    if(existingIdx >= 0){ state.rounds[existingIdx] = newRound; } else { state.rounds.push(newRound); state.rounds.sort(function(a,b){ return a.no-b.no; }); }
+    pendingPhotos = [];
+    $('newRoundThumbs').innerHTML = '';
+    $('newRoundNotes').value = '';
+    $('newRoundEntryFee').value = '';
+    renderAll();
+    toast('라운드가 저장되었습니다. 아래 버튼으로 새 파일을 받아 업로드하세요.');
+  });
+
+  $('editUpcomingBtn').addEventListener('click', function(){
+    var u = state.upcoming;
+    var no = prompt('다음 회차 번호', u.no); if(no===null) return;
+    var date = prompt('날짜 (YYYY-MM-DD)', u.date); if(date===null) return;
+    var tee = prompt('티업시간', u.teeTime); if(tee===null) return;
+    var place = prompt('장소', u.place); if(place===null) return;
+    var courses = prompt('코스 (쉼표로 구분)', u.courses.join(',')); if(courses===null) return;
+    var bookers = prompt('예약자 (쉼표로 구분)', u.bookers.join(',')); if(bookers===null) return;
+    var fee = prompt('그린피', u.greenFee); if(fee===null) return;
+    var deadline = prompt('취소기한', u.cancelDeadline); if(deadline===null) return;
+    state.upcoming = {
+      no: parseInt(no,10) || u.no, date:date, teeTime:tee, place:place,
+      courses: courses.split(',').map(function(s){ return s.trim(); }).filter(Boolean),
+      bookers: bookers.split(',').map(function(s){ return s.trim(); }).filter(Boolean),
+      greenFee: fee, cancelDeadline: deadline, confirmedDraw: null
+    };
+    renderAll();
+    toast('라운드 정보가 수정되었습니다');
+  });
+
+  // ---------- export new html ----------
+  $('downloadHtmlBtn').addEventListener('click', function(){
+    document.getElementById('round-data').textContent = JSON.stringify(state, null, 2);
+
+    // outerHTML은 "지금 화면에 보이는 상태" 그대로를 캡처합니다.
+    // 총무 모드 on/off, 열려있는 탭은 데이터가 아니라 화면 상태일 뿐이라, 캡처 직전에 항상
+    // "회원 기본 화면"(총무모드 꺼짐 · 대회안내 탭)으로 잠깐 되돌려서 캡처한 뒤, 원래 화면으로 복원합니다.
+    // 이렇게 하지 않으면 총무 모드를 켠 채로 다운로드했을 때 그 상태가 파일에 그대로 저장되어,
+    // 이후 이 파일을 여는 모든 회원이 처음부터 총무 모드로 보게 되는 문제가 있었습니다.
+    var wasAdmin = document.body.classList.contains('admin');
+    var prevAdminLoginDisplay = $('adminLoginCard').style.display;
+    var activeTabBtn = document.querySelector('nav.tabs button.active');
+    var activeTabId = activeTabBtn ? activeTabBtn.dataset.tab : 'tab-info';
+
+    document.body.classList.remove('admin');
+    $('adminLoginCard').style.display = '';
+    document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === 'tab-info'); });
+    document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.toggle('active', p.id === 'tab-info'); });
+
+    var html = '<!DOCTYPE html>\n' + document.documentElement.outerHTML;
+
+    // 캡처 완료 — 지금 총무님이 보고 계신 화면은 원래 상태로 복원합니다.
+    if(wasAdmin){ document.body.classList.add('admin'); }
+    $('adminLoginCard').style.display = prevAdminLoginDisplay;
+    document.querySelectorAll('nav.tabs button').forEach(function(b){ b.classList.toggle('active', b.dataset.tab === activeTabId); });
+    document.querySelectorAll('.tabpanel').forEach(function(p){ p.classList.toggle('active', p.id === activeTabId); });
+
+    var blob = new Blob([html], {type:'text/html'});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'index.html';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+    toast('index.html 파일이 다운로드되었습니다 (총무 모드는 꺼진 기본 화면으로 저장됩니다)');
+  });
+
+  // ---------- init ----------
+  function renderAll(){
+    renderDday();
+    renderInfo();
+    renderAwardPlanDisplay();
+    renderAwardPlanConfig();
+    renderSnackDisplay();
+    renderSnackAdmin();
+    renderRestaurantDisplay();
+    renderRosterManage();
+    renderModeSelect();
+    renderMetricToggle();
+    renderAttendeeToggle();
+    renderConfirmed();
+    renderAvgBarlist();
+    renderRoundHistory();
+    renderScoreInputs();
+    $('drawResult').innerHTML = '';
+    $('confirmDrawBtn').disabled = true;
+    $('copyDrawBtn').disabled = true;
+  }
+  renderAll();
+})();
+</script>
+
+
+</body></html>
