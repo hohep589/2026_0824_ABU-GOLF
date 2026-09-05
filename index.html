@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>아부회 골프 조편성 &amp; 기록</title>
+<title id="pageTitle">🏆 아부회 제9회 대회결과 · 임병국 82타로 최저타 등극!</title>
+<meta property="og:type" content="website">
+<meta property="og:title" id="ogTitle" content="🏆 아부회 제9회 대회결과 · 임병국 82타로 최저타 등극!">
+<meta property="og:description" id="ogDescription" content="09/05(토) 무등산CC · 넷 순위변화 · 스포트라이트 시상까지 한눈에!">
+<meta name="twitter:card" content="summary">
+<meta name="description" id="metaDescription" content="09/05(토) 무등산CC · 넷 순위변화 · 스포트라이트 시상까지 한눈에!">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E⛳%3C/text%3E%3C/svg%3E">
 <style>
   :root{
@@ -328,8 +333,8 @@
   <div class="brand">
     <div class="logo">⛳</div>
     <div>
-      <h1 id="clubTitle">아부회 골프 조편성 &amp; 기록</h1>
-      <div class="sub" id="clubSub">회원 정기 라운드 조편성 · 팀 대항전 · 기록 아카이브</div>
+      <h1 id="clubTitle">🏆 아부회 제9회 대회결과 · 임병국 82타로 최저타 등극!</h1>
+      <div class="sub" id="clubSub">09/05(토) 무등산CC · 넷 순위변화 · 스포트라이트 시상까지 한눈에!</div>
     </div>
   </div>
   <div class="dday" id="ddayBadge">D-day 계산 중…</div>
@@ -2289,6 +2294,7 @@
   // ---------- export new html ----------
   $('downloadHtmlBtn').addEventListener('click', function(){
     document.getElementById('round-data').textContent = JSON.stringify(state, null, 2);
+    updateShareMeta(); // 공유 미리보기용 <title>/OG 태그를 다운로드 시점 최신 데이터로 갱신
 
     // outerHTML은 "지금 화면에 보이는 상태" 그대로를 캡처합니다.
     // 총무 모드 on/off, 열려있는 탭은 데이터가 아니라 화면 상태일 뿐이라, 캡처 직전에 항상
@@ -2325,10 +2331,55 @@
     toast('index.html 파일이 다운로드되었습니다 (총무 모드는 꺼진 기본 화면으로 저장됩니다)');
   });
 
+  // ---------- 공유 링크 미리보기 제목/설명 (카카오톡 등 링크 공유 시 노출되는 <title>/OG 태그) ----------
+  // 카카오톡 등 메신저는 페이지의 자바스크립트를 실행하지 않고 HTML 원본만 읽어 미리보기를 만들기 때문에,
+  // 총무가 index.html을 새로 저장(다운로드)하는 시점에 이 태그들이 그 시점 기준 최신 내용으로 박혀 있어야
+  // 공유 미리보기에도 반영됩니다. updateShareMeta()는 화면(브라우저 탭 제목)에도 바로 반영하고,
+  // downloadHtmlBtn에서 다운로드 직전 한 번 더 호출해 최신 상태를 보장합니다.
+  function computeShareMeta(){
+    var u = state.upcoming;
+    var lastRound = state.rounds[state.rounds.length-1];
+    var roundDone = state.rounds.some(function(r){ return r.no === u.no && r.scores && Object.keys(r.scores).length; });
+    if(!roundDone){
+      var wk = ['일','월','화','수','목','금','토'][new Date(u.date+'T00:00:00').getDay()];
+      var md = u.date.slice(5).replace('-', '/');
+      return {
+        title: '⛳ 아부회 제' + u.no + '회 라운드 안내 · ' + md + '(' + wk + ') ' + u.teeTime + ' ' + u.place,
+        desc: '다음 아부회 라운드 조편성 · 참가 안내를 확인해보세요.'
+      };
+    }
+    if(!lastRound.scores || !Object.keys(lastRound.scores).length){
+      return {
+        title: '⛳ 아부회 골프 조편성 & 기록',
+        desc: '아부회 골프 모임 라운드 조편성 · 기록 · 대회결과 안내'
+      };
+    }
+    var wk2 = ['일','월','화','수','목','금','토'][new Date(lastRound.date+'T00:00:00').getDay()];
+    var md2 = lastRound.date.slice(5).replace('-', '/');
+    var ranked = rankedByScore(lastRound.scores);
+    var winnerLabel = ranked.filter(function(r){ return r.rank === 1; }).map(function(r){ return memberName(r.id); }).join('·');
+    return {
+      title: '🏆 아부회 제' + lastRound.no + '회 대회결과 · ' + winnerLabel + ' ' + ranked[0].score + '타로 최저타 등극!',
+      desc: md2 + '(' + wk2 + ') ' + lastRound.place + ' · 넷 순위변화 · 스포트라이트 시상까지 한눈에!'
+    };
+  }
+  function updateShareMeta(){
+    var meta = computeShareMeta();
+    document.title = meta.title;
+    var og = $('ogTitle'); if(og){ og.setAttribute('content', meta.title); }
+    var ogd = $('ogDescription'); if(ogd){ ogd.setAttribute('content', meta.desc); }
+    var md = $('metaDescription'); if(md){ md.setAttribute('content', meta.desc); }
+    // 페이지 최상단 헤더(H1/부제)도 같은 문구로 — 휴대폰으로 링크를 직접 열었을 때 처음 보이는
+    // 화면도 카톡 미리보기·브라우저 탭과 동일하게 "그날그날 새로운" 정보 제목으로 보이도록 합니다.
+    var ct = $('clubTitle'); if(ct){ ct.textContent = meta.title; }
+    var cs = $('clubSub'); if(cs){ cs.textContent = meta.desc; }
+  }
+
   // ---------- init ----------
   function renderAll(){
     renderDday();
     renderInfo();
+    updateShareMeta();
     renderAwardPlanDisplay();
     renderAwardPlanConfig();
     renderSnackDisplay();
