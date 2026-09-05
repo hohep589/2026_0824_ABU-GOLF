@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="ko"><head>
+<html lang="ko">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>아부회 골프 조편성 &amp; 기록</title>
@@ -240,9 +241,88 @@
     #printArea .printpage:last-child{ page-break-after:auto; }
     body.printing{ background:#fff; }
   }
+
+  /* ---------- v8: 가독성 강화 + 캐릭터 + 결과카드 + 카트대결 시각화 ---------- */
+  table{ font-size:14.5px; }
+  th{ font-size:12px; }
+  .note{ font-size:13.5px; }
+  .kv .v{ font-size:15.5px; }
+  .charavatar{ font-size:22px; line-height:1; margin-right:4px; vertical-align:middle; }
+  .resultcard{
+    border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:10px;
+    background:var(--surface); display:flex; align-items:flex-start; gap:10px;
+  }
+  .resultcard.rank1{ background:linear-gradient(135deg, rgba(237,161,0,.16), var(--surface) 65%); border-color:var(--yellow); }
+  .resultcard.rank1 .rankbadge{ color:var(--yellow); }
+  .resultcard.rank2 .rankbadge{ color:var(--ink2); }
+  .resultcard.rank3 .rankbadge{ color:#a1662f; }
+  .resultcard .rankbadge{ font-size:20px; font-weight:900; width:30px; flex:0 0 auto; text-align:center; padding-top:2px; }
+  .resultcard .rc-main{ flex:1; min-width:0; }
+  .resultcard .rc-top{ display:flex; align-items:center; justify-content:space-between; gap:8px; flex-wrap:wrap; }
+  .resultcard .rc-name{ font-size:16px; font-weight:800; display:flex; align-items:center; }
+  .resultcard .rc-score{ font-size:24px; font-weight:900; letter-spacing:-.5px; font-variant-numeric:tabular-nums; }
+  .resultcard .rc-stats{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .statchip{
+    display:inline-flex; align-items:center; gap:3px; font-size:12px; font-weight:700;
+    padding:4px 9px; border-radius:999px; background:var(--card); border:1px solid var(--border); color:var(--ink2);
+  }
+  .statchip.good{ background:var(--good-soft); color:var(--good); border-color:transparent; }
+  .statchip.bad{ background:var(--red-soft); color:var(--red); border-color:transparent; }
+  .statchip.neutral{ background:var(--blue-soft); color:var(--blue); border-color:transparent; }
+  .cartsummary{
+    display:flex; align-items:center; justify-content:center; gap:12px; margin:4px 0 12px;
+    font-size:15px; font-weight:800; flex-wrap:wrap;
+  }
+  .cartbattle{ border:1px solid var(--border); border-radius:12px; padding:12px 14px; margin-bottom:10px; background:var(--surface); }
+  .cartbattle .cb-head{ display:flex; justify-content:space-between; align-items:center; font-size:12.5px; font-weight:700; margin-bottom:8px; color:var(--muted); gap:8px; }
+  .cartbattle .cb-head .cb-winner{ font-weight:900; color:var(--ink); }
+  .cartbattle .cb-teams{ display:flex; align-items:stretch; gap:8px; }
+  .cartbattle .cb-team{ flex:1; text-align:center; padding:8px 6px; border-radius:10px; font-size:13px; font-weight:700; }
+  .cartbattle .cb-team .cb-members{ font-weight:600; font-size:12px; margin-top:2px; }
+  .cartbattle .cb-team.win{ box-shadow:inset 0 0 0 2px currentColor; }
+  .cartbattle .cb-team.A{ background:var(--red-soft); color:var(--red); }
+  .cartbattle .cb-team.B{ background:var(--blue-soft); color:var(--blue); }
+  .cartbattle .cb-vs{ font-size:11px; color:var(--muted); font-weight:700; flex:0 0 auto; align-self:center; }
+  .cartbattle .cb-up{ text-align:center; font-size:19px; font-weight:900; margin-top:8px; }
+  .cartbattle .cb-bar{ display:flex; height:12px; border-radius:6px; overflow:hidden; margin-top:8px; border:1px solid var(--border); background:var(--card); }
+  .cartbattle .cb-bar span{ height:100%; }
+  .cartbattle .cb-bar span.A{ background:var(--red); }
+  .cartbattle .cb-bar span.B{ background:var(--blue); }
+  .cartbattle .cb-bar span.h{ background:var(--muted); }
+  .cartbattle .cb-legend{ display:flex; justify-content:space-between; font-size:11px; color:var(--muted); margin-top:4px; }
+  #bgmBar{
+    display:flex; align-items:center; gap:8px; margin-top:12px; padding:8px 10px;
+    background:var(--surface); border:1px solid var(--border); border-radius:999px; font-size:12.5px;
+  }
+  #bgmBar select{ width:auto; flex:1; min-width:0; font-size:12.5px; padding:6px 8px; }
+  #bgmBar .btn{ flex:0 0 auto; }
+
+  /* ---------- v9: 순위변화 · 스포트라이트 · 탭 이동 ---------- */
+  .resultcard[data-mid]{ cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; }
+  .resultcard[data-mid]:hover{ box-shadow:0 2px 10px rgba(0,0,0,.08); transform:translateY(-1px); }
+  .resultcard[data-mid]::after{ content:'›'; align-self:center; font-size:20px; color:var(--muted); font-weight:900; padding-left:2px; }
+  .netrank-row{ display:flex; align-items:center; gap:8px; padding:7px 4px; border-bottom:1px solid var(--border); font-size:13.5px; }
+  .netrank-row:last-child{ border-bottom:none; }
+  .netrank-row .nr-rank{ flex:0 0 30px; font-weight:900; text-align:center; }
+  .netrank-row .nr-name{ flex:1; min-width:0; display:flex; align-items:center; font-weight:700; }
+  .netrank-row .nr-net{ flex:0 0 auto; font-variant-numeric:tabular-nums; font-weight:700; color:var(--muted); }
+  .netrank-row .nr-delta{ flex:0 0 44px; text-align:right; font-weight:900; }
+  .spotlightgrid{ display:flex; flex-direction:column; gap:10px; }
+  .spotblock .spot-title{ font-size:13px; font-weight:800; margin-bottom:6px; color:var(--ink2); }
+  .spotcard{
+    border:1px solid var(--border); border-radius:12px; padding:10px 12px; margin-bottom:6px;
+    background:linear-gradient(135deg, var(--good-soft) 0%, var(--surface) 60%);
+  }
+  .spotcard .spot-name{ font-size:15px; font-weight:800; display:flex; align-items:center; }
+  .spotcard .spot-stat{ font-size:13px; font-weight:700; color:var(--good); margin-top:2px; }
+  .spotcard .spot-basic{ font-size:12px; color:var(--muted); margin-top:4px; }
+  .spotcard .spot-comment{ font-size:12.5px; margin-top:6px; padding-top:6px; border-top:1px dashed var(--border); }
+  tr[data-roundno]{ cursor:pointer; }
+  tr[data-roundno]:hover{ background:var(--surface); }
+  tr[data-roundno] td:first-child::after{ content:' ›'; color:var(--muted); }
 </style>
 </head>
-<body class="">
+<body>
 
 <header class="top">
   <div class="brand">
@@ -252,12 +332,21 @@
       <div class="sub" id="clubSub">회원 정기 라운드 조편성 · 팀 대항전 · 기록 아카이브</div>
     </div>
   </div>
-  <div class="dday" id="ddayBadge">제9회 라운드까지 D-12</div>
+  <div class="dday" id="ddayBadge">D-day 계산 중…</div>
   <nav class="tabs">
     <button data-tab="tab-info" class="active">📋 대회안내</button>
-    <button data-tab="tab-draw" class="">🎲 조편성</button>
-    <button data-tab="tab-history" class="">📊 역대기록</button>
+    <button data-tab="tab-draw" class="admin-only">🎲 조편성</button>
+    <button data-tab="tab-mydata">📇 내 데이터</button>
+    <button data-tab="tab-history">📊 역대기록</button>
   </nav>
+  <div id="bgmBar">
+    <button type="button" class="btn small ghost" id="bgmToggleBtn">▶️ 노래 듣기</button>
+    <select id="bgmTrackSelect">
+      <option value="아부회_주제가.mp3">🎵 아부회 주제가</option>
+      <option value="아부회.mp3">🎵 아부회</option>
+    </select>
+    <audio id="bgmAudio" preload="none"></audio>
+  </div>
 </header>
 
 <main>
@@ -265,16 +354,20 @@
   <!-- ================= TAB 1: 대회안내 ================= -->
   <section id="tab-info" class="tabpanel active">
 
+    <div id="highlightHome"></div>
+
+    <div id="preEventCards">
+
     <div class="card">
       <h2>🗓️ 다음 라운드 안내</h2>
       <div class="grid2">
-        <div class="kv"><div class="k">일시</div><div class="v" id="infoDate">2026-09-05 (토)</div></div>
-        <div class="kv"><div class="k">티업시간</div><div class="v" id="infoTee">07:26</div></div>
-        <div class="kv"><div class="k">장소</div><div class="v" id="infoPlace">무등산CC</div></div>
-        <div class="kv"><div class="k">코스</div><div class="v" id="infoCourses">천왕봉 / 지왕봉 / 인왕봉</div></div>
-        <div class="kv"><div class="k">예약자</div><div class="v" id="infoBookers">김태엽, 손기영</div></div>
-        <div class="kv"><div class="k">그린피</div><div class="v" id="infoFee">카별 15만원</div></div>
-        <div class="kv" style="grid-column:1/-1;"><div class="k">취소기한</div><div class="v" id="infoDeadline">2026-08-29</div></div>
+        <div class="kv"><div class="k">일시</div><div class="v" id="infoDate">-</div></div>
+        <div class="kv"><div class="k">티업시간</div><div class="v" id="infoTee">-</div></div>
+        <div class="kv"><div class="k">장소</div><div class="v" id="infoPlace">-</div></div>
+        <div class="kv"><div class="k">코스</div><div class="v" id="infoCourses">-</div></div>
+        <div class="kv"><div class="k">예약자</div><div class="v" id="infoBookers">-</div></div>
+        <div class="kv"><div class="k">그린피</div><div class="v" id="infoFee">-</div></div>
+        <div class="kv" style="grid-column:1/-1;"><div class="k">취소기한</div><div class="v" id="infoDeadline">-</div></div>
       </div>
       <div class="note">⛳ 이번 라운드는 <b>신(더블)페리오 방식</b>으로 순위를 산정합니다. 조편성 단계에서는 <b>조편성</b> 탭에서 평균타수 · 최근 신페리오 중 원하는 실력 기준을 골라 사용할 수 있습니다.</div>
       <div class="btnrow admin-only">
@@ -284,10 +377,10 @@
 
     <div class="card">
       <h2>🏆 이번 대회 시상 안내</h2>
-      <div id="awardPlanDisplay"><div class="awardlist"><div class="awardrow"><span>🏆 팀 대결 승리팀</span><span class="note" style="margin:0;">🎁 우승팀 1인당 특별 시상품</span></div></div></div>
+      <div id="awardPlanDisplay"></div>
       <div class="admin-only" id="awardPlanEdit">
         <div class="divider"></div>
-        <div id="awardPlanConfig"><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="medalist"> 🥇 메달리스트 (최저타)</label><input type="text" class="planPrize" data-key="medalist" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="netscore"> 🎯 넷스코어 우승 (핸디 반영)</label><input type="text" class="planPrize" data-key="netscore" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="peorio"> ⛳ 신페리오 우승</label><input type="text" class="planPrize" data-key="peorio" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="birdie"> 🐦 버디상</label><input type="text" class="planPrize" data-key="birdie" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="teamWin"> 🏆 팀 대결 승리팀</label><input type="text" class="planPrize" data-key="teamWin" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="planEnable" data-key="lucky"> 🍀 행운상</label><input type="text" class="planPrize" data-key="lucky" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div></div>
+        <div id="awardPlanConfig"></div>
         <div class="btnrow">
           <button class="btn primary small" id="saveAwardPlanBtn">💾 시상 안내 저장</button>
         </div>
@@ -296,10 +389,10 @@
 
     <div class="card">
       <h2>🥤 카트별 간식 안내</h2>
-      <div id="snackDisplay"><div class="grid2"><div class="kv"><div class="k">1인당 커피1, 포카리1</div><div class="v" style="font-size:13.5px;">카트별 맛동산1, 새우깡1</div></div></div></div>
+      <div id="snackDisplay"></div>
       <div class="admin-only" id="snackEdit">
         <div class="divider"></div>
-        <div id="snackList"><div class="rosterrow"><span class="rname">1인당 커피1, 포카리1 — 카트별 맛동산1, 새우깡1</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost snackDelete" data-idx="0">🗑️ 삭제</button></span></div></div>
+        <div id="snackList"></div>
         <label class="field">간식 항목 추가</label>
         <div class="grid2">
           <input type="text" id="newSnackCart" placeholder="카트/조 (예: 1카트)">
@@ -313,30 +406,17 @@
 
     <div class="card">
       <h2>🍽️ 식당 안내</h2>
-      <div id="restaurantDisplay"><div class="note" style="margin:0;">아직 등록된 식당 안내가 없습니다.</div></div>
+      <div id="restaurantDisplay"></div>
       <div class="btnrow admin-only">
         <button class="btn small ghost" id="editRestaurantBtn">✏️ 식당 안내 수정</button>
       </div>
     </div>
 
-    <div class="card">
-      <h2>👥 참가 회원 (<span id="memberCount">12</span>명)</h2>
-      <div class="scrollx">
-        <table>
-          <thead><tr><th>이름</th><th class="num">평균타수</th><th class="num">핸디</th><th class="num">최근 신페리오</th></tr></thead>
-          <tbody id="memberTable"><tr><td>정찬진</td><td class="num">81.0</td><td class="num">9</td><td class="num">75.2</td></tr><tr><td>김후순</td><td class="num">83.6</td><td class="num">12</td><td class="num">76.6</td></tr><tr><td>고병호</td><td class="num">86.6</td><td class="num">15</td><td class="num">75.0</td></tr><tr><td>양동욱</td><td class="num">86.4</td><td class="num">14</td><td class="num">76.4</td></tr><tr><td>김양석</td><td class="num">87.6</td><td class="num">16</td><td class="num">78.6</td></tr><tr><td>차만복</td><td class="num">92.6</td><td class="num">21</td><td class="num">75.2</td></tr><tr><td>임병국</td><td class="num">87.2</td><td class="num">15</td><td class="num">75.2</td></tr><tr><td>손기영</td><td class="num">85.4</td><td class="num">13</td><td class="num">72.6</td></tr><tr><td>서민규</td><td class="num">85.0</td><td class="num">13</td><td class="num">74.2</td></tr><tr><td>김태엽</td><td class="num">96.0</td><td class="num">24</td><td class="num">75.6</td></tr><tr><td>김계현</td><td class="num">96.0</td><td class="num">24</td><td class="num">75.6</td></tr><tr><td>김복수</td><td class="num">97.0</td><td class="num">25</td><td class="num">77.8</td></tr></tbody>
-        </table>
-      </div>
-      <div class="note" id="handicapNote">평균타수는 스코어가 기록된 라운드만으로 자동 계산됩니다. 핸디는 평균타수 - 기준파(현재 파72)를 반올림한 자체 핸디이며, "평균타수 기준" 조편성은 이 차이를 그대로 반영해 균형을 맞춥니다. 신페리오 값은 기록이 있는 가장 최근 라운드 결과입니다.</div>
-      <div class="btnrow admin-only">
-        <button class="btn small ghost" id="editHandicapBtn">⚙️ 핸디 기준(파) 수정</button>
-        <button class="btn small ghost" id="printAllHandicapBtn">🖨️ 전체 핸디표 인쇄(PDF저장)</button>
-      </div>
-    </div>
+    </div><!-- /preEventCards -->
 
     <div class="card admin-only">
       <h2>🛠️ 회원 명단 관리</h2>
-      <div id="rosterList"><div class="rosterrow"><span class="rname">정찬진</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="jcj">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김후순</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="khs">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">고병호</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="gbh">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">양동욱</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="ydu">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김양석</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kys">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">차만복</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="cmb">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">임병국</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="ibg">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">손기영</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="sgy">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">서민규</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="smg">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김태엽</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kty">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김계현</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kgh">🚫 비활성화</button></span></div><div class="rosterrow"><span class="rname">김복수</span><span class="btnrow" style="margin:0;"><button type="button" class="btn small ghost rosterToggle" data-id="kbs">🚫 비활성화</button></span></div></div>
+      <div id="rosterList"></div>
       <div class="divider"></div>
       <label class="field">회원 추가 (신규 · 임시/게스트)</label>
       <div class="grid2">
@@ -347,11 +427,20 @@
         <button class="btn primary small" id="addMemberBtn">➕ 회원 추가</button>
       </div>
       <div class="note">비활성화된 회원은 이번 조편성/참가 명단에서 빠지지만 과거 기록은 그대로 남습니다. 기록이 없는 회원(임시 회원 등)만 완전 삭제할 수 있습니다.</div>
+      <div class="divider"></div>
+      <div class="btnrow">
+        <button class="btn small ghost" id="editHandicapBtn">⚙️ 핸디 기준(파) 수정</button>
+        <button class="btn small ghost" id="printAllHandicapBtn">🖨️ 전체 핸디표 인쇄(PDF저장)</button>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>🏆 지난 대회 (제<span id="lastRoundNo">8</span>회) 하이라이트</h2>
-      <div id="lastRoundHighlight"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>서민규</td><td class="num">85</td></tr><tr><td>2</td><td>김후순</td><td class="num">85</td></tr><tr><td>3</td><td>양동욱</td><td class="num">86</td></tr><tr><td>4</td><td>정찬진</td><td class="num">86</td></tr><tr><td>5</td><td>임병국</td><td class="num">86</td></tr><tr><td>6</td><td>김양석</td><td class="num">87</td></tr><tr><td>7</td><td>고병호</td><td class="num">87</td></tr><tr><td>8</td><td>손기영</td><td class="num">87</td></tr><tr><td>9</td><td>김태엽</td><td class="num">96</td></tr><tr><td>10</td><td>김계현</td><td class="num">96</td></tr><tr><td>11</td><td>김복수</td><td class="num">97</td></tr><tr><td>12</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><div class="note">제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회</div></div>
+    <div class="card" id="highlightCard">
+      <h2>🏆 제<span id="lastRoundNo"></span>회 대회결과</h2>
+      <div class="note" id="lastRoundMeta" style="margin:-6px 0 12px;"></div>
+      <div id="lastRoundHighlight"></div>
+      <div class="btnrow">
+        <button class="btn small ghost" id="gotoMyDataBtn">📇 내 골프 데이터에서 자세히 보기</button>
+      </div>
     </div>
 
   </section>
@@ -359,7 +448,7 @@
   <!-- ================= TAB 2: 조편성 ================= -->
   <section id="tab-draw" class="tabpanel">
 
-    <div class="card member-only" id="memberWaitCard" style="display: none;">
+    <div class="card member-only" id="memberWaitCard">
       <h2>⏳ 조편성 준비 중</h2>
       <div class="note" style="margin:0;">총무가 조편성을 확정하면 이곳에 결과가 표시됩니다. 잠시만 기다려 주세요!</div>
     </div>
@@ -367,21 +456,21 @@
     <div class="card admin-only">
       <h2>🎯 조편성 방식 선택</h2>
       <div class="note" style="margin-top:0;">라운드마다 원하는 방식을 골라 조를 구성할 수 있습니다. 버튼을 누를 때마다 조합은 랜덤으로 바뀌고, 과거에 같은 조였던 조합은 최대한 피하도록 자동으로 계산합니다.</div>
-      <div class="modegrid" id="modeSelect"><button type="button" class="modebtn active"><div class="mtitle">🏆 라이더컵 팀대항전</div></button><button type="button" class="modebtn"><div class="mtitle">⚖️ 실력균형 조편성</div></button><button type="button" class="modebtn"><div class="mtitle">🎟️ 블라인드 제비뽑기</div></button><button type="button" class="modebtn"><div class="mtitle">🆕 새로운 조합 우선</div></button></div>
-      <div class="note" id="modeDesc" style="margin-top:10px;">실력이 균형 잡히도록 두 팀(6:6)으로 나눈 뒤, 각 팀에서 2명씩 뽑아 4인 1조(2:2)를 구성합니다. 조 안에서 매치플레이를 즐기고, 전체는 팀 합계 성적으로 대항전 승부를 가립니다.</div>
+      <div class="modegrid" id="modeSelect"></div>
+      <div class="note" id="modeDesc" style="margin-top:10px;"></div>
       <label class="field">실력 기준</label>
-      <div id="skillMetricRow"><div class="metricToggle"><button type="button" data-metric="avg" class="active">📊 평균타수 기준</button><button type="button" data-metric="peorio" class="">⛳ 최근 신페리오 기준</button></div></div>
+      <div id="skillMetricRow"></div>
     </div>
 
     <div class="card admin-only">
       <h2>✅ 참석자 선택</h2>
-      <div class="chip-toggle" id="attendeeToggle"><label><input type="checkbox" value="jcj" checked=""> 정찬진</label><label><input type="checkbox" value="khs" checked=""> 김후순</label><label><input type="checkbox" value="gbh" checked=""> 고병호</label><label><input type="checkbox" value="ydu" checked=""> 양동욱</label><label><input type="checkbox" value="kys" checked=""> 김양석</label><label><input type="checkbox" value="cmb" checked=""> 차만복</label><label><input type="checkbox" value="ibg" checked=""> 임병국</label><label><input type="checkbox" value="sgy" checked=""> 손기영</label><label><input type="checkbox" value="smg" checked=""> 서민규</label><label><input type="checkbox" value="kty" checked=""> 김태엽</label><label><input type="checkbox" value="kgh" checked=""> 김계현</label><label><input type="checkbox" value="kbs" checked=""> 김복수</label></div>
-      <div class="note" id="attendeeWarn">참석 12명 · 6명씩 두 팀, 3개 조로 편성됩니다.</div>
+      <div class="chip-toggle" id="attendeeToggle"></div>
+      <div class="note" id="attendeeWarn"></div>
     </div>
 
     <div class="card admin-only">
       <h2>🎲 랜덤 조편성</h2>
-      <div id="teamNameRow" style="display: block;">
+      <div id="teamNameRow">
         <label class="field">팀 이름</label>
         <div class="grid2">
           <input type="text" id="teamAName" value="레드팀">
@@ -390,16 +479,16 @@
       </div>
       <div class="btnrow">
         <button class="btn accent" id="shuffleBtn">🔀 조편성 하기 / 다시 섞기</button>
-        <button class="btn primary" id="confirmDrawBtn">📌 이 조합으로 확정</button>
-        <button class="btn ghost" id="copyDrawBtn">📋 결과 텍스트 복사</button>
+        <button class="btn primary" id="confirmDrawBtn" disabled>📌 이 조합으로 확정</button>
+        <button class="btn ghost" id="copyDrawBtn" disabled>📋 결과 텍스트 복사</button>
       </div>
       <div class="note">조편성 섞기 · 확정은 총무 모드에서만 가능합니다. 일반 회원에게는 확정된 결과만 보입니다.</div>
-      <div id="drawResult" style="margin-top:14px;"><div class="grid2"><div class="teamblock A"><div class="teamhead"><b>🔴 미국</b><span class="badge teamA">평균 88.7</span></div><div class="memberline"><span>김양석</span><span>87.6 · 핸디 16</span></div><div class="memberline"><span>정찬진</span><span>81.0 · 핸디 9</span></div><div class="memberline"><span>차만복</span><span>92.6 · 핸디 21</span></div><div class="memberline"><span>김복수</span><span>97.0 · 핸디 25</span></div><div class="memberline"><span>고병호</span><span>86.6 · 핸디 15</span></div><div class="memberline"><span>임병국</span><span>87.2 · 핸디 15</span></div></div><div class="teamblock B"><div class="teamhead"><b>🔵 유럽</b><span class="badge teamB">평균 88.7</span></div><div class="memberline"><span>손기영</span><span>85.4 · 핸디 13</span></div><div class="memberline"><span>서민규</span><span>85.0 · 핸디 13</span></div><div class="memberline"><span>김후순</span><span>83.6 · 핸디 12</span></div><div class="memberline"><span>김태엽</span><span>96.0 · 핸디 24</span></div><div class="memberline"><span>양동욱</span><span>86.4 · 핸디 14</span></div><div class="memberline"><span>김계현</span><span>96.0 · 핸디 24</span></div></div></div><h3>티업 조편성</h3><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">1조</span><span class="badge original">평균 84.8</span></div><div class="fmeta"><select data-idx="0" class="courseSelect"><option selected="">천왕봉</option><option>지왕봉</option><option>인왕봉</option></select><input type="number" class="cartNoInput" data-idx="0" value="1" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="0" value="07:26" title="출발시간"></div></div><div class="metaline">전반 천왕봉 → 후반 지왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">김양석</span><span class="pavg">평균 87.6 · 핸디 16</span></div><div class="prow"><span class="dot A"></span><span class="pname">정찬진</span><span class="pavg">평균 81.0 · 핸디 9</span></div><div class="prow"><span class="dot B"></span><span class="pname">손기영</span><span class="pavg">평균 85.4 · 핸디 13</span></div><div class="prow"><span class="dot B"></span><span class="pname">서민규</span><span class="pavg">평균 85.0 · 핸디 13</span></div></div><div class="warnline">⚠️ 김양석 · 정찬진 (이전 2회 동조), 김양석 · 손기영 (이전 2회 동조), 정찬진 · 손기영 (이전 3회 동조)</div></div><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">2조</span><span class="badge original">평균 92.3</span></div><div class="fmeta"><select data-idx="1" class="courseSelect"><option>천왕봉</option><option selected="">지왕봉</option><option>인왕봉</option></select><input type="number" class="cartNoInput" data-idx="1" value="2" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="1" value="07:26" title="출발시간"></div></div><div class="metaline">전반 지왕봉 → 후반 인왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">차만복</span><span class="pavg">평균 92.6 · 핸디 21</span></div><div class="prow"><span class="dot A"></span><span class="pname">김복수</span><span class="pavg">평균 97.0 · 핸디 25</span></div><div class="prow"><span class="dot B"></span><span class="pname">김후순</span><span class="pavg">평균 83.6 · 핸디 12</span></div><div class="prow"><span class="dot B"></span><span class="pname">김태엽</span><span class="pavg">평균 96.0 · 핸디 24</span></div></div><div class="freshline">🆕 이 조는 전원 처음 함께하는 조합입니다!</div></div><div class="foursome"><div class="fhead"><div style="display:flex;align-items:center;gap:6px;"><span class="ftitle">3조</span><span class="badge original">평균 89.1</span></div><div class="fmeta"><select data-idx="2" class="courseSelect"><option>천왕봉</option><option>지왕봉</option><option selected="">인왕봉</option></select><input type="number" class="cartNoInput" data-idx="2" value="3" min="1" title="카트 번호"><input type="time" class="teeTimeInput" data-idx="2" value="07:26" title="출발시간"></div></div><div class="metaline">전반 인왕봉 → 후반 천왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">고병호</span><span class="pavg">평균 86.6 · 핸디 15</span></div><div class="prow"><span class="dot A"></span><span class="pname">임병국</span><span class="pavg">평균 87.2 · 핸디 15</span></div><div class="prow"><span class="dot B"></span><span class="pname">양동욱</span><span class="pavg">평균 86.4 · 핸디 14</span></div><div class="prow"><span class="dot B"></span><span class="pname">김계현</span><span class="pavg">평균 96.0 · 핸디 24</span></div></div><div class="warnline">⚠️ 고병호 · 임병국 (이전 2회 동조), 고병호 · 양동욱 (이전 4회 동조), 임병국 · 양동욱 (이전 1회 동조)</div></div></div>
+      <div id="drawResult" style="margin-top:14px;"></div>
     </div>
 
-    <div class="card" id="confirmedCard" style="display: block;">
+    <div class="card" id="confirmedCard" style="display:none;">
       <h2>📌 확정된 조편성</h2>
-      <div id="confirmedResult"><div class="grid2"><div class="teamblock A"><b>🔴 미국</b><div class="memberline"><span>김양석</span><span>핸디 16</span></div><div class="memberline"><span>정찬진</span><span>핸디 9</span></div><div class="memberline"><span>차만복</span><span>핸디 21</span></div><div class="memberline"><span>김복수</span><span>핸디 25</span></div><div class="memberline"><span>고병호</span><span>핸디 15</span></div><div class="memberline"><span>임병국</span><span>핸디 15</span></div></div><div class="teamblock B"><b>🔵 유럽</b><div class="memberline"><span>손기영</span><span>핸디 13</span></div><div class="memberline"><span>서민규</span><span>핸디 13</span></div><div class="memberline"><span>김후순</span><span>핸디 12</span></div><div class="memberline"><span>김태엽</span><span>핸디 24</span></div><div class="memberline"><span>양동욱</span><span>핸디 14</span></div><div class="memberline"><span>김계현</span><span>핸디 24</span></div></div></div><h3>티업 조편성</h3><div class="foursome"><div class="fhead"><span class="ftitle">1조 · 🛺 카트1</span><span class="badge original">07:26</span></div><div class="metaline">전반 천왕봉 → 후반 지왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">김양석</span><span class="pavg">핸디 16</span></div><div class="prow"><span class="dot A"></span><span class="pname">정찬진</span><span class="pavg">핸디 9</span></div><div class="prow"><span class="dot B"></span><span class="pname">손기영</span><span class="pavg">핸디 13</span></div><div class="prow"><span class="dot B"></span><span class="pname">서민규</span><span class="pavg">핸디 13</span></div></div></div><div class="foursome"><div class="fhead"><span class="ftitle">2조 · 🛺 카트2</span><span class="badge original">07:26</span></div><div class="metaline">전반 지왕봉 → 후반 인왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">차만복</span><span class="pavg">핸디 21</span></div><div class="prow"><span class="dot A"></span><span class="pname">김복수</span><span class="pavg">핸디 25</span></div><div class="prow"><span class="dot B"></span><span class="pname">김후순</span><span class="pavg">핸디 12</span></div><div class="prow"><span class="dot B"></span><span class="pname">김태엽</span><span class="pavg">핸디 24</span></div></div></div><div class="foursome"><div class="fhead"><span class="ftitle">3조 · 🛺 카트3</span><span class="badge original">07:26</span></div><div class="metaline">전반 인왕봉 → 후반 천왕봉</div><div class="plist"><div class="prow"><span class="dot A"></span><span class="pname">고병호</span><span class="pavg">핸디 15</span></div><div class="prow"><span class="dot A"></span><span class="pname">임병국</span><span class="pavg">핸디 15</span></div><div class="prow"><span class="dot B"></span><span class="pname">양동욱</span><span class="pavg">핸디 14</span></div><div class="prow"><span class="dot B"></span><span class="pname">김계현</span><span class="pavg">핸디 24</span></div></div></div></div>
+      <div id="confirmedResult"></div>
       <div class="note">이 내용을 골프장/캐디마스터에게 전달하고, 카카오톡으로 링크를 공유해 회원들이 각자 자기 조를 확인하도록 하세요.</div>
       <div class="btnrow admin-only">
         <button class="btn ghost small" id="printCartSheetBtn">🖨️ 카트별 데이터시트 인쇄(PDF저장)</button>
@@ -407,16 +496,30 @@
       <div class="note admin-only">버튼을 누르면 인쇄 화면이 뜹니다. 인쇄 대상(프린터)에서 "PDF로 저장"을 선택하면 PDF 파일로 저장할 수 있습니다.</div>
     </div>
 
-    <div class="card" id="myHandicapCard" style="display: block;">
-      <h2>🎯 내 핸디 확인하기</h2>
+  </section>
+
+  <!-- ================= TAB 3: 내 골프 데이터 ================= -->
+  <section id="tab-mydata" class="tabpanel">
+
+    <div class="card" id="myHandicapCard" style="display:none;">
+      <h2>🎯 이번 라운드 내 조 정보</h2>
       <div class="note" style="margin-top:0;">이름을 선택하면 내가 속한 조·카트·출발시간과, 전반·후반 홀별로 내가 몇 타를 받는지 확인할 수 있습니다.</div>
       <div class="handipick">
-        <select id="myNameSelect"><option value="">- 이름 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select>
+        <select id="myNameSelect"><option value="">- 이름 선택 -</option></select>
       </div>
-      <div id="myHandicapResult" style="margin-top:12px;"><div class="kv" style="margin-bottom:10px;"><div class="k">1조 · 카트1 · 출발 07:26</div><div class="v" style="font-size:13.5px;">전반 천왕봉 → 후반 지왕봉</div></div><div class="note" style="margin-top:0;">함께 도는 조원: 김양석, 정찬진(나), 손기영, 서민규</div><div class="kv" style="margin:10px 0;"><div class="k">내 핸디</div><div class="v">9</div></div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>받는 스트로크</th></tr></thead><tbody><tr><td class="hn">1번 (천왕봉 1번)</td><td>4</td><td>9</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">2번 (천왕봉 2번)</td><td>4</td><td>3</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">3번 (천왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">4번 (천왕봉 4번)</td><td>4</td><td>2</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">5번 (천왕봉 5번)</td><td>4</td><td>5</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">6번 (천왕봉 6번)</td><td>5</td><td>1</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">7번 (천왕봉 7번)</td><td>3</td><td>6</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">8번 (천왕봉 8번)</td><td>4</td><td>4</td><td class="strokecell stroke1">● +1</td></tr><tr><td class="hn">9번 (천왕봉 9번)</td><td>5</td><td>7</td><td class="strokecell stroke1">● +1</td></tr><tr class="nine9"><td class="hn">10번 (지왕봉 1번)</td><td>5</td><td>15</td><td class="strokecell">-</td></tr><tr><td class="hn">11번 (지왕봉 2번)</td><td>4</td><td>11</td><td class="strokecell">-</td></tr><tr><td class="hn">12번 (지왕봉 3번)</td><td>4</td><td>10</td><td class="strokecell">-</td></tr><tr><td class="hn">13번 (지왕봉 4번)</td><td>3</td><td>17</td><td class="strokecell">-</td></tr><tr><td class="hn">14번 (지왕봉 5번)</td><td>4</td><td>12</td><td class="strokecell">-</td></tr><tr><td class="hn">15번 (지왕봉 6번)</td><td>5</td><td>13</td><td class="strokecell">-</td></tr><tr><td class="hn">16번 (지왕봉 7번)</td><td>3</td><td>18</td><td class="strokecell">-</td></tr><tr><td class="hn">17번 (지왕봉 8번)</td><td>4</td><td>14</td><td class="strokecell">-</td></tr><tr><td class="hn">18번 (지왕봉 9번)</td><td>4</td><td>16</td><td class="strokecell">-</td></tr></tbody></table><div class="note" style="margin-top:6px;">● = 1타, ●● = 2타 받는 홀입니다. 총 9타를 받습니다(핸디 9). 홀 옆 SI는 스코어카드의 스트로크 인덱스를 기준으로, 전반은 그대로(1~9) · 후반은 9를 더해(10~18) 18홀로 이어붙인 값입니다.</div></div>
-      <div class="btnrow" id="myHandicapPrintRow" style="display: flex;">
+      <div id="myHandicapResult" style="margin-top:12px;"></div>
+      <div class="btnrow" id="myHandicapPrintRow" style="display:none;">
         <button class="btn ghost small" id="printMyHandicapBtn">🖨️ 내 핸디표 인쇄(PDF저장)</button>
       </div>
+    </div>
+
+    <div class="card">
+      <h2>📇 내 골프 데이터</h2>
+      <div class="note" style="margin-top:0;">이름을 선택하면 지금까지의 회차별 스코어, 통산 평균·핸디 변화, 최근 라운드의 코칭 코멘트까지 한 번에 확인할 수 있습니다.</div>
+      <div class="handipick">
+        <select id="myDataNameSelect"><option value="">- 이름 선택 -</option></select>
+      </div>
+      <div id="myDataResult" style="margin-top:12px;"></div>
     </div>
 
   </section>
@@ -433,17 +536,23 @@
         <input type="date" id="newRoundDate">
         <input type="text" id="newRoundPlace" placeholder="장소">
       </div>
+      <label class="field">진행 방식</label>
+      <select id="newRoundMatchFormat">
+        <option value="stroke" selected>개인 스트로크플레이 (기본)</option>
+        <option value="teamMatch">카트 2:2 팀매치(핸디 반영 업다운)</option>
+      </select>
+      <div class="note" style="margin-top:4px;">회원들이 실제로 어떤 방식으로 플레이했는지 표시용으로만 저장됩니다. 팀매치로 선택해도 팀 대결 시상(수동 선택)은 아래 "시상 설정"에서 별도로 켜야 합니다.</div>
       <label class="field">회원별 스코어 (입력한 회원만 저장됩니다)</label>
-      <div class="scoregrid" id="scoreInputs"><div class="mn">정찬진</div><input type="number" data-mid="jcj" placeholder="타수"><div class="mn">김후순</div><input type="number" data-mid="khs" placeholder="타수"><div class="mn">고병호</div><input type="number" data-mid="gbh" placeholder="타수"><div class="mn">양동욱</div><input type="number" data-mid="ydu" placeholder="타수"><div class="mn">김양석</div><input type="number" data-mid="kys" placeholder="타수"><div class="mn">차만복</div><input type="number" data-mid="cmb" placeholder="타수"><div class="mn">임병국</div><input type="number" data-mid="ibg" placeholder="타수"><div class="mn">손기영</div><input type="number" data-mid="sgy" placeholder="타수"><div class="mn">서민규</div><input type="number" data-mid="smg" placeholder="타수"><div class="mn">김태엽</div><input type="number" data-mid="kty" placeholder="타수"><div class="mn">김계현</div><input type="number" data-mid="kgh" placeholder="타수"><div class="mn">김복수</div><input type="number" data-mid="kbs" placeholder="타수"></div>
+      <div class="scoregrid" id="scoreInputs"></div>
       <details>
         <summary>⛳ 신페리오 결과도 입력하기 (선택)</summary>
         <div class="note" style="margin-top:6px;">입력해두면 다음 조편성 때 "최근 신페리오 기준"으로 선택해 사용할 수 있고, 신페리오 우승 자동 선정에도 사용됩니다.</div>
-        <div class="scoregrid" id="peorioInputs" style="margin-top:8px;"><div class="mn">정찬진</div><input type="number" step="0.1" data-mid="jcj" placeholder="신페리오"><div class="mn">김후순</div><input type="number" step="0.1" data-mid="khs" placeholder="신페리오"><div class="mn">고병호</div><input type="number" step="0.1" data-mid="gbh" placeholder="신페리오"><div class="mn">양동욱</div><input type="number" step="0.1" data-mid="ydu" placeholder="신페리오"><div class="mn">김양석</div><input type="number" step="0.1" data-mid="kys" placeholder="신페리오"><div class="mn">차만복</div><input type="number" step="0.1" data-mid="cmb" placeholder="신페리오"><div class="mn">임병국</div><input type="number" step="0.1" data-mid="ibg" placeholder="신페리오"><div class="mn">손기영</div><input type="number" step="0.1" data-mid="sgy" placeholder="신페리오"><div class="mn">서민규</div><input type="number" step="0.1" data-mid="smg" placeholder="신페리오"><div class="mn">김태엽</div><input type="number" step="0.1" data-mid="kty" placeholder="신페리오"><div class="mn">김계현</div><input type="number" step="0.1" data-mid="kgh" placeholder="신페리오"><div class="mn">김복수</div><input type="number" step="0.1" data-mid="kbs" placeholder="신페리오"></div>
+        <div class="scoregrid" id="peorioInputs" style="margin-top:8px;"></div>
       </details>
       <details>
         <summary>🐦 버디 수 입력하기 (선택)</summary>
         <div class="note" style="margin-top:6px;">버디상을 자동으로 선정하려면 회원별 버디 수를 입력하세요.</div>
-        <div class="scoregrid" id="birdieInputs" style="margin-top:8px;"><div class="mn">정찬진</div><input type="number" min="0" data-mid="jcj" placeholder="버디수"><div class="mn">김후순</div><input type="number" min="0" data-mid="khs" placeholder="버디수"><div class="mn">고병호</div><input type="number" min="0" data-mid="gbh" placeholder="버디수"><div class="mn">양동욱</div><input type="number" min="0" data-mid="ydu" placeholder="버디수"><div class="mn">김양석</div><input type="number" min="0" data-mid="kys" placeholder="버디수"><div class="mn">차만복</div><input type="number" min="0" data-mid="cmb" placeholder="버디수"><div class="mn">임병국</div><input type="number" min="0" data-mid="ibg" placeholder="버디수"><div class="mn">손기영</div><input type="number" min="0" data-mid="sgy" placeholder="버디수"><div class="mn">서민규</div><input type="number" min="0" data-mid="smg" placeholder="버디수"><div class="mn">김태엽</div><input type="number" min="0" data-mid="kty" placeholder="버디수"><div class="mn">김계현</div><input type="number" min="0" data-mid="kgh" placeholder="버디수"><div class="mn">김복수</div><input type="number" min="0" data-mid="kbs" placeholder="버디수"></div>
+        <div class="scoregrid" id="birdieInputs" style="margin-top:8px;"></div>
       </details>
       <label class="field">참가비 (1인당, 선택)</label>
       <div class="grid2">
@@ -451,18 +560,18 @@
         <div class="kv"><div class="k">예상 상금풀</div><div class="v" id="prizePoolPreview">-</div></div>
       </div>
       <div class="note" style="margin-top:4px;">참가비 × 스코어를 입력한 인원 수로 자동 계산되는 참고용 금액입니다. 실제 수금·지급은 총무가 별도로 진행합니다.</div>
-      <details open="">
+      <details open>
         <summary>🏆 시상 설정</summary>
         <div class="note" style="margin-top:6px;">조편성 방식(라이더컵/실력균형/블라인드/새로운조합)은 <b>조편성</b> 탭에서 선택합니다. 여기서는 이번 라운드 시상 여부와 방식만 정합니다.</div>
         <label style="display:flex; align-items:center; gap:6px; font-size:13px; font-weight:700; margin-top:8px;">
-          <input type="checkbox" id="awardEnableMaster" style="width:auto;" checked=""> 이번 라운드 시상 진행
+          <input type="checkbox" id="awardEnableMaster" style="width:auto;" checked> 이번 라운드 시상 진행
         </label>
-        <div id="awardConfig" style="margin-top:8px;"><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="medalist"> 🥇 메달리스트 (최저타)</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="medalist"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="medalist" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="medalist" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="netscore"> 🎯 넷스코어 우승 (핸디 반영)</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="netscore"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="netscore" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="netscore" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="peorio"> ⛳ 신페리오 우승</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="peorio"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="peorio" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="peorio" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="birdie"> 🐦 버디상</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="birdie"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="birdie" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="birdie" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="teamWin" checked=""> 🏆 팀 대결 승리팀</label><div class="note" style="margin:4px 0 0;">현재 확정된 라이더컵 팀대결 기준(미국 vs 유럽). 자동 선정은 팀 평균 스코어가 더 낮은 팀을 승리팀으로 계산합니다. 홀별 업다운 매치 등 스코어 합계가 아닌 방식으로 승부를 가렸다면 수동 선택으로 실제 이긴 팀을 고르세요.</div><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="teamWin"><option value="auto">자동 선정 (팀 평균타수)</option><option value="manual">수동 선택 (예: 업다운 매치 결과)</option></select><select class="awardManual" data-key="teamWin" style="display:none;"><option value="A">미국</option><option value="B">유럽</option></select></div><input type="text" class="awardPrize" data-key="teamWin" value="우승팀 1인당 특별 시상품" placeholder="승리팀 1인당 시상품 또는 금액 (예: 1인당 상품권 2만원)" style="margin-top:6px;"></div><div class="awardblock"><label><input type="checkbox" class="awardEnable" data-key="lucky"> 🍀 행운상</label><div class="grid2" style="margin-top:6px;"><select class="awardMethod" data-key="lucky"><option value="auto">자동 선정</option><option value="manual">수동 선택</option></select><select class="awardManual" data-key="lucky" style="display:none;"><option value="">- 회원 선택 -</option><option value="jcj">정찬진</option><option value="khs">김후순</option><option value="gbh">고병호</option><option value="ydu">양동욱</option><option value="kys">김양석</option><option value="cmb">차만복</option><option value="ibg">임병국</option><option value="sgy">손기영</option><option value="smg">서민규</option><option value="kty">김태엽</option><option value="kgh">김계현</option><option value="kbs">김복수</option></select></div><input type="text" class="awardPrize" data-key="lucky" value="" placeholder="시상품 또는 금액 (예: 상품권 5만원)" style="margin-top:6px;"></div></div>
+        <div id="awardConfig" style="margin-top:8px;"></div>
       </details>
       <label class="field">상세 기록 (자유 메모)</label>
       <textarea id="newRoundNotes" rows="3" placeholder="예: 롱기스트 · 니어리스트 등 추가로 남기고 싶은 내용"></textarea>
       <label class="field">영수증 · 스코어보드 사진 첨부 (선택)</label>
-      <input type="file" id="newRoundPhotos" accept="image/*" multiple="">
+      <input type="file" id="newRoundPhotos" accept="image/*" multiple>
       <div class="thumbs" id="newRoundThumbs"></div>
       <div class="btnrow">
         <button class="btn primary" id="saveRoundBtn">💾 이 라운드 저장하기</button>
@@ -474,19 +583,19 @@
       <div class="note">저장 후 이 버튼으로 새 파일을 받아 그대로 GitHub 저장소에 덮어쓰기 업로드하면, 모든 회원이 다음에 링크를 열 때 최신 기록을 보게 됩니다.</div>
     </div>
 
-    <div class="card" id="adminLoginCard" style="">
+    <div class="card" id="adminLoginCard">
       <button class="btn ghost small" id="adminLoginBtn">🔐 총무 모드로 전환</button>
       <span class="note" style="margin:0 0 0 8px; display:inline;">조편성 섞기 · 확정 · 기록 입력 · 회원 명단 관리 · 파일 내보내기는 모두 총무 모드에서만 가능합니다. 일반 회원은 확정된 조편성과 기록만 볼 수 있습니다.</span>
     </div>
 
     <div class="card">
       <h2>📈 통산 평균타수 순위</h2>
-      <div class="barlist" id="avgBarlist"><div class="row"><div class="name">정찬진</div><div class="track"><div class="fill" style="width:20%"></div></div><div class="val">81.0</div></div><div class="row"><div class="name">김후순</div><div class="track"><div class="fill" style="width:33%"></div></div><div class="val">83.6</div></div><div class="row"><div class="name">서민규</div><div class="track"><div class="fill" style="width:40%"></div></div><div class="val">85.0</div></div><div class="row"><div class="name">손기영</div><div class="track"><div class="fill" style="width:42%"></div></div><div class="val">85.4</div></div><div class="row"><div class="name">양동욱</div><div class="track"><div class="fill" style="width:47%"></div></div><div class="val">86.4</div></div><div class="row"><div class="name">고병호</div><div class="track"><div class="fill" style="width:48%"></div></div><div class="val">86.6</div></div><div class="row"><div class="name">임병국</div><div class="track"><div class="fill" style="width:51%"></div></div><div class="val">87.2</div></div><div class="row"><div class="name">김양석</div><div class="track"><div class="fill" style="width:53%"></div></div><div class="val">87.6</div></div><div class="row"><div class="name">차만복</div><div class="track"><div class="fill" style="width:78%"></div></div><div class="val">92.6</div></div><div class="row"><div class="name">김태엽</div><div class="track"><div class="fill" style="width:95%"></div></div><div class="val">96.0</div></div><div class="row"><div class="name">김계현</div><div class="track"><div class="fill" style="width:95%"></div></div><div class="val">96.0</div></div><div class="row"><div class="name">김복수</div><div class="track"><div class="fill" style="width:100%"></div></div><div class="val">97.0</div></div></div>
+      <div class="barlist" id="avgBarlist"></div>
     </div>
 
     <div class="card">
       <h2>🗂️ 회차별 기록</h2>
-      <div id="roundHistory"><details><summary>제8회 · 2026-03-28 · 무안CC · 12명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>서민규</td><td class="num">85</td></tr><tr><td>2</td><td>김후순</td><td class="num">85</td></tr><tr><td>3</td><td>양동욱</td><td class="num">86</td></tr><tr><td>4</td><td>정찬진</td><td class="num">86</td></tr><tr><td>5</td><td>임병국</td><td class="num">86</td></tr><tr><td>6</td><td>김양석</td><td class="num">87</td></tr><tr><td>7</td><td>고병호</td><td class="num">87</td></tr><tr><td>8</td><td>손기영</td><td class="num">87</td></tr><tr><td>9</td><td>김태엽</td><td class="num">96</td></tr><tr><td>10</td><td>김계현</td><td class="num">96</td></tr><tr><td>11</td><td>김복수</td><td class="num">97</td></tr><tr><td>12</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><div class="note">제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회</div></div></details><details><summary>제7회 · 2025-06-06 · 솔라시도 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>손기영</td><td class="num">79</td></tr><tr><td>2</td><td>정찬진</td><td class="num">80</td></tr><tr><td>3</td><td>김후순</td><td class="num">82</td></tr><tr><td>4</td><td>고병호</td><td class="num">82</td></tr><tr><td>5</td><td>김양석</td><td class="num">85</td></tr><tr><td>6</td><td>양동욱</td><td class="num">87</td></tr><tr><td>7</td><td>차만복</td><td class="num">90</td></tr><tr><td>8</td><td>임병국</td><td class="num">90</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 임병국, 김후순, 양동욱</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">차만복, 고병호, 김양석, 손기영</div></div></div></div></details><details><summary>제6회 · 2025-03-22 · 어등산 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>손기영</td><td class="num">83</td></tr><tr><td>2</td><td>정찬진</td><td class="num">85</td></tr><tr><td>3</td><td>고병호</td><td class="num">85</td></tr><tr><td>4</td><td>임병국</td><td class="num">87</td></tr><tr><td>5</td><td>김후순</td><td class="num">88</td></tr><tr><td>6</td><td>양동욱</td><td class="num">88</td></tr><tr><td>7</td><td>차만복</td><td class="num">90</td></tr><tr><td>8</td><td>김양석</td><td class="num">91</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제5회 · 2024-11-02 · 르오네뜨 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>정찬진</td><td class="num">73</td></tr><tr><td>2</td><td>임병국</td><td class="num">82</td></tr><tr><td>3</td><td>김후순</td><td class="num">84</td></tr><tr><td>4</td><td>김양석</td><td class="num">84</td></tr><tr><td>5</td><td>양동욱</td><td class="num">87</td></tr><tr><td>6</td><td>고병호</td><td class="num">90</td></tr><tr><td>7</td><td>손기영</td><td class="num">92</td></tr><tr><td>8</td><td>차만복</td><td class="num">98</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">김후순, 고병호, 양동욱, 김양석</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 차만복, 임병국, 손기영</div></div></div></div></details><details><summary>제4회 · 2024-09-14 · 고창 · 8명 기록</summary><div style="margin-top: 8px;"><div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody><tr><td>1</td><td>김후순</td><td class="num">79</td></tr><tr><td>2</td><td>정찬진</td><td class="num">81</td></tr><tr><td>3</td><td>양동욱</td><td class="num">84</td></tr><tr><td>4</td><td>손기영</td><td class="num">86</td></tr><tr><td>5</td><td>차만복</td><td class="num">87</td></tr><tr><td>6</td><td>고병호</td><td class="num">89</td></tr><tr><td>7</td><td>김양석</td><td class="num">91</td></tr><tr><td>8</td><td>임병국</td><td class="num">91</td></tr></tbody></table></div><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 양동욱, 손기영</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 김양석, 차만복, 임병국</div></div></div></div></details><details><summary>제3회 · 2024-07-13 · 고창 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">고병호, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제2회 · 2024-04-06 · 무안 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">김후순, 고병호, 김양석, 임병국</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 양동욱, 차만복, 손기영</div></div></div></div></details><details><summary>제1회 · 2023-12-02 · 무등산 · 스코어 미기록</summary><div style="margin-top: 8px;"><h3 style="margin-top:10px;">조편성</h3><div class="grid2"><div class="kv"><div class="k">A조</div><div class="v" style="font-size:12.5px; font-weight:600;">정찬진, 김후순, 양동욱, 고병호</div></div><div class="kv"><div class="k">B조</div><div class="v" style="font-size:12.5px; font-weight:600;">김양석, 차만복, 임병국, 손기영</div></div></div></div></details></div>
+      <div id="roundHistory"></div>
     </div>
 
   </section>
@@ -498,615 +607,79 @@
   ⓘ 이 페이지는 GitHub에 공개된 정적 파일 한 장으로 동작합니다 (별도 로그인 서버 없음). 총무 모드는 실수로 회원이 기능을 건드리지 않도록 막는 장치이며, 데이터 자체를 완전히 숨기는 보안 장치는 아닙니다.
 </footer>
 
-<div class="toast" id="toast">index.html 파일이 다운로드되었습니다 (총무 모드는 꺼진 기본 화면으로 저장됩니다)</div>
+<div class="toast" id="toast"></div>
 <div class="lightbox" id="lightbox"><img id="lightboxImg" src=""></div>
-<div id="printArea"><div class="printpage"><h2>⛳ 아부회 제9회 · 1조 카트1 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 천왕봉 → 후반 지왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>김양석<br>핸디16</th><th>정찬진<br>핸디9</th><th>손기영<br>핸디13</th><th>서민규<br>핸디13</th></tr></thead><tbody><tr><td class="hn">1번(천왕봉 1번)</td><td>4</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">2번(천왕봉 2번)</td><td>4</td><td>3</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">3번(천왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">4번(천왕봉 4번)</td><td>4</td><td>2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">5번(천왕봉 5번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">6번(천왕봉 6번)</td><td>5</td><td>1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">7번(천왕봉 7번)</td><td>3</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">8번(천왕봉 8번)</td><td>4</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">9번(천왕봉 9번)</td><td>5</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr class="nine9"><td class="hn">10번(지왕봉 1번)</td><td>5</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">11번(지왕봉 2번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(지왕봉 3번)</td><td>4</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(지왕봉 4번)</td><td>3</td><td>17</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">14번(지왕봉 5번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(지왕봉 6번)</td><td>5</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(지왕봉 7번)</td><td>3</td><td>18</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">17번(지왕봉 8번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr><tr><td class="hn">18번(지왕봉 9번)</td><td>4</td><td>16</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div><div class="printpage"><h2>⛳ 아부회 제9회 · 2조 카트2 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 지왕봉 → 후반 인왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>차만복<br>핸디21</th><th>김복수<br>핸디25</th><th>김후순<br>핸디12</th><th>김태엽<br>핸디24</th></tr></thead><tbody><tr><td class="hn">1번(지왕봉 1번)</td><td>5</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">2번(지왕봉 2번)</td><td>4</td><td>2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">3번(지왕봉 3번)</td><td>4</td><td>1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">4번(지왕봉 4번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">5번(지왕봉 5번)</td><td>4</td><td>3</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">6번(지왕봉 6번)</td><td>5</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">7번(지왕봉 7번)</td><td>3</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">8번(지왕봉 8번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">9번(지왕봉 9번)</td><td>4</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr class="nine9"><td class="hn">10번(인왕봉 1번)</td><td>5</td><td>16</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">11번(인왕봉 2번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(인왕봉 3번)</td><td>3</td><td>17</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(인왕봉 4번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">14번(인왕봉 5번)</td><td>5</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(인왕봉 6번)</td><td>3</td><td>18</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(인왕봉 7번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">17번(인왕봉 8번)</td><td>4</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">18번(인왕봉 9번)</td><td>4</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div><div class="printpage"><h2>⛳ 아부회 제9회 · 3조 카트3 데이터시트</h2><div class="pmeta">2026-09-05 · 출발 07:26 · 전반 인왕봉 → 후반 천왕봉</div><table class="holetable"><thead><tr><th>홀</th><th>파</th><th>SI</th><th>고병호<br>핸디15</th><th>임병국<br>핸디15</th><th>양동욱<br>핸디14</th><th>김계현<br>핸디24</th></tr></thead><tbody><tr><td class="hn">1번(인왕봉 1번)</td><td>5</td><td>7</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">2번(인왕봉 2번)</td><td>4</td><td>5</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">3번(인왕봉 3번)</td><td>3</td><td>8</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">4번(인왕봉 4번)</td><td>4</td><td>3</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">5번(인왕봉 5번)</td><td>5</td><td>4</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">6번(인왕봉 6번)</td><td>3</td><td>9</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">7번(인왕봉 7번)</td><td>4</td><td>2</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">8번(인왕봉 8번)</td><td>4</td><td>1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr><td class="hn">9번(인왕봉 9번)</td><td>4</td><td>6</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke2">+2</td></tr><tr class="nine9"><td class="hn">10번(천왕봉 1번)</td><td>4</td><td>18</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">11번(천왕봉 2번)</td><td>4</td><td>12</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">12번(천왕봉 3번)</td><td>3</td><td>17</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">13번(천왕봉 4번)</td><td>4</td><td>11</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">14번(천왕봉 5번)</td><td>4</td><td>14</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">15번(천왕봉 6번)</td><td>5</td><td>10</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">16번(천왕봉 7번)</td><td>3</td><td>15</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">17번(천왕봉 8번)</td><td>4</td><td>13</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td><td class="strokecell stroke1">+1</td></tr><tr><td class="hn">18번(천왕봉 9번)</td><td>5</td><td>16</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell">-</td><td class="strokecell stroke1">+1</td></tr></tbody></table><div class="note" style="margin-top:6px;">숫자는 그 홀에서 받는 스트로크 수입니다(－는 없음). 네트 스코어 = 그로스 스코어 － 받는 스트로크.</div></div></div>
+<div id="printArea"></div>
 
-<script id="round-data" type="application/json">{
+<script id="round-data" type="application/json">
+{
   "clubName": "아부회",
   "adminPass": "abuhwe0905",
   "handicapBasePar": 72,
-  "courseOrder": [
-    "천왕봉",
-    "지왕봉",
-    "인왕봉"
-  ],
+  "courseOrder": ["천왕봉", "지왕봉", "인왕봉"],
   "courseHoles": {
     "천왕봉": [
-      {
-        "hole": 1,
-        "par": 4,
-        "si": 9
-      },
-      {
-        "hole": 2,
-        "par": 4,
-        "si": 3
-      },
-      {
-        "hole": 3,
-        "par": 3,
-        "si": 8
-      },
-      {
-        "hole": 4,
-        "par": 4,
-        "si": 2
-      },
-      {
-        "hole": 5,
-        "par": 4,
-        "si": 5
-      },
-      {
-        "hole": 6,
-        "par": 5,
-        "si": 1
-      },
-      {
-        "hole": 7,
-        "par": 3,
-        "si": 6
-      },
-      {
-        "hole": 8,
-        "par": 4,
-        "si": 4
-      },
-      {
-        "hole": 9,
-        "par": 5,
-        "si": 7
-      }
+      {"hole":1,"par":4,"si":9}, {"hole":2,"par":4,"si":3}, {"hole":3,"par":3,"si":8},
+      {"hole":4,"par":4,"si":2}, {"hole":5,"par":4,"si":5}, {"hole":6,"par":5,"si":1},
+      {"hole":7,"par":3,"si":6}, {"hole":8,"par":4,"si":4}, {"hole":9,"par":5,"si":7}
     ],
     "지왕봉": [
-      {
-        "hole": 1,
-        "par": 5,
-        "si": 6
-      },
-      {
-        "hole": 2,
-        "par": 4,
-        "si": 2
-      },
-      {
-        "hole": 3,
-        "par": 4,
-        "si": 1
-      },
-      {
-        "hole": 4,
-        "par": 3,
-        "si": 8
-      },
-      {
-        "hole": 5,
-        "par": 4,
-        "si": 3
-      },
-      {
-        "hole": 6,
-        "par": 5,
-        "si": 4
-      },
-      {
-        "hole": 7,
-        "par": 3,
-        "si": 9
-      },
-      {
-        "hole": 8,
-        "par": 4,
-        "si": 5
-      },
-      {
-        "hole": 9,
-        "par": 4,
-        "si": 7
-      }
+      {"hole":1,"par":5,"si":6}, {"hole":2,"par":4,"si":2}, {"hole":3,"par":4,"si":1},
+      {"hole":4,"par":3,"si":8}, {"hole":5,"par":4,"si":3}, {"hole":6,"par":5,"si":4},
+      {"hole":7,"par":3,"si":9}, {"hole":8,"par":4,"si":5}, {"hole":9,"par":4,"si":7}
     ],
     "인왕봉": [
-      {
-        "hole": 1,
-        "par": 5,
-        "si": 7
-      },
-      {
-        "hole": 2,
-        "par": 4,
-        "si": 5
-      },
-      {
-        "hole": 3,
-        "par": 3,
-        "si": 8
-      },
-      {
-        "hole": 4,
-        "par": 4,
-        "si": 3
-      },
-      {
-        "hole": 5,
-        "par": 5,
-        "si": 4
-      },
-      {
-        "hole": 6,
-        "par": 3,
-        "si": 9
-      },
-      {
-        "hole": 7,
-        "par": 4,
-        "si": 2
-      },
-      {
-        "hole": 8,
-        "par": 4,
-        "si": 1
-      },
-      {
-        "hole": 9,
-        "par": 4,
-        "si": 6
-      }
+      {"hole":1,"par":5,"si":7}, {"hole":2,"par":4,"si":5}, {"hole":3,"par":3,"si":8},
+      {"hole":4,"par":4,"si":3}, {"hole":5,"par":5,"si":4}, {"hole":6,"par":3,"si":9},
+      {"hole":7,"par":4,"si":2}, {"hole":8,"par":4,"si":1}, {"hole":9,"par":4,"si":6}
     ]
   },
   "members": [
-    {
-      "id": "jcj",
-      "name": "정찬진",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "khs",
-      "name": "김후순",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "gbh",
-      "name": "고병호",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "ydu",
-      "name": "양동욱",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "kys",
-      "name": "김양석",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "cmb",
-      "name": "차만복",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "ibg",
-      "name": "임병국",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "sgy",
-      "name": "손기영",
-      "original": true,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "smg",
-      "name": "서민규",
-      "original": false,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "kty",
-      "name": "김태엽",
-      "original": false,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "kgh",
-      "name": "김계현",
-      "original": false,
-      "active": true,
-      "temporary": false
-    },
-    {
-      "id": "kbs",
-      "name": "김복수",
-      "original": false,
-      "active": true,
-      "temporary": false
-    }
+    {"id":"jcj","name":"정찬진","original":true,"active":true,"temporary":false},
+    {"id":"khs","name":"김후순","original":true,"active":true,"temporary":false},
+    {"id":"gbh","name":"고병호","original":true,"active":true,"temporary":false},
+    {"id":"ydu","name":"양동욱","original":true,"active":true,"temporary":false},
+    {"id":"kys","name":"김양석","original":true,"active":true,"temporary":false},
+    {"id":"cmb","name":"차만복","original":true,"active":true,"temporary":false},
+    {"id":"ibg","name":"임병국","original":true,"active":true,"temporary":false},
+    {"id":"sgy","name":"손기영","original":true,"active":true,"temporary":false},
+    {"id":"smg","name":"서민규","original":false,"active":true,"temporary":false},
+    {"id":"kty","name":"김태엽","original":false,"active":true,"temporary":false},
+    {"id":"kgh","name":"김계현","original":false,"active":true,"temporary":false},
+    {"id":"kbs","name":"김복수","original":false,"active":true,"temporary":false},
+    {"id":"ckh","name":"최강호","original":false,"active":true,"temporary":true}
   ],
   "rounds": [
-    {
-      "no": 1,
-      "date": "2023-12-02",
-      "place": "무등산",
-      "scores": {},
-      "groups": {
-        "A": [
-          "jcj",
-          "khs",
-          "ydu",
-          "gbh"
-        ],
-        "B": [
-          "kys",
-          "cmb",
-          "ibg",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 2,
-      "date": "2024-04-06",
-      "place": "무안",
-      "scores": {},
-      "groups": {
-        "A": [
-          "khs",
-          "gbh",
-          "kys",
-          "ibg"
-        ],
-        "B": [
-          "jcj",
-          "ydu",
-          "cmb",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 3,
-      "date": "2024-07-13",
-      "place": "고창",
-      "scores": {},
-      "groups": {
-        "A": [
-          "jcj",
-          "khs",
-          "kys",
-          "ibg"
-        ],
-        "B": [
-          "gbh",
-          "ydu",
-          "cmb",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 4,
-      "date": "2024-09-14",
-      "place": "고창",
-      "scores": {
-        "jcj": 81,
-        "khs": 79,
-        "gbh": 89,
-        "ydu": 84,
-        "kys": 91,
-        "cmb": 87,
-        "ibg": 91,
-        "sgy": 86
-      },
-      "groups": {
-        "A": [
-          "jcj",
-          "khs",
-          "ydu",
-          "sgy"
-        ],
-        "B": [
-          "gbh",
-          "kys",
-          "cmb",
-          "ibg"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 5,
-      "date": "2024-11-02",
-      "place": "르오네뜨",
-      "scores": {
-        "jcj": 73,
-        "khs": 84,
-        "gbh": 90,
-        "ydu": 87,
-        "kys": 84,
-        "cmb": 98,
-        "ibg": 82,
-        "sgy": 92
-      },
-      "groups": {
-        "A": [
-          "khs",
-          "gbh",
-          "ydu",
-          "kys"
-        ],
-        "B": [
-          "jcj",
-          "cmb",
-          "ibg",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 6,
-      "date": "2025-03-22",
-      "place": "어등산",
-      "scores": {
-        "jcj": 85,
-        "khs": 88,
-        "gbh": 85,
-        "ydu": 88,
-        "kys": 91,
-        "cmb": 90,
-        "ibg": 87,
-        "sgy": 83
-      },
-      "groups": {
-        "A": [
-          "jcj",
-          "khs",
-          "kys",
-          "ibg"
-        ],
-        "B": [
-          "gbh",
-          "ydu",
-          "cmb",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 7,
-      "date": "2025-06-06",
-      "place": "솔라시도",
-      "scores": {
-        "jcj": 80,
-        "khs": 82,
-        "gbh": 82,
-        "ydu": 87,
-        "kys": 85,
-        "cmb": 90,
-        "ibg": 90,
-        "sgy": 79
-      },
-      "groups": {
-        "A": [
-          "jcj",
-          "ibg",
-          "khs",
-          "ydu"
-        ],
-        "B": [
-          "cmb",
-          "gbh",
-          "kys",
-          "sgy"
-        ]
-      },
-      "notes": "",
-      "photos": []
-    },
-    {
-      "no": 8,
-      "date": "2026-03-28",
-      "place": "무안CC",
-      "scores": {
-        "smg": 85,
-        "khs": 85,
-        "ydu": 86,
-        "jcj": 86,
-        "ibg": 86,
-        "kys": 87,
-        "gbh": 87,
-        "sgy": 87,
-        "kty": 96,
-        "kgh": 96,
-        "kbs": 97,
-        "cmb": 98
-      },
-      "groups": null,
-      "peorio": {
-        "sgy": 72.6,
-        "smg": 74.2,
-        "gbh": 75,
-        "jcj": 75.2,
-        "ibg": 75.2,
-        "cmb": 75.2,
-        "kty": 75.6,
-        "kgh": 75.6,
-        "ydu": 76.4,
-        "khs": 76.6,
-        "kbs": 77.8,
-        "kys": 78.6
-      },
-      "notes": "제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회",
-      "photos": []
-    }
+    {"no":1,"date":"2023-12-02","place":"무등산","scores":{},"groups":{"A":["jcj","khs","ydu","gbh"],"B":["kys","cmb","ibg","sgy"]},"notes":"","photos":[]},
+    {"no":2,"date":"2024-04-06","place":"무안","scores":{},"groups":{"A":["khs","gbh","kys","ibg"],"B":["jcj","ydu","cmb","sgy"]},"notes":"","photos":[]},
+    {"no":3,"date":"2024-07-13","place":"고창","scores":{},"groups":{"A":["jcj","khs","kys","ibg"],"B":["gbh","ydu","cmb","sgy"]},"notes":"","photos":[]},
+    {"no":4,"date":"2024-09-14","place":"고창","scores":{"jcj":81,"khs":79,"gbh":89,"ydu":84,"kys":91,"cmb":87,"ibg":91,"sgy":86},"groups":{"A":["jcj","khs","ydu","sgy"],"B":["gbh","kys","cmb","ibg"]},"notes":"","photos":[]},
+    {"no":5,"date":"2024-11-02","place":"르오네뜨","scores":{"jcj":73,"khs":84,"gbh":90,"ydu":87,"kys":84,"cmb":98,"ibg":82,"sgy":92},"groups":{"A":["khs","gbh","ydu","kys"],"B":["jcj","cmb","ibg","sgy"]},"notes":"","photos":[]},
+    {"no":6,"date":"2025-03-22","place":"어등산","scores":{"jcj":85,"khs":88,"gbh":85,"ydu":88,"kys":91,"cmb":90,"ibg":87,"sgy":83},"groups":{"A":["jcj","khs","kys","ibg"],"B":["gbh","ydu","cmb","sgy"]},"notes":"","photos":[]},
+    {"no":7,"date":"2025-06-06","place":"솔라시도","scores":{"jcj":80,"khs":82,"gbh":82,"ydu":87,"kys":85,"cmb":90,"ibg":90,"sgy":79},"groups":{"A":["jcj","ibg","khs","ydu"],"B":["cmb","gbh","kys","sgy"]},"notes":"","photos":[]},
+    {"no":8,"date":"2026-03-28","place":"무안CC","scores":{"smg":85,"khs":85,"ydu":86,"jcj":86,"ibg":86,"kys":87,"gbh":87,"sgy":87,"kty":96,"kgh":96,"kbs":97,"cmb":98},"groups":null,"peorio":{"sgy":72.6,"smg":74.2,"gbh":75.0,"jcj":75.2,"ibg":75.2,"cmb":75.2,"kty":75.6,"kgh":75.6,"ydu":76.4,"khs":76.6,"kbs":77.8,"kys":78.6},"notes":"제9회 아부회 무안CC오픈 · 4명(서민규·김태엽·김계현·김복수) 합류로 12명 운영 시작 · 티업시간대별 A/B/C조로 진행되어 상세 조편성은 기록되지 않음 · 메달리스트 서민규 85 · 신페리오 우승 손기영 72.6(HD14.4) · 다버디상 고병호·서민규·정찬진 각 1회 · 다파상 김후순 9회 · 다보기상 고병호 12회 · 더블파 정찬진 1회","photos":[]},
+    {"no":9,"date":"2026-09-05","place":"무등산CC","matchFormat":"teamMatch","scores":{"ibg":82,"smg":84,"ydu":85,"sgy":85,"gbh":88,"jcj":88,"cmb":90,"kys":90,"ckh":92,"kbs":93,"kgh":98,"kty":101},"birdies":{"ibg":2,"kys":1},"groups":{"미국팀":["kys","jcj","cmb","kbs","gbh","ibg"],"유럽팀":["sgy","smg","ckh","kty","ydu","kgh"]},"awards":{"teamWin":{"ids":["kys","jcj","cmb","kbs","gbh","ibg"],"teamName":"미국팀","value":null,"prize":""}},"carts":[
+      {"cartNo":1,"front":"천왕봉","back":"지왕봉","teamAName":"미국팀","teamAIds":["kys","jcj"],"teamBName":"유럽팀","teamBIds":["sgy","smg"],"aWins":6,"bWins":8,"halved":4,"up":-2},
+      {"cartNo":2,"front":"지왕봉","back":"인왕봉","teamAName":"미국팀","teamAIds":["cmb","kbs"],"teamBName":"유럽팀","teamBIds":["ckh","kty"],"aWins":11,"bWins":4,"halved":3,"up":7},
+      {"cartNo":3,"front":"인왕봉","back":"천왕봉","teamAName":"미국팀","teamAIds":["gbh","ibg"],"teamBName":"유럽팀","teamBIds":["ydu","kgh"],"aWins":7,"bWins":5,"halved":6,"up":2}
+    ],"coaching":{"ibg":"후반 11번·18번에서 버디를 낚아채며 마무리가 예술이었어요. 후반 하이라이트 필름 하나 만들어도 되겠습니다.","smg":"전반 2번 더블 빼고는 시종일관 안정적인 플레이! 기복 없는 스타일이 매력입니다.","ydu":"전반 4번 트리플 한 방 빼면 거의 완벽한 하루. 그 홀만 다시 치면 80대 초반도 노려볼 만해요.","sgy":"전반은 조금 고전했지만 후반 들어 완전히 다른 사람처럼 안정된 스코어. 후반 스페셜리스트네요.","gbh":"8번 홀 트리플 빼고는 꾸준한 보기 플레이, 마지막 두 홀 연속 파로 깔끔하게 마무리했습니다.","jcj":"전반 12오버로 힘들었지만 후반엔 마지막 4홀 연속 파! 후반 몰아치기의 정석을 보여줬어요.","cmb":"8번 트리플, 10번 더블로 잠깐 흔들렸지만 마지막은 깔끔한 파로 마무리. 회복력 좋은 라운드였습니다.","kys":"1번 홀 버디로 화려하게 출발했다가 6번에서 대형 사고(+4)! 롤러코스터가 따로 없는 하루였네요.","ckh":"대타 데뷔전인데 92타면 준수합니다. 3번 트리플만 아니었어도 80대 진입 가능했어요, 다음이 더 기대됩니다.","kbs":"더블보기가 유독 많았던 하루, 큰 사고 없이 꾸준하게 버텨낸 그라인더형 라운드였습니다.","kgh":"후반에 조금 고전했지만(13번·15번 트리플) 마지막 18번은 깔끔한 파로 마무리! 마무리는 역시 강합니다.","kty":"초반 2번·3번 연속 트리플이 아쉬웠지만 8번·18번 파로 저력을 보여줬어요. 다음 라운드가 더 기대됩니다."},"notes":"무등산CC(천왕봉·지왕봉·인왕봉 27홀 순환) · 카트 2:2 핸디 반영 홀별 업다운 매치(미국팀 vs 유럽팀) 첫 실시 · 김후순 불참으로 최강호가 대타 참가(핸디는 이날 최초 라운드 스코어 92타 기준 산정, 핸디20) · 판정 방식: 각자 핸디 반영 네트 스코어를 같은 팀 두 명끼리 홀마다 합산해 비교하는 '핸디 반영 네트 합산 매치'(포볼 아님)","photos":[]}
   ],
   "upcoming": {
     "no": 9,
     "date": "2026-09-05",
     "teeTime": "07:26",
     "place": "무등산CC",
-    "courses": [
-      "천왕봉",
-      "지왕봉",
-      "인왕봉"
-    ],
-    "bookers": [
-      "김태엽",
-      "손기영"
-    ],
+    "courses": ["천왕봉","지왕봉","인왕봉"],
+    "bookers": ["김태엽","손기영"],
     "greenFee": "카별 15만원",
     "cancelDeadline": "2026-08-29",
-    "confirmedDraw": {
-      "mode": "ryder",
-      "metric": "avg",
-      "foursomes": [
-        [
-          {
-            "id": "kys",
-            "team": "A"
-          },
-          {
-            "id": "jcj",
-            "team": "A"
-          },
-          {
-            "id": "sgy",
-            "team": "B"
-          },
-          {
-            "id": "smg",
-            "team": "B"
-          }
-        ],
-        [
-          {
-            "id": "cmb",
-            "team": "A"
-          },
-          {
-            "id": "kbs",
-            "team": "A"
-          },
-          {
-            "id": "khs",
-            "team": "B"
-          },
-          {
-            "id": "kty",
-            "team": "B"
-          }
-        ],
-        [
-          {
-            "id": "gbh",
-            "team": "A"
-          },
-          {
-            "id": "ibg",
-            "team": "A"
-          },
-          {
-            "id": "ydu",
-            "team": "B"
-          },
-          {
-            "id": "kgh",
-            "team": "B"
-          }
-        ]
-      ],
-      "courses": [
-        "천왕봉",
-        "지왕봉",
-        "인왕봉"
-      ],
-      "backCourses": [
-        "지왕봉",
-        "인왕봉",
-        "천왕봉"
-      ],
-      "cartNos": [
-        1,
-        2,
-        3
-      ],
-      "teeTimes": [
-        "07:26",
-        "07:26",
-        "07:26"
-      ],
-      "confirmedAt": "2026-08-24",
-      "teamAName": "미국",
-      "teamBName": "유럽"
-    },
-    "awardPlan": {
-      "medalist": {
-        "enabled": false,
-        "prize": ""
-      },
-      "netscore": {
-        "enabled": false,
-        "prize": ""
-      },
-      "peorio": {
-        "enabled": false,
-        "prize": ""
-      },
-      "birdie": {
-        "enabled": false,
-        "prize": ""
-      },
-      "teamWin": {
-        "enabled": true,
-        "prize": "우승팀 1인당 특별 시상품"
-      },
-      "lucky": {
-        "enabled": false,
-        "prize": ""
-      }
-    },
-    "snacks": [
-      {
-        "cart": "1인당 커피1, 포카리1",
-        "items": "카트별 맛동산1, 새우깡1"
-      }
-    ],
-    "restaurant": {
-      "name": "",
-      "address": "",
-      "menu": "",
-      "note": ""
-    }
+    "confirmedDraw": null,
+    "awardPlan": {},
+    "snacks": [],
+    "restaurant": {"name":"", "address":"", "menu":"", "note":""}
   }
-}</script>
+}
+</script>
 
 <script>
 (function(){
@@ -1162,6 +735,174 @@
     var base = state.handicapBasePar || 72;
     return Math.max(0, Math.round(a - base));
   }
+  function avgScoreExcluding(id, roundNo){
+    var rs = state.rounds.filter(function(r){ return r.no !== roundNo && r.scores && r.scores[id]!=null; });
+    if(!rs.length) return null;
+    var sum = rs.reduce(function(a,r){ return a + r.scores[id]; },0);
+    return sum / rs.length;
+  }
+  var CHAR_EMOJIS = ['🦁','🐯','🐻','🦊','🐰','🐼','🐨','🐵','🐶','🐱','🦉','🐢','🐬','🦅','🐴','🐷','🐮','🐔','🦄','🐙'];
+  function characterFor(id){
+    var h = 0;
+    for(var i=0;i<id.length;i++){ h = (h * 31 + id.charCodeAt(i)) >>> 0; }
+    return CHAR_EMOJIS[h % CHAR_EMOJIS.length];
+  }
+  // 동일 타수는 동일 순위, 순위가 같으면 이름 가나다순으로 정렬
+  function rankedByScore(scoresObj){
+    var arr = Object.keys(scoresObj).map(function(id){ return { id:id, score:scoresObj[id] }; });
+    arr.sort(function(a,b){
+      if(a.score !== b.score) return a.score - b.score;
+      return memberName(a.id).localeCompare(memberName(b.id), 'ko');
+    });
+    var rank = 0;
+    arr.forEach(function(r, i){
+      if(i===0 || r.score !== arr[i-1].score){ rank = i+1; }
+      r.rank = rank;
+    });
+    return arr;
+  }
+  function statChipHtml(label, value, tone){
+    return '<span class="statchip' + (tone ? (' ' + tone) : '') + '">' + label + ' ' + value + '</span>';
+  }
+  function renderResultCardsHtml(round){
+    var ranked = rankedByScore(round.scores);
+    var html = '';
+    ranked.forEach(function(r){
+      var id = r.id;
+      var hcp = handicapOf(id);
+      var net = r.score - hcp;
+      var birdies = (round.birdies && round.birdies[id]!=null) ? round.birdies[id] : null;
+      var priorAvg = avgScoreExcluding(id, round.no);
+      var diff = priorAvg!=null ? Math.round((priorAvg - r.score) * 10) / 10 : null;
+      var times = timesPlayed(id);
+      var overallAvg = avgScore(id);
+      var rankCls = r.rank<=3 ? (' rank' + r.rank) : '';
+      var rankMark = r.rank===1 ? '🥇' : (r.rank===2 ? '🥈' : (r.rank===3 ? '🥉' : r.rank));
+      html += '<div class="resultcard' + rankCls + '" data-mid="' + id + '">' +
+        '<div class="rankbadge">' + rankMark + '</div>' +
+        '<div class="rc-main">' +
+          '<div class="rc-top">' +
+            '<div class="rc-name"><span class="charavatar">' + characterFor(id) + '</span>' + memberName(id) + '</div>' +
+            '<div class="rc-score">' + r.score + '<span style="font-size:12px; font-weight:600; color:var(--muted);">타</span></div>' +
+          '</div>' +
+          '<div class="rc-stats">' +
+            statChipHtml('핸디', hcp, 'neutral') +
+            statChipHtml('넷', net, net < 72 ? 'good' : '') +
+            statChipHtml('버디', (birdies!=null ? birdies : '-'), (birdies ? 'good' : '')) +
+            statChipHtml('참가', times + '회', '') +
+            statChipHtml('평균타수', (overallAvg!=null ? overallAvg.toFixed(1) : '-'), '') +
+            (diff!=null ? statChipHtml('평균대비', (diff>0 ? ('▼' + diff) : (diff<0 ? ('▲' + Math.abs(diff)) : '±0')), diff>0 ? 'good' : (diff<0 ? 'bad' : '')) : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    });
+    return html;
+  }
+  function renderCartBattleHtml(round){
+    if(!round.carts || !round.carts.length) return '';
+    var totalA=0, totalB=0, totalH=0, cartsWonA=0, cartsWonB=0;
+    var teamAName = round.carts[0].teamAName, teamBName = round.carts[0].teamBName;
+    round.carts.forEach(function(c){
+      totalA += c.aWins; totalB += c.bWins; totalH += c.halved;
+      if(c.up > 0){ cartsWonA++; } else if(c.up < 0){ cartsWonB++; }
+    });
+    var html = '<div class="cartsummary">' +
+      '<span style="color:var(--red);">🔴 ' + teamAName + ' ' + cartsWonA + '승</span>' +
+      '<span style="color:var(--muted); font-size:12px;">카트 전적</span>' +
+      '<span style="color:var(--blue);">🔵 ' + teamBName + ' ' + cartsWonB + '승</span>' +
+    '</div>';
+    round.carts.forEach(function(c){
+      var total = c.aWins + c.bWins + c.halved;
+      var pctA = total ? (c.aWins/total*100) : 0, pctB = total ? (c.bWins/total*100) : 0, pctH = Math.max(0, 100-pctA-pctB);
+      var winnerLabel = c.up > 0 ? (teamAName + ' 승') : (c.up < 0 ? (teamBName + ' 승') : 'AS 무승부');
+      html += '<div class="cartbattle">' +
+        '<div class="cb-head"><span>🛺 카트' + c.cartNo + ' · ' + c.front + ' → ' + c.back + '</span><span class="cb-winner">' + winnerLabel + '</span></div>' +
+        '<div class="cb-teams">' +
+          '<div class="cb-team A' + (c.up>0?' win':'') + '">' + teamAName + '<div class="cb-members">' + c.teamAIds.map(memberName).join(' · ') + '</div></div>' +
+          '<div class="cb-vs">VS</div>' +
+          '<div class="cb-team B' + (c.up<0?' win':'') + '">' + teamBName + '<div class="cb-members">' + c.teamBIds.map(memberName).join(' · ') + '</div></div>' +
+        '</div>' +
+        '<div class="cb-up" style="color:' + (c.up>0?'var(--red)':(c.up<0?'var(--blue)':'var(--muted)')) + ';">' + (c.up===0 ? 'AS (무승부)' : (Math.abs(c.up) + ' UP')) + '</div>' +
+        '<div class="cb-bar"><span class="A" style="width:' + pctA + '%"></span><span class="h" style="width:' + pctH + '%"></span><span class="B" style="width:' + pctB + '%"></span></div>' +
+        '<div class="cb-legend"><span>' + c.aWins + '홀 승</span><span>' + c.halved + '홀 무</span><span>' + c.bWins + '홀 승</span></div>' +
+      '</div>';
+    });
+    html += '<div class="note" style="margin-top:0;">전체 ' + (totalA+totalB+totalH) + '홀 기준 홀 수 — ' + teamAName + ' ' + totalA + ' · 무 ' + totalH + ' · ' + teamBName + ' ' + totalB + '</div>';
+    return html;
+  }
+  // 핸디반영(넷) 순위와 그로스(타수) 순위를 비교해 순위 변화를 보여줍니다.
+  function renderNetRankHtml(round){
+    if(!round.scores || !Object.keys(round.scores).length) return '';
+    var netScores = {};
+    Object.keys(round.scores).forEach(function(id){ netScores[id] = round.scores[id] - handicapOf(id); });
+    var grossRanked = rankedByScore(round.scores);
+    var grossRankMap = {};
+    grossRanked.forEach(function(r){ grossRankMap[r.id] = r.rank; });
+    var netRanked = rankedByScore(netScores);
+    var html = '<h3 style="margin:0 0 8px; font-size:14px;">🎯 핸디반영(넷) 순위 · 순위변화</h3>';
+    html += '<div class="card" style="padding:6px 12px; margin:0;">';
+    netRanked.forEach(function(r){
+      var grossRank = grossRankMap[r.id];
+      var delta = grossRank - r.rank;
+      var deltaHtml;
+      if(delta > 0){ deltaHtml = '<span style="color:var(--good);">▲' + delta + '</span>'; }
+      else if(delta < 0){ deltaHtml = '<span style="color:var(--red);">▼' + Math.abs(delta) + '</span>'; }
+      else { deltaHtml = '<span style="color:var(--muted);">–</span>'; }
+      html += '<div class="netrank-row">' +
+        '<div class="nr-rank">' + r.rank + '</div>' +
+        '<div class="nr-name"><span class="charavatar">' + characterFor(r.id) + '</span>' + memberName(r.id) + '</div>' +
+        '<div class="nr-net">넷 ' + r.score + '</div>' +
+        '<div class="nr-delta">' + deltaHtml + '</div>' +
+      '</div>';
+    });
+    html += '</div>';
+    html += '<div class="note">▲는 그로스(타수) 순위보다 핸디반영 순위가 오른 회원, ▼는 내려간 회원입니다.</div>';
+    return html;
+  }
+  // 최저타상 · 핸디반영 최저타상 · 최다버디상 스포트라이트 (재미있는 코칭 코멘트 포함)
+  function renderSpotlightHtml(round){
+    if(!round.scores || !Object.keys(round.scores).length) return '';
+    function spotlightCard(icon, title, ids, statLabel, statValue){
+      var cardsHtml = '';
+      ids.forEach(function(id){
+        var avg = avgScore(id);
+        var hcp = handicapOf(id);
+        var times = timesPlayed(id);
+        var comment = (round.coaching && round.coaching[id]) ? round.coaching[id] : '';
+        cardsHtml +=
+          '<div class="spotcard">' +
+            '<div class="spot-name"><span class="charavatar">' + characterFor(id) + '</span>' + memberName(id) + '</div>' +
+            '<div class="spot-stat">' + statLabel + ' ' + statValue + '</div>' +
+            '<div class="spot-basic">평균 ' + (avg!=null ? avg.toFixed(1) : '-') + ' · 핸디 ' + hcp + ' · 참가 ' + times + '회</div>' +
+            (comment ? ('<div class="spot-comment">💬 ' + comment + '</div>') : '') +
+          '</div>';
+      });
+      return '<div class="spotblock"><div class="spot-title">' + icon + ' ' + title + '</div>' + cardsHtml + '</div>';
+    }
+    var html = '<h3 style="margin:0 0 10px; font-size:14px;">🌟 이번 대회 스포트라이트</h3>';
+    html += '<div class="spotlightgrid">';
+
+    var grossRanked = rankedByScore(round.scores);
+    var lowestIds = grossRanked.filter(function(r){ return r.rank===1; }).map(function(r){ return r.id; });
+    html += spotlightCard('🏅', '최저타상', lowestIds, '타수', grossRanked[0].score + '타');
+
+    var netScores = {};
+    Object.keys(round.scores).forEach(function(id){ netScores[id] = round.scores[id] - handicapOf(id); });
+    var netRanked = rankedByScore(netScores);
+    var netLowestIds = netRanked.filter(function(r){ return r.rank===1; }).map(function(r){ return r.id; });
+    html += spotlightCard('🎯', '핸디반영 최저타상', netLowestIds, '넷', netRanked[0].score + '타');
+
+    if(round.birdies && Object.keys(round.birdies).length){
+      var maxBirdie = Math.max.apply(null, Object.keys(round.birdies).map(function(id){ return round.birdies[id]; }));
+      if(maxBirdie > 0){
+        var birdieIds = Object.keys(round.birdies).filter(function(id){ return round.birdies[id] === maxBirdie; });
+        html += spotlightCard('🐦', '최다 버디상', birdieIds, '버디', maxBirdie + '개');
+      }
+    }
+
+    html += '</div>';
+    return html;
+  }
   function nextCourse(name){
     var order = (state.courseOrder && state.courseOrder.length) ? state.courseOrder : ['천왕봉','지왕봉','인왕봉'];
     var idx = order.indexOf(name);
@@ -1212,6 +953,14 @@
       $(btn.dataset.tab).classList.add('active');
     });
   });
+  function switchTab(tabId){
+    var btn = document.querySelector('nav.tabs button[data-tab="' + tabId + '"]');
+    if(btn){ btn.click(); }
+  }
+  var gotoMyDataBtnEl = $('gotoMyDataBtn');
+  if(gotoMyDataBtnEl){
+    gotoMyDataBtnEl.addEventListener('click', function(){ switchTab('tab-mydata'); });
+  }
 
   // ---------- toast ----------
   var toastTimer;
@@ -1223,10 +972,45 @@
     toastTimer = setTimeout(function(){ t.classList.remove('show'); }, 2200);
   }
 
+  // ---------- 배경음악(아부회 주제가) ----------
+  (function(){
+    var audio = $('bgmAudio');
+    var toggleBtn = $('bgmToggleBtn');
+    var trackSelect = $('bgmTrackSelect');
+    if(!audio || !toggleBtn || !trackSelect) return;
+    function loadTrack(){
+      audio.src = trackSelect.value;
+    }
+    loadTrack();
+    toggleBtn.addEventListener('click', function(){
+      if(audio.paused){
+        if(!audio.src){ loadTrack(); }
+        audio.play().catch(function(){
+          toast('재생할 수 없습니다 — index.html과 같은 폴더에 ' + trackSelect.value + ' 파일을 함께 올렸는지 확인해주세요');
+        });
+      } else {
+        audio.pause();
+      }
+    });
+    trackSelect.addEventListener('change', function(){
+      var wasPlaying = !audio.paused;
+      loadTrack();
+      if(wasPlaying){ audio.play().catch(function(){}); }
+    });
+    audio.addEventListener('play', function(){ toggleBtn.textContent = '⏸️ 재생 중'; });
+    audio.addEventListener('pause', function(){ toggleBtn.textContent = '▶️ 노래 듣기'; });
+    audio.addEventListener('ended', function(){ toggleBtn.textContent = '▶️ 노래 듣기'; });
+  })();
+
   // ---------- admin mode ----------
   function setAdmin(on){
     document.body.classList.toggle('admin', on);
     $('adminLoginCard').style.display = on ? 'none' : 'block';
+    if(!on){
+      var activeBtn = document.querySelector('nav.tabs button.active');
+      if(activeBtn && activeBtn.dataset.tab === 'tab-draw'){ switchTab('tab-info'); }
+    }
+    if(typeof renderInfo === 'function'){ renderInfo(); }
   }
   $('adminLoginBtn').addEventListener('click', function(){
     var pw = prompt('총무 비밀번호를 입력하세요');
@@ -1257,44 +1041,73 @@
     $('infoFee').textContent = u.greenFee;
     $('infoDeadline').textContent = u.cancelDeadline;
 
-    var roster = activeRosterMembers();
-    $('memberCount').textContent = roster.length;
-    var tbody = $('memberTable');
-    tbody.innerHTML = '';
-    roster.forEach(function(m){
-      var avg = avgScore(m.id);
-      var peo = latestPeorio(m.id);
-      var tr = document.createElement('tr');
-      tr.innerHTML =
-        '<td>' + m.name + '</td>' +
-        '<td class="num">' + (avg!=null ? avg.toFixed(1) : '-') + '</td>' +
-        '<td class="num">' + (avg!=null ? handicapOf(m.id) : '-') + '</td>' +
-        '<td class="num">' + (peo ? peo.value.toFixed(1) : '-') + '</td>';
-      tbody.appendChild(tr);
-    });
-    var hnote = $('handicapNote');
-    if(hnote){
-      hnote.textContent = '평균타수는 스코어가 기록된 라운드만으로 자동 계산됩니다. 핸디는 평균타수 - 기준파(현재 파' + (state.handicapBasePar||72) + ')를 반올림한 자체 핸디이며, "평균타수 기준" 조편성은 이 차이를 그대로 반영해 균형을 맞춥니다. 신페리오 값은 기록이 있는 가장 최근 라운드 결과입니다.';
-    }
-
     var lastRound = state.rounds[state.rounds.length-1];
     $('lastRoundNo').textContent = lastRound.no;
+    var metaEl = $('lastRoundMeta');
+    if(metaEl){
+      var lrWeekday = ['일','월','화','수','목','금','토'][new Date(lastRound.date+'T00:00:00').getDay()];
+      var lrTeeTime = (lastRound.no === state.upcoming.no) ? state.upcoming.teeTime : (lastRound.teeTime || null);
+      var metaParts = ['📅 ' + lastRound.date + '(' + lrWeekday + ')'];
+      if(lrTeeTime){ metaParts.push('🕐 ' + lrTeeTime + ' 출발'); }
+      metaParts.push('📍 ' + lastRound.place);
+      metaEl.textContent = metaParts.join(' · ');
+    }
     var box = $('lastRoundHighlight');
     if(!lastRound.scores || !Object.keys(lastRound.scores).length){
       box.innerHTML = '<div class="note" style="margin:0;">기록된 스코어가 없습니다.</div>';
     } else {
-      var ranked = Object.keys(lastRound.scores).map(function(id){ return {id:id, s:lastRound.scores[id]}; }).sort(function(a,b){ return a.s-b.s; });
-      var html = renderAwardsHtml(lastRound.awards);
-      html += '<div class="scrollx"><table><thead><tr><th>순위</th><th>이름</th><th class="num">스코어</th></tr></thead><tbody>';
-      ranked.forEach(function(r,i){
-        html += '<tr><td>' + (i+1) + '</td><td>' + memberName(r.id) + '</td><td class="num">' + r.s + '</td></tr>';
-      });
-      html += '</tbody></table></div>';
+      var html = '';
+      if(lastRound.matchFormat === 'teamMatch'){
+        html += '<div class="note" style="margin:0 0 10px;">🏌️ 이번 라운드는 <b>카트 2:2 팀매치(핸디 반영 업다운)</b>로 진행됐습니다.</div>';
+      }
+      html += '<h3 style="margin:0 0 10px; font-size:14px;">👥 회원 현재 DATA (타수 기준)</h3>';
+      html += renderResultCardsHtml(lastRound);
+      html += '<div class="divider"></div>';
+      html += renderNetRankHtml(lastRound);
+      html += '<div class="divider"></div>';
+      html += renderSpotlightHtml(lastRound);
+      var awardsHtml = renderAwardsHtml(lastRound.awards);
+      if(awardsHtml){ html += '<div class="divider"></div>' + awardsHtml; }
+      var cartHtml = renderCartBattleHtml(lastRound);
+      if(cartHtml){
+        html += '<div class="divider"></div><h3 style="margin:0 0 10px; font-size:14px;">🇺🇸🇪🇺 카트별 가상대결</h3>' + cartHtml;
+      }
       if(lastRound.entryFee){
         html += '<div class="note">💰 참가비 1인당 ' + lastRound.entryFee.toLocaleString('ko-KR') + '원 · 상금풀 ' + (lastRound.prizePool||0).toLocaleString('ko-KR') + '원 (' + Object.keys(lastRound.scores).length + '명 참여)</div>';
       }
       if(lastRound.notes){ html += '<div class="note">' + lastRound.notes + '</div>'; }
       box.innerHTML = html;
+      box.querySelectorAll('.resultcard[data-mid]').forEach(function(card){
+        card.addEventListener('click', function(){
+          var id = card.dataset.mid;
+          try{ localStorage.setItem('abuhwe_myname', id); }catch(e){}
+          switchTab('tab-mydata');
+          var sel = $('myDataNameSelect');
+          if(sel){ sel.value = id; }
+          renderMyDataResult(id);
+          var sel2 = $('myNameSelect');
+          if(sel2 && Array.from(sel2.options).some(function(o){ return o.value===id; })){
+            sel2.value = id;
+            renderMyHandicapResult(id);
+          }
+        });
+      });
+    }
+
+    // ---------- 라운드 종료 여부에 따라 대회안내 화면 우선순위 전환 ----------
+    var roundDone = state.rounds.some(function(r){ return r.no === state.upcoming.no && r.scores && Object.keys(r.scores).length; });
+    var highlightCard = $('highlightCard');
+    var highlightHome = $('highlightHome');
+    var tabInfo = $('tab-info');
+    if(roundDone){
+      tabInfo.insertBefore(highlightCard, tabInfo.firstElementChild);
+    } else if(highlightHome && highlightHome.nextSibling !== highlightCard){
+      highlightHome.insertAdjacentElement('afterend', highlightCard);
+    }
+    var pre = $('preEventCards');
+    if(pre){
+      var isAdminNow = document.body.classList.contains('admin');
+      pre.style.display = (roundDone && !isAdminNow) ? 'none' : '';
     }
   }
 
@@ -1372,6 +1185,7 @@
     { key:'netscore', icon:'🎯', label:'넷스코어 우승 (핸디 반영)', basis:'netscore', better:'min' },
     { key:'peorio', icon:'⛳', label:'신페리오 우승', basis:'peorio', better:'min' },
     { key:'birdie', icon:'🐦', label:'버디상', basis:'birdies', better:'max' },
+    { key:'improve', icon:'📈', label:'실력향상상 (통산평균 대비)', basis:'improve', better:'max' },
     { key:'teamWin', icon:'🏆', label:'팀 대결 승리팀', basis:'teamWin', better:null },
     { key:'lucky', icon:'🍀', label:'행운상', basis:'random', better:null }
   ];
@@ -1476,6 +1290,12 @@
       else if(t.basis==='netscore'){
         dataMap = {};
         Object.keys(scores).forEach(function(id){ dataMap[id] = scores[id] - handicapOf(id); });
+      } else if(t.basis==='improve'){
+        dataMap = {};
+        Object.keys(scores).forEach(function(id){
+          var a = avgScore(id);
+          if(a!=null){ dataMap[id] = Math.round((a - scores[id]) * 10) / 10; }
+        });
       } else { dataMap = null; }
 
       if(method === 'manual'){
@@ -2090,6 +1910,82 @@
     });
   }
 
+  // ---------- TAB: 내 골프 데이터 (회원별 회차·누적·평균·핸디 히스토리) ----------
+  function renderMyDataNameSelect(){
+    var sel = $('myDataNameSelect');
+    if(!sel) return;
+    var prev = sel.value;
+    sel.innerHTML = '<option value="">- 이름 선택 -</option>' + activeRosterMembers().map(function(m){ return '<option value="' + m.id + '">' + m.name + '</option>'; }).join('');
+    var saved = null;
+    try{ saved = localStorage.getItem('abuhwe_myname'); }catch(e){}
+    var toSelect = prev || saved;
+    if(toSelect && activeRosterMembers().some(function(m){ return m.id===toSelect; })){
+      sel.value = toSelect;
+      renderMyDataResult(toSelect);
+    } else {
+      $('myDataResult').innerHTML = '';
+    }
+  }
+  function renderMyDataResult(id){
+    var out = $('myDataResult');
+    if(!out) return;
+    if(!id){ out.innerHTML = ''; return; }
+    var m = memberById(id);
+    if(!m){ out.innerHTML = ''; return; }
+    var avg = avgScore(id);
+    var hcp = handicapOf(id);
+    var times = timesPlayed(id);
+    var best = bestScore(id);
+    var peo = latestPeorio(id);
+    var html = '<div class="grid2" style="margin-bottom:10px;">' +
+      '<div class="kv"><div class="k">참여 횟수</div><div class="v">' + times + '회</div></div>' +
+      '<div class="kv"><div class="k">통산 평균타수</div><div class="v">' + (avg!=null ? avg.toFixed(1) : '-') + '</div></div>' +
+      '<div class="kv"><div class="k">현재 핸디</div><div class="v">' + (avg!=null ? hcp : '-') + '</div></div>' +
+      '<div class="kv"><div class="k">베스트 스코어</div><div class="v">' + (best!=null ? best : '-') + '</div></div>' +
+      '</div>';
+    if(peo){ html += '<div class="note" style="margin-top:0;">⛳ 최근 신페리오: 제' + peo.roundNo + '회 ' + peo.value.toFixed(1) + '</div>'; }
+    var rounds = state.rounds.filter(function(r){ return r.scores && r.scores[id]!=null; });
+    if(!rounds.length){
+      html += '<div class="note">아직 기록된 라운드가 없습니다.</div>';
+      out.innerHTML = html;
+      return;
+    }
+    html += '<div class="scrollx"><table><thead><tr><th>회차</th><th>날짜</th><th>장소</th><th class="num">스코어</th><th class="num">넷(핸디' + hcp + ' 반영)</th></tr></thead><tbody>';
+    rounds.forEach(function(r){
+      var s = r.scores[id];
+      html += '<tr data-roundno="' + r.no + '"><td>제' + r.no + '회</td><td>' + r.date + '</td><td>' + r.place + '</td><td class="num">' + s + '</td><td class="num">' + (s - hcp) + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+    html += '<div class="note">넷 스코어는 현재 통산 평균 기준 핸디(' + hcp + ')를 각 회차 스코어에서 뺀 참고값이며, 실제 그 라운드 당시 적용됐던 핸디와 다를 수 있습니다. 회차를 클릭하면 역대기록에서 자세히 볼 수 있습니다.</div>';
+    var coachRows = rounds.filter(function(r){ return r.coaching && r.coaching[id]; });
+    if(coachRows.length){
+      html += '<div class="divider"></div><h3 style="margin:0 0 8px; font-size:14px;">💬 코칭 코멘트</h3>';
+      coachRows.slice().reverse().forEach(function(r){
+        html += '<div class="kv" style="margin-bottom:8px;"><div class="k">제' + r.no + '회 (' + r.date + ')</div><div class="v" style="font-weight:400; font-size:13px;">' + r.coaching[id] + '</div></div>';
+      });
+    }
+    out.innerHTML = html;
+    out.querySelectorAll('tr[data-roundno]').forEach(function(tr){
+      tr.addEventListener('click', function(){
+        var no = tr.dataset.roundno;
+        switchTab('tab-history');
+        var det = $('roundhist-' + no);
+        if(det){
+          det.open = true;
+          setTimeout(function(){ det.scrollIntoView({behavior:'smooth', block:'start'}); }, 60);
+        }
+      });
+    });
+  }
+  var myDataNameSelectEl = $('myDataNameSelect');
+  if(myDataNameSelectEl){
+    myDataNameSelectEl.addEventListener('change', function(){
+      var id = myDataNameSelectEl.value;
+      try{ if(id){ localStorage.setItem('abuhwe_myname', id); } }catch(e){}
+      renderMyDataResult(id);
+    });
+  }
+
   // ---------- print (window.print 기반, 별도 라이브러리 없이 A4 인쇄/PDF 저장) ----------
   function printSection(html){
     var area = $('printArea');
@@ -2193,6 +2089,7 @@
     box.innerHTML = '';
     state.rounds.slice().reverse().forEach(function(r){
       var det = document.createElement('details');
+      det.id = 'roundhist-' + r.no;
       var scoreCount = r.scores ? Object.keys(r.scores).length : 0;
       det.innerHTML = '<summary>제' + r.no + '회 · ' + r.date + ' · ' + r.place + (scoreCount? (' · ' + scoreCount + '명 기록') : ' · 스코어 미기록') + '</summary>';
       var body = document.createElement('div');
@@ -2357,7 +2254,9 @@
     var scoreCount = Object.keys(scores).length;
     var prizePool = (entryFee && scoreCount) ? entryFee*scoreCount : null;
     var existingIdx = state.rounds.findIndex(function(r){ return r.no === no; });
-    var newRound = { no:no, date:date, place:place, scores:scores, groups:groups, peorio:peorio, birdies:birdies, awards:awards, entryFee:entryFee, prizePool:prizePool, notes:$('newRoundNotes').value.trim(), photos: pendingPhotos.slice() };
+    var matchFormatEl = $('newRoundMatchFormat');
+    var matchFormat = matchFormatEl ? matchFormatEl.value : 'stroke';
+    var newRound = { no:no, date:date, place:place, matchFormat:matchFormat, scores:scores, groups:groups, peorio:peorio, birdies:birdies, awards:awards, entryFee:entryFee, prizePool:prizePool, notes:$('newRoundNotes').value.trim(), coaching:{}, photos: pendingPhotos.slice() };
     if(existingIdx >= 0){ state.rounds[existingIdx] = newRound; } else { state.rounds.push(newRound); state.rounds.sort(function(a,b){ return a.no-b.no; }); }
     pendingPhotos = [];
     $('newRoundThumbs').innerHTML = '';
@@ -2440,6 +2339,7 @@
     renderMetricToggle();
     renderAttendeeToggle();
     renderConfirmed();
+    renderMyDataNameSelect();
     renderAvgBarlist();
     renderRoundHistory();
     renderScoreInputs();
@@ -2450,6 +2350,5 @@
   renderAll();
 })();
 </script>
-
-
-</body></html>
+</body>
+</html>
